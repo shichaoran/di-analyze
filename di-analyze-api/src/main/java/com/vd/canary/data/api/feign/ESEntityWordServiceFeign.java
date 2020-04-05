@@ -17,8 +17,13 @@ import java.util.List;
 @FeignClient(value = "canary-dataanalyze")
 public interface ESEntityWordServiceFeign extends Feign {
 
+    /**
+     *
+     * @param esEntityWordReq
+     * @return
+     */
     @PostMapping("/es/getEntityWord")
-    ResponseBO<ESEntityWordListRes> createMasterAccount(@RequestBody @Valid ESEntityWordReq esEntityWordReq);
+    ResponseBO<ESEntityWordListRes> getEntityWordByKey(@RequestBody @Valid ESEntityWordReq esEntityWordReq);
 
 
 }
