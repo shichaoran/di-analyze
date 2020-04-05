@@ -1,4 +1,4 @@
-package com.vd.canary.data.api.request;
+package com.vd.canary.data.api.request.es;
 
 import com.vd.canary.core.bo.RequestBO;
 import lombok.AllArgsConstructor;
