@@ -20,7 +20,7 @@ public interface ESEntityWordServiceFeign extends Feign {
     /**
      *
      * @param esEntityWordReq
-     * @return
+     * @return ResponseBO<ESEntityWordListRes>
      */
     @PostMapping("/es/getEntityWord")
     ResponseBO<ESEntityWordListRes> getEntityWordByKey(@RequestBody @Valid ESEntityWordReq esEntityWordReq);
