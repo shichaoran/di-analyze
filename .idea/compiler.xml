@@ -10,6 +10,11 @@
         <module name="di-analyze-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="di-analyze" target="11" />
+      <module name="di-analyze-api" target="11" />
+      <module name="di-analyze-service" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

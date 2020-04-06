@@ -1,0 +1,18 @@
+# --> start 如果用canal直接把数据存储到kafka则下面配置忽略，直接在instance.properties 里配置
+# 否则需要开启canal监听类 和下面的配置
+# binlog配置
+server.id=1
+binlog.host=localhost
+binlog.port=3306
+binlog.user=root
+binlog.password=root
+# 指定监听的表
+binlog.database.table=teemoliu.user,teemoliu.role
+# --> end 如果用canal直接把数据存储到kafka则这不需要配置，直接在instance.properties 里配置
+
+# kafka
+spring.kafka.bootstrap-servers=localhost:9092
+kafka.topic=binlog
+kafka.partNum=3
+kafka.repeatNum=1
+
