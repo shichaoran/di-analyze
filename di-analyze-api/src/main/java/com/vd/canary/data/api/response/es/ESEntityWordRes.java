@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ESEntityWordListRes implements Serializable{
+public class ESEntityWordRes implements Serializable{
 
     private static final long serialVersionUID = -6115431577594402479L;
     /**

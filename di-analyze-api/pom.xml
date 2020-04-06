@@ -30,6 +30,7 @@
             <version>0.9.26</version>
             <type>pom</type>
         </dependency>
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>

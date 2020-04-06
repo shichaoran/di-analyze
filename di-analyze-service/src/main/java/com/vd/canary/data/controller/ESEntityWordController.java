@@ -1,26 +1,33 @@
 package com.vd.canary.data.controller;
 
+
+import com.sun.istack.NotNull;
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.data.api.request.es.ESEntityWordReq;
+import com.vd.canary.data.api.response.es.ESEntityWordRes;
 import com.vd.canary.data.service.ESEntityWordService;
 import com.vd.canary.service.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/entityword")
+@Validated
 @Slf4j
 public class ESEntityWordController extends BaseController {
     @Autowired
     private ESEntityWordService esEntityWordService;
 
-    @PostMapping("/assignRoleMenu")
-    public ResponseBO assignRoleMenu(@Valid @RequestBody ESEntityWordReq esEntityWordReq){
-        //return esEntityWordService.existEntityWord("");
-        return null;
+//    @GetMapping("/member/get/{id}")
+//    public ResponseBO<AccountVO> get(@PathVariable @NotNull String id) {
+//        return accountService.get(id);
+//    }
+
+    @GetMapping("/entityword/get/{id}")
+    public ResponseBO<ESEntityWordRes> get(@PathVariable("id") @NotNull String id){
+         return null;
     }
 
 }
