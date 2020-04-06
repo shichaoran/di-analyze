@@ -1,7 +1,7 @@
-package com.vd.canary.data.constants.service;
+package com.vd.canary.data.service.es;
 
 import com.vd.canary.business.service.BaseService;
-import com.vd.canary.data.repository.entity.ESEntityWordEntity;
+import com.vd.canary.data.repository.es.entity.ESEntityWordEntity;
 
 
 public interface ESEntityWordService extends BaseService<ESEntityWordEntity> {

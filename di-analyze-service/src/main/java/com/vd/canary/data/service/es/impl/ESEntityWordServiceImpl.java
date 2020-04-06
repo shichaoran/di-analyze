@@ -1,9 +1,9 @@
-package com.vd.canary.data.constants.service.impl;
+package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.business.service.impl.BaseServiceImpl;
-import com.vd.canary.data.repository.entity.ESEntityWordEntity;
-import com.vd.canary.data.repository.mapper.ESEntityWordMapper;
-import com.vd.canary.data.constants.service.ESEntityWordService;
+import com.vd.canary.data.repository.es.entity.ESEntityWordEntity;
+import com.vd.canary.data.repository.es.mapper.ESEntityWordMapper;
+import com.vd.canary.data.service.es.ESEntityWordService;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.vd.canary.data.repository.entity;
+package com.vd.canary.data.repository.es.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
