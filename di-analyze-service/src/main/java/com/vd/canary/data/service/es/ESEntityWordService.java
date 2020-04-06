@@ -1,10 +1,7 @@
-package com.vd.canary.data.service;
+package com.vd.canary.data.service.es;
 
 import com.vd.canary.business.service.BaseService;
-import com.vd.canary.core.bo.ResponsePageBO;
-import com.vd.canary.data.repository.entity.ESEntityWordEntity;
-
-import java.util.List;
+import com.vd.canary.data.repository.es.entity.ESEntityWordEntity;
 
 
 public interface ESEntityWordService extends BaseService<ESEntityWordEntity> {

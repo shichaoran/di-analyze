@@ -33,52 +33,12 @@
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-business-base-parent</artifactId>
             <version>0.9.16</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>fastjson</artifactId>-->
-<!--                    <groupId>com.alibaba</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>guava</artifactId>-->
-<!--                    <groupId>com.google.guava</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>asm</artifactId>-->
-<!--                    <groupId>org.ow2.asm</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>jsqlparser</artifactId>-->
-<!--                    <groupId>com.github.jsqlparser</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>objenesis</artifactId>-->
-<!--                    <groupId>org.objenesis</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-security-jwt</artifactId>-->
-<!--                    <groupId>org.springframework.security</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--                    <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
         </dependency>
 
         <!--    OAuth2    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-security-oauth2</artifactId>-->
-<!--                    <groupId>org.springframework.security.oauth</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>bcpkix-jdk15on</artifactId>-->
-<!--                    <groupId>org.bouncycastle</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
@@ -115,6 +75,36 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- kafka,canal,elasticsearch http api client start -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <!--<version>2.2.4.RELEASE</version> -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.shyiko</groupId>
+            <artifactId>mysql-binlog-connector-java</artifactId>
+            <version>0.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.49</version>
+        </dependency>
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+            <version>5.3.3</version>
+        </dependency>
+        <!-- kafka,canal,elasticsearch http api client end -->
+
+
     </dependencies>
 
     <build>
