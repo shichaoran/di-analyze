@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d05ccfee-c479-4b48-9453-eff0c888e5fb" name="Default Changelist" comment="提交文件">
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ProductDetailsFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ProductDetailsFeignFallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ProductsFeign.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ProductsFeignFallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/request/es/ProductDetailsReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/request/es/ProductsReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/response/es/ProductDetailsRes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/response/es/ProductsRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -12,18 +33,74 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1aASK3U9F0P5W7jCyvpFQ0ZqGP9" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/response/es" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d05ccfee-c479-4b48-9453-eff0c888e5fb" name="Default Changelist" comment="" />
+      <created>1586176837511</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586176837511</updated>
+      <workItem from="1586176842438" duration="308000" />
+    </task>
+    <task id="LOCAL-00001" summary="提交文件">
+      <created>1586176982116</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586176982116</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="提交文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="提交文件" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="-1258" y="78" key="CommitChangelistDialog2" timestamp="1586176934876">
+    <state x="-1258" y="78" key="CommitChangelistDialog2" timestamp="1586177006392">
       <screen x="-2560" y="-128" width="2560" height="1400" />
     </state>
-    <state x="-1258" y="78" key="CommitChangelistDialog2/0.0.1280.680/-2560.-128.2560.1400@-2560.-128.2560.1400" timestamp="1586176934876" />
+    <state x="-1258" y="78" key="CommitChangelistDialog2/0.0.1280.680/-2560.-128.2560.1400@-2560.-128.2560.1400" timestamp="1586177006392" />
+    <state x="-1336" y="505" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586177028853">
+      <screen x="-2560" y="-128" width="2560" height="1400" />
+    </state>
+    <state x="-1336" y="505" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680/-2560.-128.2560.1400@-2560.-128.2560.1400" timestamp="1586177028853" />
   </component>
 </project>
