@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\wangr\.m2\repository" />
+        <option name="mavenHome" value="C:/software/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="C:\software\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1aASK3U9F0P5W7jCyvpFQ0ZqGP9" />
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1258" y="78" key="CommitChangelistDialog2" timestamp="1586176934876">
+      <screen x="-2560" y="-128" width="2560" height="1400" />
+    </state>
+    <state x="-1258" y="78" key="CommitChangelistDialog2/0.0.1280.680/-2560.-128.2560.1400@-2560.-128.2560.1400" timestamp="1586176934876" />
+  </component>
+</project>
