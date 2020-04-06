@@ -27,16 +27,11 @@
         <dependency>
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-api-parent</artifactId>
-            <version>0.9.26</version>
+            <version>0.10.1</version>
             <type>pom</type>
         </dependency>
 
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.22</version>
-            <scope>compile</scope>
-        </dependency>
+
 
     </dependencies>
     <build>

@@ -32,80 +32,21 @@
         <dependency>
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-business-base-parent</artifactId>
-            <version>0.9.16</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>fastjson</artifactId>-->
-<!--                    <groupId>com.alibaba</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>guava</artifactId>-->
-<!--                    <groupId>com.google.guava</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>asm</artifactId>-->
-<!--                    <groupId>org.ow2.asm</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>jsqlparser</artifactId>-->
-<!--                    <groupId>com.github.jsqlparser</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>objenesis</artifactId>-->
-<!--                    <groupId>org.objenesis</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-security-jwt</artifactId>-->
-<!--                    <groupId>org.springframework.security</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--                    <groupId>org.mybatis.spring.boot</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <version>0.10.1</version>
+
         </dependency>
 
-        <!--    OAuth2    -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>spring-security-oauth2</artifactId>-->
-<!--                    <groupId>org.springframework.security.oauth</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>bcpkix-jdk15on</artifactId>-->
-<!--                    <groupId>org.bouncycastle</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.6.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-security</artifactId>
-            <version>1.1.6.RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.vd.canary</groupId>-->
+<!--            <artifactId>canary-authorization-api</artifactId>-->
+<!--            <version>1.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
-        <!-- 验证码生成工具 -->
-        <dependency>
-            <groupId>com.github.whvcse</groupId>
-            <artifactId>easy-captcha</artifactId>
-            <version>1.6.2</version>
-        </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
+
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
@@ -153,7 +94,7 @@
                 <includes>
                     <include>**/*.yaml</include>
                     <!-- <include>bootstrap-${active.profile}.yaml</include>-->
-                    <include>registry-${active.profile}.conf</include>
+                    <!--                    <include>registry-${active.profile}.conf</include>-->
                 </includes>
             </resource>
         </resources>

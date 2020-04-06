@@ -15,4 +15,5 @@ public class ESEntityWordReq extends RequestBO {
     @NotBlank(message = "关键字不能为空")
     private String key;
 
+
 }
