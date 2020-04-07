@@ -7,7 +7,7 @@ import com.vd.canary.core.bo.RequestPageBO;
  * @Date 2020/4/7 13:54
  */
 public class ProductsBaseReq extends RequestPageBO  {
-    private String b_brand_id;
-    private String f_three_category_name;
-    private String business_area;
+    private String bBrandId;
+    private String fThreeCategoryName;
+    private String businessArea;
 }

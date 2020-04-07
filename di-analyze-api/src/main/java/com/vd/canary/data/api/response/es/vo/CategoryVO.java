@@ -5,109 +5,109 @@ import java.io.Serializable;
 public class CategoryVO implements Serializable {
 
     //前台一级分类id
-    private Integer f_one_category_id;
+    private Integer fOneCategoryId;
     //前台一级分类code
-    private String f_one_category_code;
+    private String fOneCategoryCode;
     //前台一级分类
-    private String f_one_category_name;
+    private String fOneCategoryName;
     //前台二级分类id
-    private Integer f_two_category_id;
+    private Integer fTwoCategoryId;
     //前台二级分类code
-    private String f_two_category_code;
+    private String fTwoCategoryCode;
     //前台二级分类
-    private String f_two_category_name;
+    private String fTwoCategoryName;
     //前台三级分类id
-    private Integer f_three_category_id;
+    private Integer fThreeCategoryId;
     //前台三级分类code
-    private String f_three_category_code;
+    private String fThreeCategoryCode;
     //前台三级分类
-    private String f_three_category_name;
+    private String fThreeCategoryName;
 
 
-    public Integer getF_one_category_id() {
-        return f_one_category_id;
+    public Integer getfOneCategoryId() {
+        return fOneCategoryId;
     }
 
-    public void setF_one_category_id(Integer f_one_category_id) {
-        this.f_one_category_id = f_one_category_id;
+    public void setfOneCategoryId(Integer fOneCategoryId) {
+        this.fOneCategoryId = fOneCategoryId;
     }
 
-    public String getF_one_category_code() {
-        return f_one_category_code;
+    public String getfOneCategoryCode() {
+        return fOneCategoryCode;
     }
 
-    public void setF_one_category_code(String f_one_category_code) {
-        this.f_one_category_code = f_one_category_code;
+    public void setfOneCategoryCode(String fOneCategoryCode) {
+        this.fOneCategoryCode = fOneCategoryCode;
     }
 
-    public String getF_one_category_name() {
-        return f_one_category_name;
+    public String getfOneCategoryName() {
+        return fOneCategoryName;
     }
 
-    public void setF_one_category_name(String f_one_category_name) {
-        this.f_one_category_name = f_one_category_name;
+    public void setfOneCategoryName(String fOneCategoryName) {
+        this.fOneCategoryName = fOneCategoryName;
     }
 
-    public Integer getF_two_category_id() {
-        return f_two_category_id;
+    public Integer getfTwoCategoryId() {
+        return fTwoCategoryId;
     }
 
-    public void setF_two_category_id(Integer f_two_category_id) {
-        this.f_two_category_id = f_two_category_id;
+    public void setfTwoCategoryId(Integer fTwoCategoryId) {
+        this.fTwoCategoryId = fTwoCategoryId;
     }
 
-    public String getF_two_category_code() {
-        return f_two_category_code;
+    public String getfTwoCategoryCode() {
+        return fTwoCategoryCode;
     }
 
-    public void setF_two_category_code(String f_two_category_code) {
-        this.f_two_category_code = f_two_category_code;
+    public void setfTwoCategoryCode(String fTwoCategoryCode) {
+        this.fTwoCategoryCode = fTwoCategoryCode;
     }
 
-    public String getF_two_category_name() {
-        return f_two_category_name;
+    public String getfTwoCategoryName() {
+        return fTwoCategoryName;
     }
 
-    public void setF_two_category_name(String f_two_category_name) {
-        this.f_two_category_name = f_two_category_name;
+    public void setfTwoCategoryName(String fTwoCategoryName) {
+        this.fTwoCategoryName = fTwoCategoryName;
     }
 
-    public Integer getF_three_category_id() {
-        return f_three_category_id;
+    public Integer getfThreeCategoryId() {
+        return fThreeCategoryId;
     }
 
-    public void setF_three_category_id(Integer f_three_category_id) {
-        this.f_three_category_id = f_three_category_id;
+    public void setfThreeCategoryId(Integer fThreeCategoryId) {
+        this.fThreeCategoryId = fThreeCategoryId;
     }
 
-    public String getF_three_category_code() {
-        return f_three_category_code;
+    public String getfThreeCategoryCode() {
+        return fThreeCategoryCode;
     }
 
-    public void setF_three_category_code(String f_three_category_code) {
-        this.f_three_category_code = f_three_category_code;
+    public void setfThreeCategoryCode(String fThreeCategoryCode) {
+        this.fThreeCategoryCode = fThreeCategoryCode;
     }
 
-    public String getF_three_category_name() {
-        return f_three_category_name;
+    public String getfThreeCategoryName() {
+        return fThreeCategoryName;
     }
 
-    public void setF_three_category_name(String f_three_category_name) {
-        this.f_three_category_name = f_three_category_name;
+    public void setfThreeCategoryName(String fThreeCategoryName) {
+        this.fThreeCategoryName = fThreeCategoryName;
     }
 
     @Override
     public String toString() {
-        return "CategoryRes{" +
-                "f_one_category_id=" + f_one_category_id +
-                ", f_one_category_code='" + f_one_category_code + '\'' +
-                ", f_one_category_name='" + f_one_category_name + '\'' +
-                ", f_two_category_id=" + f_two_category_id +
-                ", f_two_category_code='" + f_two_category_code + '\'' +
-                ", f_two_category_name='" + f_two_category_name + '\'' +
-                ", f_three_category_id=" + f_three_category_id +
-                ", f_three_category_code='" + f_three_category_code + '\'' +
-                ", f_three_category_name='" + f_three_category_name + '\'' +
+        return "CategoryVO{" +
+                "fOneCategoryId=" + fOneCategoryId +
+                ", fOneCategoryCode='" + fOneCategoryCode + '\'' +
+                ", fOneCategoryName='" + fOneCategoryName + '\'' +
+                ", fTwoCategoryId=" + fTwoCategoryId +
+                ", fTwoCategoryCode='" + fTwoCategoryCode + '\'' +
+                ", fTwoCategoryName='" + fTwoCategoryName + '\'' +
+                ", fThreeCategoryId=" + fThreeCategoryId +
+                ", fThreeCategoryCode='" + fThreeCategoryCode + '\'' +
+                ", fThreeCategoryName='" + fThreeCategoryName + '\'' +
                 '}';
     }
 }

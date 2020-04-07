@@ -3,9 +3,7 @@ package com.vd.canary.data.api.feign.es;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.exception.BusinessException;
 import com.vd.canary.data.api.request.es.CategoryReq;
-import com.vd.canary.data.api.request.es.ProductDetailsReq;
 import com.vd.canary.data.api.response.es.CategoryRes;
-import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import feign.hystrix.FallbackFactory;
 
 import javax.validation.Valid;

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 
 @FeignClient(value = "canary-dataanalyze",
-        contextId = "productsFeign",
+        contextId = "categoryFeign",
         decode404 = true,
-        fallbackFactory = ProductsFeignFallback.class)
+        fallbackFactory = CategoryFeignFalllback.class)
 public interface CategoryFeign extends Feign {
     @PostMapping("/es/categoryres")
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);

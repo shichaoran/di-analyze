@@ -19,38 +19,38 @@ import java.util.Map;
 @Accessors(chain = true)
 public class ProductDetailsRes implements Serializable {
     //sku标题
-    private String sku_title;
+    private String skuTitle;
     //sku副标题
-    private String sku_sub_title;
+    private String skuSubTitle;
     //商品属性
-    private Map<String, HashSet> attribute_map;
+    private Map<String, HashSet> attributeMap;
     //商品价格
-    private JSON price_json;
+    private JSON priceJson;
     //价格类型
-    private Integer price_type;
+    private Integer priceType;
     //sku描述
-    private Integer sku_introduce;
+    private Integer skuIntroduce;
     //sku图片地址
-    private String pro_sku_sku_pic;
+    private String proSkuSkuPic;
 
     //店铺名称
-    private String store_info_name;
+    private String storeInfoName;
     //主营类目
-    private String business_category;
+    private String businessCategory;
     //主营产品
-    private String main_products;
+    private String mainProducts;
     //所在地区
-    private String business_area;
+    private String businessArea;
     //展厅编号
-    private String booth_business_booth_code;
+    private String boothBusinessBoothCode;
     //会员等级
-    private String customer_profiles_level;
+    private String customerProfilesLevel;
     //认证信息
-    private String approve_state;
+    private String approveState;
     //供方类别
-    private String enterprise_type;
+    private String enterpriseType;
     //店铺二维码
-    private String store_info_store_qr_code;
+    private String storeInfoStoreQrCode;
     //创建时间
-    private Date gmt_create_time;
+    private Date gmtCreateTime;
 }

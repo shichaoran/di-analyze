@@ -7,16 +7,16 @@ import java.util.Map;
 
 public class CategoryRes implements Serializable {
 
-    private Integer sku_id;
+    private Integer skuId;
     private CategoryVO categoryVO;
     private Map<Integer, CategoryVO> maplist;
 
     public Integer getSku_id() {
-        return sku_id;
+        return skuId;
     }
 
     public void setSku_id(Integer sku_id) {
-        this.sku_id = sku_id;
+        this.skuId = sku_id;
     }
 
     public CategoryVO getCategoryVO() {
@@ -38,7 +38,7 @@ public class CategoryRes implements Serializable {
     @Override
     public String toString() {
         return "CategoryRes{" +
-                "sku_id=" + sku_id +
+                "sku_id=" + skuId +
                 ", categoryVO=" + categoryVO +
                 ", maplist=" + maplist +
                 '}';

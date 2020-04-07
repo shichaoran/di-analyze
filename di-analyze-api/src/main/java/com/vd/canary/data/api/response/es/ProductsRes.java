@@ -20,60 +20,60 @@ import java.util.Map;
 public class ProductsRes implements Serializable {
 
     //前台一级分类id
-    private Integer f_one_category_id;
+    private Integer fOneCategoryId;
     //前台一级分类code
-    private String f_one_category_code;
+    private String fOneCategoryCode;
     //前台一级分类
-    private String f_one_category_name;
+    private String fOneCategoryName;
     //前台二级分类id
-    private Integer f_two_category_id;
+    private Integer fTwoCategoryId;
     //前台二级分类code
-    private String f_two_category_code;
+    private String fTwoCategoryCode;
     //前台二级分类
-    private String f_two_category_name;
+    private String fTwoCategoryName;
     //前台三级分类id
-    private Integer f_three_category_id;
+    private Integer fThreeCategoryId;
     //前台三级分类code
-    private String f_three_category_code;
+    private String fThreeCategoryCode;
     //前台三级分类
-    private String f_three_category_name;
+    private String fThreeCategoryName;
     //品牌名称
-    private String b_brand_name;
+    private String bBrandName;
     //sku标题
-    private String pro_sku_title;
+    private String proSkuTitle;
     //sku副标题
-    private String pro_sku_sub_title;
+    private String proSkuSubTitle;
     //sku图片地址
-    private String pro_sku_sku_pic;
+    private String proSkuSkuPic;
     //属性列表
-    private Map<String, HashSet> attribute_map;
+    private Map<String, HashSet> attributeMap;
     //商品定价
-    private JSON sku_sell_price_json;
+    private JSON skuSellPriceJson;
     //定价类型
-    private Integer sku_sell_price_type;
+    private Integer skuSellPriceType;
     //sku创建时间
-    private Date sku_gmt_create_time;
+    private Date skuGmtCreateTime;
 
     //店铺名称
-    private String store_info_name;
+    private String storeInfoName;
     //主营类目
-    private String business_category;
+    private String businessCategory;
     //主营产品
-    private String main_products;
+    private String mainProducts;
     //所在地区
-    private String business_area;
+    private String businessArea;
     //展厅编号
-    private String booth_business_booth_code;
+    private String boothBusinessBoothCode;
     //会员等级
-    private String customer_profiles_level;
+    private String customerProfilesLevel;
     //认证信息
-    private String approve_state;
+    private String approveState;
     //供方类别
-    private String enterprise_type;
+    private String enterpriseType;
     //店铺二维码
-    private String store_info_store_qr_code;
+    private String storeInfoStoreQrCode;
     //创建时间
-    private Date gmt_create_time;
+    private Date gmtCreateTime;
 
 
 }

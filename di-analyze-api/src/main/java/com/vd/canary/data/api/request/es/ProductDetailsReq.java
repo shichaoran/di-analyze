@@ -12,5 +12,5 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class ProductDetailsReq extends RequestBO {
     @NotBlank(message = "id不能为空")
-    private Integer product_id;
+    private Integer productId;
 }
