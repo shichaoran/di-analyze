@@ -16,3 +16,6 @@ kafka.topic=binlog
 kafka.partNum=3
 kafka.repeatNum=1
 
+
+
+
