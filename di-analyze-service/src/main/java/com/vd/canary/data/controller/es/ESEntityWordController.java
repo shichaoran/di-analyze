@@ -3,6 +3,7 @@ package com.vd.canary.data.controller.es;
 
 import com.sun.istack.NotNull;
 import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.core.util.ResponseUtil;
 import com.vd.canary.data.api.response.es.ESEntityWordRes;
 import com.vd.canary.data.service.es.ESEntityWordService;
 import com.vd.canary.service.controller.BaseController;
@@ -27,7 +28,10 @@ public class ESEntityWordController extends BaseController {
 
     @GetMapping("/entityword/get/{id}")
     public ResponseBO<ESEntityWordRes> get(@PathVariable("id") @NotNull String id){
-         return null;
+        ESEntityWordRes esEntityWordRes =new ESEntityWordRes();
+        esEntityWordRes.setKey("111");
+        esEntityWordRes.setValue("测试");
+         return ResponseUtil.ok(esEntityWordRes);
     }
 
 }

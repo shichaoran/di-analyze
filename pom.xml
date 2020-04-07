@@ -7,7 +7,7 @@
     <parent>
         <artifactId>canary</artifactId>
         <groupId>com.vd.canary</groupId>
-        <version>0.9.26</version>
+        <version>0.10.1</version>
     </parent>
 
     <groupId>com.vd.canary.data</groupId>

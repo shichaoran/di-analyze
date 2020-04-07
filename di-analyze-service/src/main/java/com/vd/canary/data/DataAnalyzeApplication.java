@@ -5,7 +5,7 @@ import com.vd.canary.service.constants.ClusterConstant;
 import com.vd.canary.service.launch.CanaryApplication;
 
 
-@CanaryCloudApplication(clusterName = "DI", applicationName = "canary-dataanalyze")
+@CanaryCloudApplication(clusterName = ClusterConstant.OBMP, applicationName = "canary-dataanalyze")
 public class DataAnalyzeApplication {
 
     public static void main(String[] args) {
