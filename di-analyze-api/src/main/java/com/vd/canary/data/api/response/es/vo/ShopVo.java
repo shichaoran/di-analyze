@@ -35,14 +35,15 @@ public class ShopVo implements Serializable {
     public ShopVo() {
     }
 
-    public ShopVo(int id, String Booth_code, String media_url, String business_category, String business_brand, String business_area, String image_order, String image_name, String image_url) {
-        this.BoothCode = Booth_code;
-        this.mediaUrl = media_url;
-        this.businessCategory = business_category;
-        this.businessArea = business_area;
-        this.imageOrder = image_order;
-        this.imageName = image_name;
-        this.imageUrl = image_url;
+    public ShopVo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
+        this.BoothCode = BoothCode;
+        this.mediaUrl = mediaUrl;
+        this.businessCategory = businessCategory;
+        this.businessBrand = businessBrand;
+        this.businessArea = businessArea;
+        this.imageOrder = imageOrder;
+        this.imageName = imageName;
+        this.imageUrl = imageUrl;
     }
 
 

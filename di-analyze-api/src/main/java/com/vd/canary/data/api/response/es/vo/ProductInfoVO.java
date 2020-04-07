@@ -8,12 +8,19 @@ import java.util.List;
  * @Version
  */
 public class ProductInfoVO {
-    private int skuid;
+    private int skuId;
     private String skuPic;
     private String skuTitle;
     private String priceJson;
     private String fThreeCategoty;
 
+    public int getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(int skuId) {
+        this.skuId = skuId;
+    }
 
     public String getSkuPic() {
         return skuPic;
