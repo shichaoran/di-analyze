@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -42,7 +43,7 @@ public class ProductDetailsRes implements Serializable {
     //所在地区
     private String businessArea;
     //展厅编号
-    private String boothBusinessBoothCode;
+    private List boothBusinessBoothCode;
     //会员等级
     private String customerProfilesLevel;
     //认证信息

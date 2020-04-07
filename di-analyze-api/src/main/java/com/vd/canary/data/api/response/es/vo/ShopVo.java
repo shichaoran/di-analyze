@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ShopVo implements Serializable {
     private int id; //店铺id
-    private String BoothCode;//展厅编号
+    private List BoothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
     private String businessBrand;//品牌
@@ -35,7 +35,7 @@ public class ShopVo implements Serializable {
     public ShopVo() {
     }
 
-    public ShopVo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
+    public ShopVo(int id, List BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
         this.BoothCode = BoothCode;
         this.mediaUrl = mediaUrl;
         this.businessCategory = businessCategory;
@@ -55,11 +55,11 @@ public class ShopVo implements Serializable {
         this.id = id;
     }
 
-    public String getBoothCode() {
+    public List getBoothCode() {
         return BoothCode;
     }
 
-    public void setBoothCode(String boothCode) {
+    public void setBoothCode(List boothCode) {
         BoothCode = boothCode;
     }
 
