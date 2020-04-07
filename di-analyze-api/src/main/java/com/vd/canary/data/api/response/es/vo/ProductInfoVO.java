@@ -9,57 +9,41 @@ import java.util.List;
  */
 public class ProductInfoVO {
     private int skuid;
-    private String  sku_pic;
-    private String  sku_title;
-    private String  price_json;
-    private String f_three_categoty;
-    private List    wangle;
+    private String skuPic;
+    private String skuTitle;
+    private String priceJson;
+    private String fThreeCategoty;
 
-    public int getSkuid() {
-        return skuid;
+
+    public String getSkuPic() {
+        return skuPic;
     }
 
-    public void setSkuid(int skuid) {
-        this.skuid = skuid;
+    public void setSkuPic(String skuPic) {
+        this.skuPic = skuPic;
     }
 
-    public String getSku_pic() {
-        return sku_pic;
+    public String getSkuTitle() {
+        return skuTitle;
     }
 
-    public void setSku_pic(String sku_pic) {
-        this.sku_pic = sku_pic;
+    public void setSkuTitle(String skuTitle) {
+        this.skuTitle = skuTitle;
     }
 
-    public String getSku_title() {
-        return sku_title;
+    public String getPriceJson() {
+        return priceJson;
     }
 
-    public void setSku_title(String sku_title) {
-        this.sku_title = sku_title;
+    public void setPriceJson(String priceJson) {
+        this.priceJson = priceJson;
     }
 
-    public String getPrice_json() {
-        return price_json;
+    public String getfThreeCategoty() {
+        return fThreeCategoty;
     }
 
-    public void setPrice_json(String price_json) {
-        this.price_json = price_json;
-    }
-
-    public String getF_three_categoty() {
-        return f_three_categoty;
-    }
-
-    public void setF_three_categoty(String f_three_categoty) {
-        this.f_three_categoty = f_three_categoty;
-    }
-
-    public List getWangle() {
-        return wangle;
-    }
-
-    public void setWangle(List wangle) {
-        this.wangle = wangle;
+    public void setfThreeCategoty(String fThreeCategoty) {
+        this.fThreeCategoty = fThreeCategoty;
     }
 }
