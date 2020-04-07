@@ -18,8 +18,4 @@ public class ProductsReq extends RequestPageBO {
     @NotBlank(message = "关键字不能为空")
     private String key;
 
-    private static final long serialVersionUID = 5814594298381805172L;
-    private String remarks;
-    private BigDecimal totalAssets;
-
 }
