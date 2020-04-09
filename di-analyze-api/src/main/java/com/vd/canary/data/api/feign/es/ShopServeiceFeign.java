@@ -5,6 +5,7 @@ import com.vd.canary.core.api.Feign;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.request.es.ShopPageBO;
 import com.vd.canary.data.api.response.es.ESEntityWordRes;
+import com.vd.canary.data.api.response.es.vo.Keyword;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +28,11 @@ public interface ShopServeiceFeign extends Feign {
      *商铺搜索
      */
     @PostMapping("/shop/search")
-    ResponseBO<ShopPageBO> search(@RequestBody @Valid ShopPageBO shopPageBO);
+    ResponseBO<ShopPageBO> search(@RequestBody @Valid  Keyword keyword);
     /**
      * 商铺详情
      */
     @GetMapping("/shop/product")
-    ResponseBO<ShopPageBO> getByKey(@RequestBody @Valid ShopPageBO shopPageBO);
+    ResponseBO<ShopPageBO> getByID(@RequestBody @Valid ShopPageBO shopPageBO);
 
 }
