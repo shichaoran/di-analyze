@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class ShopVo implements Serializable {
     private int id; //店铺id
-    private List BoothCode;//展厅编号
+    private String BoothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
     private String businessBrand;//品牌
@@ -39,7 +39,7 @@ public class ShopVo implements Serializable {
     public ShopVo() {
     }
 
-    public ShopVo(int id, List BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
+    public ShopVo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
         this.BoothCode = BoothCode;
         this.mediaUrl = mediaUrl;
         this.businessCategory = businessCategory;
@@ -50,7 +50,47 @@ public class ShopVo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public void setBoothCode(List boothCode) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setBoothCode(String boothCode) {
         BoothCode = boothCode;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
+    public void setBusinessCategory(String businessCategory) {
+        this.businessCategory = businessCategory;
+    }
+
+    public void setBusinessBrand(String businessBrand) {
+        this.businessBrand = businessBrand;
+    }
+
+    public void setBusinessArea(String businessArea) {
+        this.businessArea = businessArea;
+    }
+
+    public void setImageOrder(String imageOrder) {
+        this.imageOrder = imageOrder;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setClassify(Map<String, String> classify) {
+        this.classify = classify;
     }
 }
