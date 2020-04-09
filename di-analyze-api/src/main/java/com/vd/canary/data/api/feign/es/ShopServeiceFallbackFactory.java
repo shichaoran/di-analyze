@@ -20,18 +20,22 @@ import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 @Slf4j
 @Component
 public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeiceFeign> {
-
     @Override
     public ShopServeiceFeign create(Throwable e) {
         return new ShopServeiceFeign() {
-            @Override
-            public ResponseBO<ShopPageBO> createshop(@Valid ShopPageBO shopPageBO) {
-                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
-            }
 
             @Override
+            public ResponseBO<ShopPageBO> search(@Valid ShopPageBO shopPageBO) {
+                return null;
+            }
+            /**
+             * 商铺详情
+             *
+             * @param shopPageBO
+             */
+            @Override
             public ResponseBO<ShopPageBO> getByKey(@Valid ShopPageBO shopPageBO) {
-                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
+                return null;
             }
         };
     }
