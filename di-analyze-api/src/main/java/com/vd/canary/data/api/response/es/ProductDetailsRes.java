@@ -1,10 +1,7 @@
 package com.vd.canary.data.api.response.es;
 
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -16,10 +13,13 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 @Accessors(chain = true)
 public class ProductDetailsRes implements Serializable {
     //sku标题
+
     private String skuTitle;
     //sku副标题
     private String skuSubTitle;
@@ -28,9 +28,9 @@ public class ProductDetailsRes implements Serializable {
     //商品价格
     private JSON priceJson;
     //价格类型
-    private Integer priceType;
+    private String priceType;
     //sku描述
-    private Integer skuIntroduce;
+    private String skuIntroduce;
     //sku图片地址
     private String proSkuSkuPic;
 
@@ -43,7 +43,7 @@ public class ProductDetailsRes implements Serializable {
     //所在地区
     private String businessArea;
     //展厅编号
-    private List boothBusinessBoothCode;
+    private List<String> boothBusinessBoothCode;
     //会员等级
     private String customerProfilesLevel;
     //认证信息
@@ -54,4 +54,6 @@ public class ProductDetailsRes implements Serializable {
     private String storeInfoStoreQrCode;
     //创建时间
     private Date gmtCreateTime;
+
+
 }

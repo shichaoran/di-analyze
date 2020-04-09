@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+
 @FeignClient(value = "canary-dataanalyze",
         contextId = "productsFeign",
         decode404 = true,
@@ -27,6 +28,7 @@ public interface ProductsFeign extends Feign {
      * @param productsReq
      * @return ResponsePageBO<ProductsRes>
      */
+
     @PostMapping("/productservice/getProductsByKey")
     ResponsePageBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
