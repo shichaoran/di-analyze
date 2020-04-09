@@ -14,5 +14,5 @@ public class shop implements Serializable {
     private Long shopId;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
-    private String name;
+    private String shopName;
 }

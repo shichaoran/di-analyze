@@ -14,6 +14,6 @@ public class product implements Serializable {
     private Long productId;
 
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
-    private String name;
+    private String productName;
 
 }
