@@ -10,12 +10,10 @@ public class ThreeCategoryReq extends RequestBO {
     /**
      * 商品一级目录id
      */
-    @NotBlank(message = "id不能为空")
     private String fOneCategoryId;
     /**
      * 商品二级目录id
      */
-    @NotBlank(message = "id不能为空")
     private String fTwoCategoryId;
 
     /**
