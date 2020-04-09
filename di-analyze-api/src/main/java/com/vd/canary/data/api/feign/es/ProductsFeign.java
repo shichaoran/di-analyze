@@ -37,6 +37,7 @@ public interface ProductsFeign extends Feign {
 
     @GetMapping("/productservice/getProductById")
     ResponseBO<ProductDetailsRes> get(@PathVariable("id") @NotNull String id);
+
     @PostMapping("/productservice/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
