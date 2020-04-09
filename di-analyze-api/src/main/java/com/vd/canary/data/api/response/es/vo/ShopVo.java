@@ -50,6 +50,9 @@ public class ShopVo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public void setCustomerId(String customerId){
+        customerId = customerId;
+    }
     public void setId(int id) {
         this.id = id;
     }

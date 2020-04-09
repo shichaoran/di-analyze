@@ -33,7 +33,7 @@ public class BoothBusiness implements Function {
             if (entry.getKey().equals("")
             ){
             a.setBoothCode(entry.getKey());
-            a.setcustomerid()
+            a.setCustomerId(entry.getKey());
             }
 
         }
