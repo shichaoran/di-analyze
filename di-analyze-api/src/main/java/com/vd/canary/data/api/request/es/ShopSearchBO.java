@@ -1,6 +1,6 @@
 package com.vd.canary.data.api.request.es;
 
-import com.vd.canary.core.bo.RequestPageBO;
+import com.vd.canary.core.bo.RequestBO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +18,6 @@ import lombok.experimental.Accessors;
 @ToString
 @Data
 @Accessors(chain = true)
-public class ShopSearchBO  extends RequestPageBO {
+public class ShopSearchBO  extends RequestBO {
     private String key;
 }
