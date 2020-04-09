@@ -24,7 +24,7 @@ import java.util.Map;
 @Accessors(chain = true)
 
 public class ShopVo implements Serializable {
-    private int id; //店铺id
+    private String id; //店铺id
     private String BoothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
@@ -36,6 +36,73 @@ public class ShopVo implements Serializable {
     private List<Role> roles;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID
+    private String storeTemplateId; //
+    private String MainProducts;  //主营产品
+
+    public String getMainProducts() {
+        return MainProducts;
+    }
+
+    public void setMainProducts(String mainProducts) {
+        MainProducts = mainProducts;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getBoothCode() {
+        return BoothCode;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public String getBusinessCategory() {
+        return businessCategory;
+    }
+
+    public String getBusinessBrand() {
+        return businessBrand;
+    }
+
+    public String getBusinessArea() {
+        return businessArea;
+    }
+
+    public String getImageOrder() {
+        return imageOrder;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public Map<String, String> getClassify() {
+        return classify;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public String getStoreTemplateId() {
+        return storeTemplateId;
+    }
+
+    public void setStoreTemplateId(String storeTemplateId) {
+        this.storeTemplateId = storeTemplateId;
+    }
+
     public ShopVo() {
     }
 
@@ -53,8 +120,8 @@ public class ShopVo implements Serializable {
     public void setCustomerId(String customerId){
         customerId = customerId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        id = id;
     }
 
     public void setBoothCode(String boothCode) {

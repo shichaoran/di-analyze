@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * @Author shichaoran
  * @Date 2020/4/9 13:31
@@ -19,5 +21,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class ShopSearchReq extends RequestBO {
+    private List<String> categoryIds;
+    private List<String> brandIds;
+    private boolean exhibitionJoined;
     private String key;
 }

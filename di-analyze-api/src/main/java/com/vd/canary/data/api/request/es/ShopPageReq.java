@@ -19,4 +19,5 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ShopPageReq extends RequestPageBO {
     private String key;
+
 }

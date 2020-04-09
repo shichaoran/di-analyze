@@ -27,13 +27,13 @@ public class BoothBusiness implements Function {
 
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        ShopVo a = new ShopVo();
+        ShopVo shopvo = new ShopVo();
         for (Map.Entry<String, String> entry : entries) {
             logger.info("key={},value={}" + entry.getKey(), entry.getValue());
             if (entry.getKey().equals("")
             ){
-            a.setBoothCode(entry.getKey());
-            a.setCustomerId(entry.getKey());
+                shopvo.setBoothCode(entry.getKey());
+                shopvo.setCustomerId(entry.getKey());
             }
 
         }

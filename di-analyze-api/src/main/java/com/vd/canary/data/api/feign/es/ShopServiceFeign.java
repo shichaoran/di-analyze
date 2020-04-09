@@ -2,9 +2,10 @@ package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.api.Feign;
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.data.api.request.es.CoustemerReq;
+import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.response.es.ShopRes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,15 +19,15 @@ import javax.validation.Valid;
  * @Version
  */
 @FeignClient(value = "canary-dataanalyze",
-        contextId = "ShopServeiceFeign",
+        contextId = "ShopServiceFeign",
         decode404 = true,
-        fallbackFactory = ShopServeiceFallbackFactory.class)
-public interface ShopServeiceFeign extends Feign {
+        fallbackFactory = ShopServiceFallbackFactory.class)
+public interface ShopServiceFeign extends Feign {
     /**
      *商铺搜索
      */
     @PostMapping("/shop/search")
-    ResponseBO<ShopPageReq> search(@RequestBody @Valid ShopSearchReq shopSearchBO);
+    ResponseBO<ShopRes> search(@RequestBody @Valid ShopSearchReq shopSearchBO);
     /**
      * 商铺详情
      * 给shopid
@@ -37,7 +38,7 @@ public interface ShopServeiceFeign extends Feign {
      * costemer id
      */
 
-    @GetMapping("/shop/coustemer")
-    ResponseBO<ShopPageReq> getID(@RequestBody @Valid CoustemerReq coustemerBO);
+    @GetMapping("/shop/customer")
+    ResponseBO<ShopPageReq> getID(@RequestBody @Valid CustomerReq customerReq);
 
 }
