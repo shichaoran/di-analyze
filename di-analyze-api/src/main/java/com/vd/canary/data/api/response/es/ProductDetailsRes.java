@@ -18,12 +18,12 @@ import java.util.Map;
 @ToString
 @Accessors(chain = true)
 public class ProductDetailsRes implements Serializable {
-    //sku标题
 
+    //sku标题
     private String skuTitle;
     //sku副标题
     private String skuSubTitle;
-    //商品属性
+    //商品属性 key为属性id+属性类型，value为属性值
     private Map<String, HashSet> attributeMap;
     //商品价格
     private JSON priceJson;
@@ -33,8 +33,12 @@ public class ProductDetailsRes implements Serializable {
     private String skuIntroduce;
     //sku图片地址
     private String proSkuSkuPic;
+    //供货区域id
+    private String regionalId;
+    //供货区域
+    private String regionalName;
 
-    //店铺名称
+/*    //店铺名称
     private String storeInfoName;
     //主营类目
     private String businessCategory;
@@ -53,7 +57,7 @@ public class ProductDetailsRes implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private Date gmtCreateTime;
+    private Date gmtCreateTime;*/
 
 
 }
