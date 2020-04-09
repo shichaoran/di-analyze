@@ -47,21 +47,9 @@ public interface ProductsServiceFeign extends Feign {
 
 
     /**
-     * 根据一级目录名称返回商品
+     * 根据一级目录、二级目录和三级目录名称返回商品列表
      */
-    @PostMapping("/products/getProductByOneCategory")
-    ResponseBO<CategoryRes> getProductByOneCategory(@RequestBody @Valid OneCategoryReq oneCategoryReq);
-
-    /**
-     * 根据一级目录和二级目录名称返回商品
-     */
-    @PostMapping("/products/getProductByTwoCategory")
-    ResponseBO<CategoryRes> getProductByTwoCategory(@RequestBody @Valid TwoCategoryReq twoCategoryReq);
-
-    /**
-     * 根据一级目录、二级目录和三级目录名称返回商品
-     */
-    @PostMapping("/products/getProductByThreeCategory")
-    ResponseBO<CategoryRes> getProductByThreeCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
+    @PostMapping("/products/getProductByCategory")
+    ResponseBO<CategoryRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
 
 }

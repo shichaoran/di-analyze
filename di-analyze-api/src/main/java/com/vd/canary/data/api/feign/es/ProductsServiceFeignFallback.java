@@ -37,19 +37,12 @@ public class ProductsServiceFeignFallback implements FallbackFactory<ProductsSer
             }
 
             @Override
-            public ResponseBO<CategoryRes> getProductByOneCategory(@Valid OneCategoryReq oneCategoryReq) {
+            public ResponseBO<CategoryRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 
-            @Override
-            public ResponseBO<CategoryRes> getProductByTwoCategory(@Valid TwoCategoryReq twoCategoryReq) {
-                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
-            }
 
-            @Override
-            public ResponseBO<CategoryRes> getProductByThreeCategory(@Valid ThreeCategoryReq threeCategoryReq) {
-                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
-            }
+
         };
     }
 }
