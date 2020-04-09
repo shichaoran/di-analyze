@@ -1,18 +1,14 @@
 package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.core.exception.BusinessException;
-import com.vd.canary.data.api.request.es.CoustemerBO;
-import com.vd.canary.data.api.request.es.ShopPageBO;
-import com.vd.canary.data.api.request.es.ShopSearchBO;
+import com.vd.canary.data.api.request.es.CoustemerReq;
+import com.vd.canary.data.api.request.es.ShopPageReq;
+import com.vd.canary.data.api.request.es.ShopSearchReq;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
-import java.lang.annotation.Annotation;
-
-import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 
 /**
  * @Author shichaoran
@@ -32,7 +28,7 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
              * @param shopSearchBO
              */
             @Override
-            public ResponseBO<ShopPageBO> search(@Valid ShopSearchBO shopSearchBO) {
+            public ResponseBO<ShopPageReq> search(@Valid ShopSearchReq shopSearchBO) {
                 return null;
             }
 
@@ -43,7 +39,7 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
              * @param shopPageBO
              */
             @Override
-            public ResponseBO<ShopPageBO> getByID(@Valid ShopPageBO shopPageBO) {
+            public ResponseBO<ShopPageReq> getByID(@Valid ShopPageReq shopPageBO) {
                 return null;
             }
 
@@ -53,7 +49,7 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
              * @param coustemerBO
              */
             @Override
-            public ResponseBO<ShopPageBO> getID(@Valid CoustemerBO coustemerBO) {
+            public ResponseBO<ShopPageReq> getID(@Valid CoustemerReq coustemerBO) {
                 return null;
             }
         };

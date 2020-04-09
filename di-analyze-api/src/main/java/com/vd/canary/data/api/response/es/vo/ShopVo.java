@@ -49,4 +49,8 @@ public class ShopVo implements Serializable {
         this.imageName = imageName;
         this.imageUrl = imageUrl;
     }
+
+    public void setBoothCode(List boothCode) {
+        BoothCode = boothCode;
+    }
 }

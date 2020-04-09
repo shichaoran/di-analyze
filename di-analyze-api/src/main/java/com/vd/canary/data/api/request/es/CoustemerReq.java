@@ -17,6 +17,6 @@ import lombok.experimental.Accessors;
 @ToString
 @Data
 @Accessors(chain = true)
-public class CoustemerBO extends RequestBO {
+public class CoustemerReq extends RequestBO {
         private String key;
 }
