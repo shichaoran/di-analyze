@@ -33,15 +33,44 @@
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-business-base-parent</artifactId>
             <version>0.10.1</version>
-
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.49</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.vd.canary</groupId>-->
-<!--            <artifactId>canary-authorization-api</artifactId>-->
-<!--            <version>1.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <!-- canal -->
+        <dependency>
+            <groupId>com.alibaba.otter</groupId>
+            <artifactId>canal.client</artifactId>
+            <version>1.0.25</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
+        </dependency>
 
+        <!-- kafka http api client start -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <!--<version>2.2.4.RELEASE</version> -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- elasticsearch http api client -->
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+            <version>6.3.1</version>
+            <!-- <version>5.3.3</version> -->
+        </dependency>
 
         <!-- Test -->
         <dependency>
@@ -56,35 +85,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- kafka,canal,elasticsearch http api client start -->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <!--<version>2.2.4.RELEASE</version> -->
-        </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.shyiko</groupId>
-            <artifactId>mysql-binlog-connector-java</artifactId>
-            <version>0.16.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.49</version>
-        </dependency>
-        <dependency>
-            <groupId>io.searchbox</groupId>
-            <artifactId>jest</artifactId>
-            <version>5.3.3</version>
-        </dependency>
-        <!-- kafka,canal,elasticsearch http api client end -->
-
 
     </dependencies>
 
