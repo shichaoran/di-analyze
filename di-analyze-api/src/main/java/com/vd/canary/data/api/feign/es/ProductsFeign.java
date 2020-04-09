@@ -16,7 +16,6 @@ import javax.validation.Valid;
         fallbackFactory = ProductsFeignFallback.class)
 public interface ProductsFeign extends Feign {
     /**
-     *
      * @param productsReq
      * @return ResponsePageBO<ProductsRes>
      */
