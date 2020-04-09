@@ -22,11 +22,15 @@ import javax.validation.Valid;
         contextId = "ShopServeiceFeign",
         decode404 = true,
         fallbackFactory = ShopServeiceFallbackFactory.class)
-//商铺搜索
+/**
+ *商铺搜索
+ */
 public interface ShopServeiceFeign extends Feign {
     @PostMapping("/shop/search")
-    ResponseBO<ShopPageBO> searchshop(@RequestBody @Valid ShopPageBO shopPageBO);
-//商铺详情
+    ResponseBO<ShopPageBO> search(@RequestBody @Valid ShopPageBO shopPageBO);
+    /**
+     * 商铺详情
+     */
     @GetMapping("/shop/product")
     ResponseBO<ShopPageBO> getByKey(@RequestBody @Valid ShopPageBO shopPageBO);
 
