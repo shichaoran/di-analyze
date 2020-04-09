@@ -3,9 +3,7 @@ package com.vd.canary.data.api.feign.es;
 import com.vd.canary.core.api.Feign;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.bo.ResponsePageBO;
-import com.vd.canary.data.api.request.es.CategoryReq;
-import com.vd.canary.data.api.request.es.ProductDetailsReq;
-import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.*;
 import com.vd.canary.data.api.response.es.CategoryRes;
 import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
@@ -42,15 +40,28 @@ public interface ProductsServiceFeign extends Feign {
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 
     /**
-     * 根据商品id返回对应的商品
-     */
-    @GetMapping("/products/getProductById")
-    ResponseBO<ProductDetailsRes> get(@PathVariable("id") @NotNull String id);
-
-    /**
      * 商品详情页
      */
     @PostMapping("/products/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
+
+
+    /**
+     * 根据一级目录名称返回商品
+     */
+    @PostMapping("/products/getProductByOneCategory")
+    ResponseBO<CategoryRes> getProductByOneCategory(@RequestBody @Valid OneCategoryReq oneCategoryReq);
+
+    /**
+     * 根据一级目录和二级目录名称返回商品
+     */
+    @PostMapping("/products/getProductByTwoCategory")
+    ResponseBO<CategoryRes> getProductByTwoCategory(@RequestBody @Valid TwoCategoryReq twoCategoryReq);
+
+    /**
+     * 根据一级目录、二级目录和三级目录名称返回商品
+     */
+    @PostMapping("/products/getProductByThreeCategory")
+    ResponseBO<CategoryRes> getProductByThreeCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
 
 }
