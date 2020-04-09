@@ -29,16 +29,16 @@ public interface ProductsFeign extends Feign {
      * @return ResponsePageBO<ProductsRes>
      */
 
-    @PostMapping("/productservice/getProductsByKey")
+    @PostMapping("/product/getProductsByKey")
     ResponsePageBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
-    @PostMapping("/productservice/category")
+    @PostMapping("/product/category")
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 
-    @GetMapping("/productservice/getProductById")
+    @GetMapping("/product/getProductById")
     ResponseBO<ProductDetailsRes> get(@PathVariable("id") @NotNull String id);
 
-    @PostMapping("/productservice/getProductDetail")
+    @PostMapping("/product/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
 }
