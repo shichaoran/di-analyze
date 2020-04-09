@@ -2,6 +2,8 @@ package com.vd.canary.data.api.response.es.vo;
 
 import ch.qos.logback.core.boolex.EvaluationException;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
@@ -16,6 +18,8 @@ import java.util.Map;
  * @Version
  */
 @Data
+@Getter
+@Setter
 @ToString
 @Accessors(chain = true)
 
@@ -44,96 +48,5 @@ public class ShopVo implements Serializable {
         this.imageOrder = imageOrder;
         this.imageName = imageName;
         this.imageUrl = imageUrl;
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List getBoothCode() {
-        return BoothCode;
-    }
-
-    public void setBoothCode(List boothCode) {
-        BoothCode = boothCode;
-    }
-
-    public String getMediaUrl() {
-        return mediaUrl;
-    }
-
-    public void setMediaUrl(String mediaUrl) {
-        this.mediaUrl = mediaUrl;
-    }
-
-    public String getBusinessCategory() {
-        return businessCategory;
-    }
-
-    public void setBusinessCategory(String businessCategory) {
-        this.businessCategory = businessCategory;
-    }
-
-    public String getBusinessBrand() {
-        return businessBrand;
-    }
-
-    public void setBusinessBrand(String businessBrand) {
-        this.businessBrand = businessBrand;
-    }
-
-    public String getBusinessArea() {
-        return businessArea;
-    }
-
-    public void setBusinessArea(String businessArea) {
-        this.businessArea = businessArea;
-    }
-
-    public String getImageOrder() {
-        return imageOrder;
-    }
-
-    public void setImageOrder(String imageOrder) {
-        this.imageOrder = imageOrder;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Map getClassify() {
-        return classify;
-    }
-
-    public void setClassify(Map classify) {
-        this.classify = classify;
     }
 }
