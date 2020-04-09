@@ -35,7 +35,7 @@ public class ShopVo implements Serializable {
     private String imageUrl; //地址
     private List<Role> roles;
     private Map<String, String> classify;
-
+    private String customerId;  // 客户·ID
     public ShopVo() {
     }
 

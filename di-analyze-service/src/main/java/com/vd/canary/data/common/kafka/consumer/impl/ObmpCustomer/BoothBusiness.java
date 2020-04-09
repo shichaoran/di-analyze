@@ -32,8 +32,8 @@ public class BoothBusiness implements Function {
             logger.info("key={},value={}" + entry.getKey(), entry.getValue());
             if (entry.getKey().equals("")
             ){
-            a.set
-
+            a.setBoothCode(entry.getKey());
+            a.setcustomerid()
             }
 
         }
