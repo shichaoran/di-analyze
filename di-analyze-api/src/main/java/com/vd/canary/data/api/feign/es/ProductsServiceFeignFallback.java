@@ -16,12 +16,12 @@ import javax.validation.constraints.NotNull;
 
 import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 
-public class ProductsFeignFallback implements FallbackFactory<ProductsFeign> {
+public class ProductsServiceFeignFallback implements FallbackFactory<ProductsServiceFeign> {
 
 
     @Override
-    public ProductsFeign create(Throwable e) {
-        return new ProductsFeign() {
+    public ProductsServiceFeign create(Throwable e) {
+        return new ProductsServiceFeign() {
             @Override
             public ResponsePageBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
