@@ -2,6 +2,7 @@ package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.exception.BusinessException;
+import com.vd.canary.data.api.request.es.CoustemerBO;
 import com.vd.canary.data.api.request.es.ShopPageBO;
 import com.vd.canary.data.api.request.es.ShopSearchBO;
 import feign.hystrix.FallbackFactory;
@@ -37,11 +38,22 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
 
             /**
              * 商铺详情
+             * 给shopid
              *
              * @param shopPageBO
              */
             @Override
             public ResponseBO<ShopPageBO> getByID(@Valid ShopPageBO shopPageBO) {
+                return null;
+            }
+
+            /**
+             * costemer id
+             *
+             * @param coustemerBO
+             */
+            @Override
+            public ResponseBO<ShopPageBO> getID(@Valid CoustemerBO coustemerBO) {
                 return null;
             }
         };
