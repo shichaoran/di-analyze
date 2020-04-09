@@ -3,9 +3,7 @@ package com.vd.canary.data.api.feign.es;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.bo.ResponsePageBO;
 import com.vd.canary.core.exception.BusinessException;
-import com.vd.canary.data.api.request.es.CategoryReq;
-import com.vd.canary.data.api.request.es.ProductDetailsReq;
-import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.*;
 import com.vd.canary.data.api.response.es.CategoryRes;
 import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
@@ -32,13 +30,24 @@ public class ProductsServiceFeignFallback implements FallbackFactory<ProductsSer
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 
+
             @Override
-            public ResponseBO<ProductDetailsRes> get(@NotNull String id) {
+            public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 
             @Override
-            public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) {
+            public ResponseBO<CategoryRes> getProductByOneCategory(@Valid OneCategoryReq oneCategoryReq) {
+                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
+            }
+
+            @Override
+            public ResponseBO<CategoryRes> getProductByTwoCategory(@Valid TwoCategoryReq twoCategoryReq) {
+                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
+            }
+
+            @Override
+            public ResponseBO<CategoryRes> getProductByThreeCategory(@Valid ThreeCategoryReq threeCategoryReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
         };
