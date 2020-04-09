@@ -39,10 +39,10 @@ public class FunctionFactory {
         return function;
     }
 
-    // 注册时一定要和表名完全相同
+    // 注册时一定要和数据库名.表名完全相同
     private HashMap<String,Class> defaultMapFactory() {
         HashMap<String,Class> map = new HashMap<>();
-        map.put("test_table", TestTable.class);
+        map.put("product.test_table", TestTable.class);
         return map;
     }
 

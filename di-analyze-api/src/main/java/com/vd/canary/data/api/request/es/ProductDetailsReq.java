@@ -15,5 +15,5 @@ public class ProductDetailsReq extends RequestBO {
      * 商品id
      */
     @NotBlank(message = "id不能为空")
-    private Integer productId;
+    private String productId;
 }
