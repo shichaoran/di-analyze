@@ -22,23 +22,35 @@ import javax.validation.constraints.NotNull;
 @FeignClient(value = "canary-dataanalyze",
         contextId = "productsFeign",
         decode404 = true,
-        fallbackFactory = ProductsFeignFallback.class)
-public interface ProductsFeign extends Feign {
+        fallbackFactory = ProductsServiceFeignFallback.class)
+public interface ProductsServiceFeign extends Feign {
     /**
      *
      * @param productsReq
      * @return ResponsePageBO<ProductsRes>
      */
-
-    @PostMapping("/productservice/getProductsByKey")
+    /**
+     * 通过首页搜索框输入商品名称
+     */
+    @PostMapping("/products/getProductsByKey")
     ResponsePageBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
-    @PostMapping("/productservice/category")
+    /**
+     * 一组skuid  返回对应的类目
+     */
+    @PostMapping("/products/category")
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 
-    @GetMapping("/productservice/getProductById")
+    /**
+     * 根据商品id返回对应的商品
+     */
+    @GetMapping("/products/getProductById")
     ResponseBO<ProductDetailsRes> get(@PathVariable("id") @NotNull String id);
-    @PostMapping("/productservice/getProductDetail")
+
+    /**
+     * 商品详情页
+     */
+    @PostMapping("/products/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
 }
