@@ -22,23 +22,21 @@ import javax.validation.constraints.NotNull;
         contextId = "productsFeign",
         decode404 = true,
         fallbackFactory = ProductsFeignFallback.class)
-
-
 public interface ProductsFeign extends Feign {
     /**
      *
      * @param productsReq
      * @return ResponsePageBO<ProductsRes>
      */
-    @PostMapping("/products/getProductsByKey")
+    @PostMapping("/productservice/getProductsByKey")
     ResponsePageBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
-    @PostMapping("/products/categoryres")
+    @PostMapping("/productservice/category")
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 
-    @GetMapping("/products/getProductsById")
+    @GetMapping("/productservice/getProductById")
     ResponseBO<ProductDetailsRes> get(@PathVariable("id") @NotNull String id);
-    @PostMapping("/products/getProductsDetail")
+    @PostMapping("/productservice/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
 }
