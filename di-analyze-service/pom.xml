@@ -39,6 +39,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.49</version>
         </dependency>
+        <dependency>
+            <groupId>com.vd.canary.obmp</groupId>
+            <artifactId>obmp-product-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
         <!-- canal -->
         <dependency>
@@ -65,16 +70,21 @@
         </dependency>
 
         <!-- elasticsearch http api client -->
-        <dependency>
+        <!--<dependency>
             <groupId>io.searchbox</groupId>
             <artifactId>jest</artifactId>
             <version>6.3.1</version>
-            <!-- <version>5.3.3</version> -->
-        </dependency>
+            <version>5.3.3</version>
+        </dependency> -->
         <!-- Spring Boot Elasticsearch -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.plugin</groupId>
+            <artifactId>transport-netty3-client</artifactId>
+            <version>5.6.10</version>
         </dependency>
 
         <dependency>
@@ -94,6 +104,10 @@
                     <groupId>org.junit.vintage</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
 

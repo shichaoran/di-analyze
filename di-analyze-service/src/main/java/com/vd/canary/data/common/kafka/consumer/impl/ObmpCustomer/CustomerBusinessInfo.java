@@ -18,15 +18,15 @@ import java.util.Set;
 
 /**
  * @Author shichaoran
- * @Date 2020/4/9 10:53
+ * @Date 2020/4/9 16:49
  * @Version
  */
-public class BoothBusiness implements Function {
+public class CustomerBusinessInfo implements Function {
     private static final Logger logger = LoggerFactory.getLogger(BoothBusiness.class);
-/**
- * 通过店铺->coustemer->展位编号
- */
-@Autowired
+    /**
+     * 通过店铺->coustemer->展位编号
+     */
+    @Autowired
     private BoothBusinessFeignClient boothBusinessFeignClient;
 
 

@@ -3,6 +3,7 @@ package com.vd.canary.data.api.feign.es;
 import com.vd.canary.core.api.Feign;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.request.es.CustomerReq;
+import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
 import com.vd.canary.data.api.response.es.ShopRes;
@@ -40,5 +41,11 @@ public interface ShopServiceFeign extends Feign {
 
     @GetMapping("/shop/customer")
     ResponseBO<ShopPageReq> getID(@RequestBody @Valid CustomerReq customerReq);
+
+    /**Detail
+     *shangpin
+     */
+    @GetMapping("/shop/productDetail ")
+    ResponseBO<ShopRes> getList(@RequestBody @Valid ProductListReq productList);
 
 }
