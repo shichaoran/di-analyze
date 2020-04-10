@@ -29,6 +29,7 @@ public class ProductSku implements Function {
         for(Map.Entry<String,String> entry : entries){
 
             if(entry.getKey().equals("id")){
+
                 productsTO.setSkuId(entry.getValue());
             }
             if(entry.getKey().equals("brand_id")){

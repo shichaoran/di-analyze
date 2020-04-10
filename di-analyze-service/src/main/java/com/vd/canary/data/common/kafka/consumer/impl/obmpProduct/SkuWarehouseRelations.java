@@ -1,10 +1,11 @@
-package com.vd.canary.data.common.kafka.consumer.impl.product;
+package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.alibaba.fastjson.JSON;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.response.es.vo.ShopTo;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer.StoreInfo;
+import com.vd.canary.data.service.es.impl.ProductsTO;
 import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
 import com.vd.canary.obmp.customer.api.response.store.vo.StoreMediaVO;
 import com.vd.canary.obmp.product.api.feign.SkuWarehouseRelationsFeign;
@@ -39,9 +40,12 @@ public class SkuWarehouseRelations implements Function {
         skuWarehouseRelationsVO.getRegionalName();
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        ShopTo shopTo = new ShopTo();
-        shopTo.setMediaUrl(skuWarehouseRelationsVO.getWarehouseId());
-        shopTo.setStoreTemplateId(skuWarehouseRelationsVO.getWarehouseName());
+        ProductsTO productsTO = new ProductsTO();
+        productsTO.setWarehouseId(skuWarehouseRelationsVO.getWarehouseId());
+        productsTO.setWarehouseName(skuWarehouseRelationsVO.getWarehouseName());
+        productsTO.setInventory(skuWarehouseRelationsVO.getInventory().toString());
+        productsTO.setRegionalName(skuWarehouseRelationsVO.getRegionalName());
+        productsTO.setRegionalId(skuWarehouseRelationsVO.getRegionalId());
     }
     }
 
