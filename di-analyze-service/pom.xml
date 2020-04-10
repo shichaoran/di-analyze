@@ -86,6 +86,11 @@
             <artifactId>transport-netty3-client</artifactId>
             <version>5.6.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+            <!-- <version>3.1.6.RELEASE</version> -->
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
