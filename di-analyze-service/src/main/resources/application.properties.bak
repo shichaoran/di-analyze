@@ -1,5 +1,4 @@
 spring:
-  ...
   canal:
     ip:192.168.1.1
     port:11111
@@ -26,11 +25,12 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     template:
       default-topic: etl_canal
-  es:
-    cluster-name: binlog-es
-    repositories:
-      enabled: true
-    cluster-nodes: 127.0.0.1:9300
+  data:
+      elasticsearch:
+        cluster-nodes: 127.0.0.1:9300
+        cluster-name: binlog-es
+        repositories:
+          enabled: true
 
 
 
