@@ -24,6 +24,7 @@ import java.util.Map;
 @Accessors(chain = true)
 
 public class ShopTo implements Serializable {
+    private String name; //店铺名称
     private String id; //店铺id
     private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
@@ -36,7 +37,7 @@ public class ShopTo implements Serializable {
     private List<ShopProductVO> shopProductVO;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID
-    private String storeTemplateId; //
+    private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
     private String boothScheduledTime; //入驻时间
 
