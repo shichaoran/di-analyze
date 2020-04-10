@@ -2,7 +2,6 @@ package com.vd.canary.data.common.es.repository;
 
 import java.util.List;
 
-import com.vd.canary.data.common.es.index.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
