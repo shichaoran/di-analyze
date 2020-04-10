@@ -1,10 +1,8 @@
 package com.vd.canary.data.api.request.es;
 
-import com.vd.canary.core.bo.RequestBO;
 
 
-
-public class ThreeCategoryReq extends RequestBO {
+public class ThreeCategoryReq extends ProductsBaseReq {
 
     /**
      * 商品一级目录id
