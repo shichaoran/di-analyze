@@ -16,28 +16,36 @@ import java.util.Set;
 
 /**
  * @Author shichaoran
- * @Date 2020/4/9 14:51
+ * @Date 2020/4/9 16:49
  * @Version
  */
-public class StoreMedia implements Function {
+public class CustomerBusinessInfo implements Function {
     private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
     /**
-     * 多媒体地址->store_template_id->
+     * 通过店铺->coustemer->展位编号
      */
     @Autowired
     private StoreMediaFeignClient storeMediaFeignClient;
     @Override
     public void performES(String msg) {
-        logger.info("StoreInfo.msg"+msg);
         ResponseBO<StoreMediaVO> res = storeMediaFeignClient.get("");
         StoreMediaVO storeMediaVO = (StoreMediaVO)res.getData();
-        storeMediaVO.getMediaUrl();
-        storeMediaVO.getStoreTemplateId();
+        logger.info("BusinessCategorynfo.msg"+msg);
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
         ShopTo shopTo = new ShopTo();
-        shopTo.setMediaUrl(storeMediaVO.getMediaUrl());
-        shopTo.setStoreTemplateId(storeMediaVO.getStoreTemplateId());
+        for (Map.Entry<String, String> entry : entries) {
+            logger.info("key={},value={}" + entry.getKey(), entry.getValue());
+
+            if (entry.getKey().equals("")
+            ) {
+                shopTo.setCustomerId(entry.getKey());
+                shopTo.setBusinessArea(entry.getKey());
+                shopTo.setBusinessCategory(entry.getKey());
+                shopTo.setMainProducts(entry.getKey());
+            }
         }
     }
 
+
+}

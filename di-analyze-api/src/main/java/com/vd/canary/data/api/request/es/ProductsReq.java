@@ -1,11 +1,9 @@
 package com.vd.canary.data.api.request.es;
 
-import com.vd.canary.core.bo.RequestPageBO;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +11,7 @@ import java.math.BigDecimal;
 @Accessors(chain = true)
 @Getter
 @Setter
-public class ProductsReq extends RequestPageBO {
+public class ProductsReq extends ProductsBaseReq {
     /**
      * 输入框中关键字
      */
