@@ -1,6 +1,7 @@
 package com.vd.canary.data.api.response.es.vo;
 
 import ch.qos.logback.core.boolex.EvaluationException;
+import com.vd.canary.data.api.response.es.ShopRes;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class ShopTo implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
-    private List<ShopProductVO> shopProductVO;
+    private List<ShopRes> shopRes;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
@@ -47,6 +48,14 @@ public class ShopTo implements Serializable {
 
     public void setMainProducts(String mainProducts) {
         mainProducts = mainProducts;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getId() {
@@ -148,6 +157,14 @@ public class ShopTo implements Serializable {
         this.imageOrder = imageOrder;
     }
 
+    public List<ShopRes> getShopRes() {
+        return shopRes;
+    }
+
+    public void setShopRes(List<ShopRes> shopRes) {
+        this.shopRes = shopRes;
+    }
+
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
@@ -156,13 +173,7 @@ public class ShopTo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public List<ShopProductVO> getShopProductVO() {
-        return shopProductVO;
-    }
 
-    public void setShopProductVO(List<ShopProductVO> shopProductVO) {
-        this.shopProductVO = shopProductVO;
-    }
 
     public String getBoothScheduledTime() {
         return boothScheduledTime;

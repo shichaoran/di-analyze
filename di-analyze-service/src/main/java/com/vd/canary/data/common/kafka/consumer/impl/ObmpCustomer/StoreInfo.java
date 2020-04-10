@@ -33,6 +33,7 @@ public class StoreInfo implements Function {
                 logger.info("key={},value={}" + entry.getKey(), entry.getValue());
             shopvo.setId(entry.getKey());
             shopvo.setCustomerId(entry.getKey());
+            shopvo.setName(entry.getKey());
         }}
     }
 }
