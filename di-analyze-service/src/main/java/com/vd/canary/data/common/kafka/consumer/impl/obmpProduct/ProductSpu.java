@@ -34,12 +34,15 @@ public class ProductSpu implements Function {
     @Override
     public void performES(String msg) {
         logger.info("ProductSpu.msg"+msg);
-        ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail("111");
-        ProductSpuDetailResp pro =  (ProductSpuDetailResp)res.getData();
-        pro.getId();
-        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
+        ProductsTO productsTO = new ProductsTO();
 
-        Set<Map.Entry<String,String>> entries = hashMap.entrySet();
+        ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(productsTO.getProSkuSpuId());
+        ProductSpuDetailResp pro =  (ProductSpuDetailResp)res.getData();
+
+        productsTO.setSpuState(pro.getSpuState());
+        productsTO.setProSpuSpuPic(pro.getSpuPic());
+        productsTO.setSpuTitle(pro.getSpuTitle());
+
 
     }
 
