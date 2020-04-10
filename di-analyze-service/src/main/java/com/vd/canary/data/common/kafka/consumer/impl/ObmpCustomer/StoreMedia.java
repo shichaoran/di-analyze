@@ -2,7 +2,7 @@ package com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer;
 
 import com.alibaba.fastjson.JSON;
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.data.api.response.es.vo.ShopTo;
+import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
 import com.vd.canary.obmp.customer.api.response.store.vo.StoreMediaVO;
@@ -35,9 +35,9 @@ public class StoreMedia implements Function {
         storeMediaVO.getStoreTemplateId();
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        ShopTo shopTo = new ShopTo();
-        shopTo.setMediaUrl(storeMediaVO.getMediaUrl());
-        shopTo.setStoreTemplateId(storeMediaVO.getStoreTemplateId());
+        ShopVo shopVo = new ShopVo();
+        shopVo.setMediaUrl(storeMediaVO.getMediaUrl());
+        shopVo.setStoreTemplateId(storeMediaVO.getStoreTemplateId());
         }
     }
 

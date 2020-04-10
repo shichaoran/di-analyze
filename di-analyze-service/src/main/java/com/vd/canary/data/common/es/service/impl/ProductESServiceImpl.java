@@ -3,19 +3,19 @@ package com.vd.canary.data.common.es.service.impl;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.vd.canary.data.common.es.repository.ProductRepository;
+import com.vd.canary.data.common.es.index.ProductsTO;
+import com.vd.canary.data.common.es.repository.ProductTORepository;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
 import com.vd.canary.data.util.JsonUtils;
 import lombok.Data;
+import org.apache.commons.collections.CollectionUtils;
 import org.elasticsearch.action.update.UpdateRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 /**
  * 商品 ES 业务逻辑实现类
@@ -26,7 +26,7 @@ import org.springframework.util.CollectionUtils;
 public class ProductESServiceImpl implements ProductESService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductTORepository productRepository;
 
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
@@ -37,7 +37,7 @@ public class ProductESServiceImpl implements ProductESService {
      * @return
      */
     @Override
-    public void saveProduct(Product product) {
+    public void saveProduct(ProductsTO product) {
 
         productRepository.save(product);
     }
@@ -46,13 +46,13 @@ public class ProductESServiceImpl implements ProductESService {
      * 批量新增商品信息
      **/
     @Override
-    public void batchAddProduct(List<Product> products) {
+    public void batchAddProduct(List<ProductsTO> products) {
         if(CollectionUtils.isEmpty(products)) {
             return ;
         }
         List<IndexQuery> queries = Lists.newArrayListWithExpectedSize(products.size());
         IndexQuery indexItem  = null;
-        for(Product product :products) {
+        for(ProductsTO product :products) {
             indexItem = new IndexQuery();
             indexItem.setObject(product);
             queries.add(indexItem);
@@ -70,11 +70,11 @@ public class ProductESServiceImpl implements ProductESService {
      * 根据productId更新信息
      */
     @Override
-    public void updateProduct(Product product) {
+    public void updateProduct(ProductsTO product) {
         UpdateQuery updateQuery = new UpdateQuery();
-        updateQuery.setId(product.getProductId().toString());
-        updateQuery.setClazz(Product.class);
-        product.setProductId(null);
+        updateQuery.setId(product.getSkuId().toString());
+        updateQuery.setClazz(ProductsTO.class);
+        product.setSkuId(null);
         UpdateRequest request = new UpdateRequest();
         try{
             request.doc(JsonUtils.beanToJson(product));
@@ -85,20 +85,20 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     @Override
-    public List<Product> queryByProductName(String userName) {
+    public List<ProductsTO> queryByProductName(String userName) {
 
         return productRepository.findByUserNameLike(userName);
     }
 
-    public List<Product> findByDescriptionAndScore(String description, Integer score) {
+    public List<ProductsTO> findByDescriptionAndScore(String description, Integer score) {
         return productRepository.findByDescriptionAndScore(description, score);
     }
 
-    public List<Product> findByDescriptionOrScore(String description, Integer score) {
+    public List<ProductsTO> findByDescriptionOrScore(String description, Integer score) {
         return productRepository.findByDescriptionOrScore(description, score);
     }
 
-    public List<Product> findByDescription(Integer pageNumber, Integer pageSize,String description) {
+    public List<ProductsTO> findByDescription(Integer pageNumber, Integer pageSize,String description) {
         // 校验分页参数
         if (pageSize == null || pageSize <= 0) {
             pageSize = Constant.ES_PAGE_SIZE;
@@ -131,6 +131,5 @@ public class ProductESServiceImpl implements ProductESService {
     //public List<Product> findByDescriptionLike(String description) {
     //    return productRepository.findByDescriptionLike(description, pageable).getContent();
     //}
-
 
 }
