@@ -23,9 +23,9 @@ import java.util.Map;
 @ToString
 @Accessors(chain = true)
 
-public class ShopVo implements Serializable {
+public class ShopTo implements Serializable {
     private String id; //店铺id
-    private String BoothCode;//展厅编号
+    private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
     private String businessBrand;//品牌
@@ -33,18 +33,19 @@ public class ShopVo implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
-    private List<Role> roles;
+    private List<ShopProductVO> shopProductVO;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //
-    private String MainProducts;  //主营产品
+    private String mainProducts;  //主营产品
+    private String boothScheduledTime; //入驻时间
 
     public String getMainProducts() {
-        return MainProducts;
+        return mainProducts;
     }
 
     public void setMainProducts(String mainProducts) {
-        MainProducts = mainProducts;
+        mainProducts = mainProducts;
     }
 
     public String getId() {
@@ -52,7 +53,7 @@ public class ShopVo implements Serializable {
     }
 
     public String getBoothCode() {
-        return BoothCode;
+        return boothCode;
     }
 
     public String getMediaUrl() {
@@ -83,9 +84,7 @@ public class ShopVo implements Serializable {
         return imageUrl;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
+
 
     public Map<String, String> getClassify() {
         return classify;
@@ -103,11 +102,11 @@ public class ShopVo implements Serializable {
         this.storeTemplateId = storeTemplateId;
     }
 
-    public ShopVo() {
+    public ShopTo() {
     }
 
-    public ShopVo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
-        this.BoothCode = BoothCode;
+    public ShopTo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
+        this.boothCode = boothCode;
         this.mediaUrl = mediaUrl;
         this.businessCategory = businessCategory;
         this.businessBrand = businessBrand;
@@ -125,7 +124,7 @@ public class ShopVo implements Serializable {
     }
 
     public void setBoothCode(String boothCode) {
-        BoothCode = boothCode;
+        boothCode = boothCode;
     }
 
     public void setMediaUrl(String mediaUrl) {
@@ -156,8 +155,20 @@ public class ShopVo implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public List<ShopProductVO> getShopProductVO() {
+        return shopProductVO;
+    }
+
+    public void setShopProductVO(List<ShopProductVO> shopProductVO) {
+        this.shopProductVO = shopProductVO;
+    }
+
+    public String getBoothScheduledTime() {
+        return boothScheduledTime;
+    }
+
+    public void setBoothScheduledTime(String boothScheduledTime) {
+        this.boothScheduledTime = boothScheduledTime;
     }
 
     public void setClassify(Map<String, String> classify) {
