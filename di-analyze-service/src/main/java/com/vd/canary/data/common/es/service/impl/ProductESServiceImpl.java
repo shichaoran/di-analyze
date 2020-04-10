@@ -3,7 +3,6 @@ package com.vd.canary.data.common.es.service.impl;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.vd.canary.data.common.es.index.Product;
 import com.vd.canary.data.common.es.repository.ProductRepository;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
