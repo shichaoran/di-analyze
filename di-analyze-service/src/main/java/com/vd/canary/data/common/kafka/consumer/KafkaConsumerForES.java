@@ -33,8 +33,9 @@ public class KafkaConsumerForES {
             try {
                 for(String msg : messages) {
                     JSONObject jsonMap = JSONObject.parseObject(msg);
+                    String database = jsonMap.getString("database");
                     String table = jsonMap.getString("table");
-                    Function function = FunctionFactory.instance().createFunction(table);
+                    Function function = FunctionFactory.instance().createFunction(database + "." + table);
                     function.performES(msg);
                 }
             } catch (Exception e) {

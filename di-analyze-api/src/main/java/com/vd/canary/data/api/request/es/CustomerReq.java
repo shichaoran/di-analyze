@@ -9,15 +9,14 @@ import lombok.experimental.Accessors;
 
 /**
  * @Author shichaoran
- * @Date 2020/4/9 13:31
+ * @Date 2020/4/9 15:05
  * @Version
  */
-
 @Getter
 @Setter
 @ToString
 @Data
 @Accessors(chain = true)
-public class ShopSearchBO  extends RequestBO {
-    private String key;
+public class CustomerReq extends RequestBO {
+        private String key;
 }

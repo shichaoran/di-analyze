@@ -1,18 +1,15 @@
 package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.core.exception.BusinessException;
-import com.vd.canary.data.api.request.es.CoustemerBO;
-import com.vd.canary.data.api.request.es.ShopPageBO;
-import com.vd.canary.data.api.request.es.ShopSearchBO;
+import com.vd.canary.data.api.request.es.CustomerReq;
+import com.vd.canary.data.api.request.es.ShopPageReq;
+import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.response.es.ShopRes;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
-import java.lang.annotation.Annotation;
-
-import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 
 /**
  * @Author shichaoran
@@ -21,10 +18,11 @@ import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
  */
 @Slf4j
 @Component
-public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeiceFeign> {
+public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFeign> {
     @Override
-    public ShopServeiceFeign create(Throwable e) {
-        return new ShopServeiceFeign() {
+    public ShopServiceFeign create(Throwable e) {
+        return new ShopServiceFeign() {
+
 
             /**
              * 商铺搜索
@@ -32,7 +30,7 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
              * @param shopSearchBO
              */
             @Override
-            public ResponseBO<ShopPageBO> search(@Valid ShopSearchBO shopSearchBO) {
+            public ResponseBO<ShopRes> search(@Valid ShopSearchReq shopSearchBO) {
                 return null;
             }
 
@@ -43,17 +41,17 @@ public class ShopServeiceFallbackFactory implements FallbackFactory<ShopServeice
              * @param shopPageBO
              */
             @Override
-            public ResponseBO<ShopPageBO> getByID(@Valid ShopPageBO shopPageBO) {
+            public ResponseBO<ShopPageReq> getByID(@Valid ShopPageReq shopPageBO) {
                 return null;
             }
 
             /**
              * costemer id
              *
-             * @param coustemerBO
+             * @param customerReq
              */
             @Override
-            public ResponseBO<ShopPageBO> getID(@Valid CoustemerBO coustemerBO) {
+            public ResponseBO<ShopPageReq> getID(@Valid CustomerReq customerReq) {
                 return null;
             }
         };
