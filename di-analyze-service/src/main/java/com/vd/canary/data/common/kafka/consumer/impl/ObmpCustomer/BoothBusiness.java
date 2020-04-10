@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.response.es.vo.ShopTo;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
+import com.vd.canary.obmp.customer.api.feign.booth.BoothBusinessFeignClient;
 import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
+import com.vd.canary.obmp.customer.api.response.booth.BoothBusinessVO;
 import com.vd.canary.obmp.customer.api.response.store.vo.StoreMediaVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +27,15 @@ public class BoothBusiness implements Function {
  * 通过店铺->coustemer->展位编号
  */
 @Autowired
-    private StoreMediaFeignClient storeMediaFeignClient;
+    private BoothBusinessFeignClient boothBusinessFeignClient;
 
 
     @Override
     public void performES(String msg) {
         logger.info("BoothBusinessBoothCode.msg"+msg);
-        ResponseBO<StoreMediaVO> res = storeMediaFeignClient.get("");
-        StoreMediaVO storeMediaVO = (StoreMediaVO)res.getData();
+        ResponseBO<BoothBusinessVO> res = boothBusinessFeignClient.get("");
+        BoothBusinessVO boothBusinessVO = (BoothBusinessVO)res.getData();
+//        boothBusinessVO.getCustomerName();
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
         ShopTo shopTo = new ShopTo();
@@ -40,10 +43,9 @@ public class BoothBusiness implements Function {
             logger.info("key={},value={}" + entry.getKey(), entry.getValue());
             if (entry.getKey().equals("")
             ){
-                shopTo.setBoothCode(entry.getKey());
-                shopTo.setCustomerId(entry.getKey());
+                shopTo.setBoothCode( boothBusinessVO.getBoothCode());
+                shopTo.setCustomerId( boothBusinessVO.getCustomerId());
             }
-
         }
     }
 }

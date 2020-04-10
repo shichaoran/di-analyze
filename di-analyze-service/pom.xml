@@ -39,6 +39,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.49</version>
         </dependency>
+        <dependency>
+            <groupId>com.vd.canary.obmp</groupId>
+            <artifactId>obmp-product-api</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
         <!-- canal -->
         <dependency>
