@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.kafka.consumer.impl.product;
+package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import java.util.HashMap;
 import java.util.Map;

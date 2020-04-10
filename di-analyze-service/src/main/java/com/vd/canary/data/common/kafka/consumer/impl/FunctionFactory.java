@@ -2,7 +2,7 @@ package com.vd.canary.data.common.kafka.consumer.impl;
 
 import java.util.HashMap;
 
-import com.vd.canary.data.common.kafka.consumer.impl.product.TestTable;
+import com.vd.canary.data.common.kafka.consumer.impl.obmpProduct.TestTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

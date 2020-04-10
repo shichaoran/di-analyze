@@ -40,7 +40,7 @@ public class ProductsRes implements Serializable {
     //前台三级分类
     private String fThreeCategoryName;
     //品牌id
-    private String bBrandId;
+    private String proSkuBrandId;
     //品牌名称
     private String bBrandName;
     //skuid
