@@ -30,7 +30,7 @@ public class ShopVo implements Serializable {
     private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
-    private String businessBrand;//品牌
+    private List<Map<String,String>> businessBrand;//品牌
     private String businessArea;//区域
     private String imageOrder;
     private String imageName; //名
@@ -62,6 +62,14 @@ public class ShopVo implements Serializable {
         return id;
     }
 
+    public List<Map<String, String>> getBusinessBrand() {
+        return businessBrand;
+    }
+
+    public void setBusinessBrand(List<Map<String, String>> businessBrand) {
+        this.businessBrand = businessBrand;
+    }
+
     public String getBoothCode() {
         return boothCode;
     }
@@ -74,9 +82,6 @@ public class ShopVo implements Serializable {
         return businessCategory;
     }
 
-    public String getBusinessBrand() {
-        return businessBrand;
-    }
 
     public String getBusinessArea() {
         return businessArea;
@@ -115,16 +120,7 @@ public class ShopVo implements Serializable {
     public ShopVo() {
     }
 
-    public ShopVo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
-        this.boothCode = boothCode;
-        this.mediaUrl = mediaUrl;
-        this.businessCategory = businessCategory;
-        this.businessBrand = businessBrand;
-        this.businessArea = businessArea;
-        this.imageOrder = imageOrder;
-        this.imageName = imageName;
-        this.imageUrl = imageUrl;
-    }
+
 
     public void setCustomerId(String customerId){
         customerId = customerId;
@@ -143,10 +139,6 @@ public class ShopVo implements Serializable {
 
     public void setBusinessCategory(String businessCategory) {
         this.businessCategory = businessCategory;
-    }
-
-    public void setBusinessBrand(String businessBrand) {
-        this.businessBrand = businessBrand;
     }
 
     public void setBusinessArea(String businessArea) {
