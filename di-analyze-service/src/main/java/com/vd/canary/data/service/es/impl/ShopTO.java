@@ -1,6 +1,5 @@
-package com.vd.canary.data.api.response.es.vo;
+package com.vd.canary.data.service.es.impl;
 
-import ch.qos.logback.core.boolex.EvaluationException;
 import com.vd.canary.data.api.response.es.ShopRes;
 import lombok.Data;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import javax.management.relation.Role;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,7 @@ import java.util.Map;
 @ToString
 @Accessors(chain = true)
 
-public class ShopTo implements Serializable {
+public class ShopTO implements Serializable {
     private String name; //店铺名称
     private String id; //店铺id
     private String boothCode;//展厅编号
@@ -112,10 +110,10 @@ public class ShopTo implements Serializable {
         this.storeTemplateId = storeTemplateId;
     }
 
-    public ShopTo() {
+    public ShopTO() {
     }
 
-    public ShopTo(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
+    public ShopTO(int id, String BoothCode, String mediaUrl, String businessCategory, String businessBrand, String businessArea, String imageOrder, String imageName, String imageUrl) {
         this.boothCode = boothCode;
         this.mediaUrl = mediaUrl;
         this.businessCategory = businessCategory;

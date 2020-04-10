@@ -9,12 +9,17 @@ import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.common.es.index.ProductsTO;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer.StoreInfo;
+import com.vd.canary.data.common.es.index.ProductsTO;
 import com.vd.canary.obmp.product.api.feign.SkuWarehouseRelationsFeign;
 import com.vd.canary.obmp.product.api.response.warehouse.vo.SkuWarehouseRelationsVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @Author shichaoran
