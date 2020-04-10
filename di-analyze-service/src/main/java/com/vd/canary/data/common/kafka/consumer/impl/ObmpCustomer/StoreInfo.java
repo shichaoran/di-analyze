@@ -2,7 +2,7 @@ package com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer;
 
 import com.alibaba.fastjson.JSON;
 import com.vd.canary.data.api.response.es.ShopRes;
-import com.vd.canary.data.api.response.es.vo.ShopTo;
+import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class StoreInfo implements Function {
         logger.info("StoreInfo.msg"+msg);
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        ShopTo shopvo = new ShopTo();
+        ShopVo shopvo = new ShopVo();
         for (Map.Entry<String, String> entry : entries) {
             if (entry.getKey().equals("")
             ){

@@ -5,8 +5,6 @@ import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer.StoreInfo;
 import com.vd.canary.data.common.es.index.ProductsTO;
-import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
-import com.vd.canary.obmp.customer.api.response.store.vo.StoreMediaVO;
 import com.vd.canary.obmp.product.api.feign.SkuWarehouseRelationsFeign;
 import com.vd.canary.obmp.product.api.response.warehouse.vo.SkuWarehouseRelationsVO;
 import org.slf4j.Logger;
