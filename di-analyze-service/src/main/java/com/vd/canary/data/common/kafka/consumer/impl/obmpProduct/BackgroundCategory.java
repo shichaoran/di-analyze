@@ -21,19 +21,26 @@ public class BackgroundCategory implements Function {
     @Override
     public void performES(String msg) {
         logger.info("BackgroundCategory.msg"+msg);
+
         ProductsTO productsTO = new ProductsTO();
         CategoryBackgroundReq categoryBackgroundReq = new CategoryBackgroundReq();
+
         categoryBackgroundReq.setCategoryCode(productsTO.getThreeCategoryCode());
         ResponseBO<CategoryBackgroundResp> res = backgroundCategoryFeign.getParent(categoryBackgroundReq);
         CategoryBackgroundResp pro =  (CategoryBackgroundResp)res.getData();
+        if (pro.getParentId() != null) {
+            productsTO.setTwoCategoryCode(pro.getCategoryCode());
+            productsTO.setTwoCategoryName(pro.getCategoryName());
+            productsTO.setTwoCategoryId(pro.getParentId());
 
-        productsTO.setTwoCategoryCode(pro.getCategoryCode());
-        productsTO.setTwoCategoryName(pro.getCategoryName());
-        productsTO.setTwoCategoryId(pro.getParentId());
+            categoryBackgroundReq.setCategoryCode(productsTO.getTwoCategoryCode());
+            ResponseBO<CategoryBackgroundResp> res1 = backgroundCategoryFeign.getParent(categoryBackgroundReq);
+            CategoryBackgroundResp pro1 = (CategoryBackgroundResp) res.getData();
 
-        productsTO.setTwoCategoryCode(pro.getCategoryCode());
-        productsTO.setTwoCategoryName(pro.getCategoryName());
-        productsTO.setTwoCategoryId(pro.getParentId());
+            productsTO.setOneCategoryCode(pro1.getCategoryCode());
+            productsTO.setOneCategoryName(pro1.getCategoryName());
+            productsTO.setOneCategoryId(pro1.getParentId());
+        }
 
     }
 }
