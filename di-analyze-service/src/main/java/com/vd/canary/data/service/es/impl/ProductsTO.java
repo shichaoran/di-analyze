@@ -76,7 +76,7 @@ public class ProductsTO implements Serializable {
      * product_spu表  商品spu
      */
     //spu状态
-    private String spuState;
+    private Integer spuState;
     //spu图片地址
     private String proSpuSpuPic;
     //spu广告词/副标题
@@ -241,17 +241,6 @@ public class ProductsTO implements Serializable {
     private String warehouseRegional;
     //详细地址
     private String detailedAddress;
-
-
-    /**
-     * 附加字段
-     */
-    // price为desc 或者 asc
-    private String priceSort;
-    //是否议价
-    private String isDiscussPrice;
-    //是否入驻
-    private String isHaveHouse;
 
 
 }
