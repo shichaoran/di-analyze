@@ -1,0 +1,1 @@
+{"doc":"Canal client，目前没有直接配置Canal Service直接把数据打到kafka，而是通过转换后按固定的topic和固定额msg定制化打到kafka\n","fields":[],"enumConstants":[],"methods":[{"name":"startClient","paramTypes":["java.lang.String","java.lang.Integer","java.util.Map","java.lang.String","java.lang.String"],"doc":" 监测数据库变化，使用disruptor处理消息\n"}]}

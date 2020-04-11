@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.vd.canary.obmp:obmp-product-api:1.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vd/canary/obmp/obmp-product-api/1.0.0-SNAPSHOT/obmp-product-api-1.0.0-20200410.060105-32.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vd/canary/obmp/obmp-product-api/1.0.0-SNAPSHOT/obmp-product-api-1.0.0-20200410.060105-32-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/vd/canary/obmp/obmp-product-api/1.0.0-SNAPSHOT/obmp-product-api-1.0.0-20200410.060105-32-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

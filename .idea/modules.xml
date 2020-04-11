@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/di-analyze.iml" filepath="$PROJECT_DIR$/di-analyze.iml" />
+      <module fileurl="file://$PROJECT_DIR$/di-analyze-api/di-analyze-api.iml" filepath="$PROJECT_DIR$/di-analyze-api/di-analyze-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/di-analyze-service/di-analyze-service.iml" filepath="$PROJECT_DIR$/di-analyze-service/di-analyze-service.iml" />
+    </modules>
+  </component>
+</project>

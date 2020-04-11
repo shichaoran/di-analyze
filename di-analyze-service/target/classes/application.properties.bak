@@ -1,0 +1,42 @@
+spring:
+  canal:
+    ip:192.168.1.1
+    port:11111
+    topic-prefix: etl_timely.
+    destination:
+      example: 0
+    username:
+    password:
+    dealy-limit: 2000
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      acks: 1
+      batch-size: 4096
+      client-id: canal
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: etl
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    template:
+      default-topic: etl_canal
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: binlog-es
+      repositories:
+        enabled: true
+
+  elasticsearch:
+    rest:
+      uris: http://192.168.0.211:9200
+      username: elastic
+      password: 123456
+
+
+
