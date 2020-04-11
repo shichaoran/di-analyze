@@ -6,6 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Component
 public class ESEntityWordModel {
-    @Autowired
-    private ESEntityWordMapper esEntityWordMapper;
+    //@Autowired
+    //private ESEntityWordMapper esEntityWordMapper;
 }
