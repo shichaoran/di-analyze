@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -10,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/10 14:07
- */
+ *//*
+
 public class SkuAttributeRelations implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(SkuAttributeRelations.class);
@@ -32,3 +35,4 @@ public class SkuAttributeRelations implements Function {
 
     }
 }
+*/

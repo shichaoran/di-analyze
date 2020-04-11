@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -10,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/10 16:45
- */
+ *//*
+
 public class BackgroundCategory implements Function {
     private static final Logger logger = LoggerFactory.getLogger(BackgroundCategory.class);
     @Autowired
@@ -29,7 +32,8 @@ public class BackgroundCategory implements Function {
         ResponseBO<CategoryBackgroundResp> res = backgroundCategoryFeign.getParent(categoryBackgroundReq);
         CategoryBackgroundResp pro =  (CategoryBackgroundResp)res.getData();
         if (pro.getParentId() != null) {
-       /*     productsTO.setTwoCategoryCode(pro.getCategoryCode());
+       */
+/*     productsTO.setTwoCategoryCode(pro.getCategoryCode());
             productsTO.setTwoCategoryName(pro.getCategoryName());
             productsTO.setTwoCategoryId(pro.getParentId());
 
@@ -39,7 +43,8 @@ public class BackgroundCategory implements Function {
 
             productsTO.setOneCategoryCode(pro1.getCategoryCode());
             productsTO.setOneCategoryName(pro1.getCategoryName());
-            productsTO.setOneCategoryId(pro1.getParentId());*/
+            productsTO.setOneCategoryId(pro1.getParentId());*//*
+
 
             productsTO.setTwoCategoryCode("11");
             productsTO.setTwoCategoryName("钢铁");
@@ -52,3 +57,4 @@ public class BackgroundCategory implements Function {
 
     }
 }
+*/

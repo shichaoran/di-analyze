@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -15,10 +16,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/11 10:57
- */
+ *//*
+
 public class AttributeValueRelations implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(AttributeValueRelations.class);
@@ -44,3 +47,4 @@ public class AttributeValueRelations implements Function {
 
     }
 }
+*/

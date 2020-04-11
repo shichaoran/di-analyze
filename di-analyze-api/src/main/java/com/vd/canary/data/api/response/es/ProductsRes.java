@@ -52,13 +52,13 @@ public class ProductsRes implements Serializable {
     //sku图片地址
     private String proSkuSkuPic;
     //商品属性 key为属性id+属性类型，value为属性值
-    private Map<String, HashSet> attributeMap;
+    private Map<String, HashSet<String>> attributeMap;
     //商品定价
     private String skuSellPriceJson;
     //定价类型
     private String skuSellPriceType;
     //sku创建时间
-    private Date skuGmtCreateTime;
+    private String skuGmtCreateTime;
 
     //店铺id
     private String shopId;
@@ -81,7 +81,7 @@ public class ProductsRes implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private Date gmtCreateTime;
+    private String gmtCreateTime;
 
 
 }

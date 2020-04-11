@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import java.util.HashMap;
@@ -21,11 +22,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+*/
 /**
  * @Author shichaoran
  * @Date 2020/4/10 15:40
  * @Version
- */
+ *//*
+
 public class SkuWarehouseRelations implements Function {
     private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
     @Autowired
@@ -47,3 +50,4 @@ public class SkuWarehouseRelations implements Function {
     }
 }
 
+*/

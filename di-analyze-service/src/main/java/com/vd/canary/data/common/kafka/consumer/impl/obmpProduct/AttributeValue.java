@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -10,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/11 10:47
- */
+ *//*
+
 public class AttributeValue implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(AttributeValue.class);
@@ -31,3 +34,4 @@ public class AttributeValue implements Function {
         productsTO.setValue_Name("红色");
     }
 }
+*/

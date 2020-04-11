@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -11,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/11 9:55
- */
+ *//*
+
 public class StoreProductRelations implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(StoreProductRelations.class);
@@ -34,3 +37,4 @@ public class StoreProductRelations implements Function {
 
     }
 }
+*/

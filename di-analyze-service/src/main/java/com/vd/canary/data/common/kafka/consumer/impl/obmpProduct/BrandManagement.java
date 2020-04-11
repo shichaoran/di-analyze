@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.vd.canary.core.bo.ResponseBO;
@@ -12,10 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/10 19:09
- */
+ *//*
+
 public class BrandManagement implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(BrandManagement.class);
@@ -29,12 +32,14 @@ public class BrandManagement implements Function {
 
         ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(productsTO.getProSkuBrandId());
         BrandManagementResp pro =  (BrandManagementResp)res.getData();
+*/
 /*
         productsTO.setBrandCode(pro.getBrandCode());
         productsTO.setBBrandName(pro.getBrandName());
         productsTO.setBrandLoge(pro.getBrandLogo());
         productsTO.setBrandShorthand(pro.getBrandShorthand());
-        productsTO.setBrandIntroduction(pro.getBrandIntroduction());*/
+        productsTO.setBrandIntroduction(pro.getBrandIntroduction());*//*
+
 
         productsTO.setBrandCode("222");
         productsTO.setBBrandName("钢材");
@@ -44,3 +49,4 @@ public class BrandManagement implements Function {
 
     }
 }
+*/

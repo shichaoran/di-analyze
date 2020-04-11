@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.alibaba.fastjson.JSON;
@@ -12,10 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+*/
 /**
  * @Author WangRuilin
  * @Date 2020/4/9 13:52
- */
+ *//*
+
 public class ProductSku implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductSku.class);
@@ -115,3 +118,4 @@ public class ProductSku implements Function {
 
     }
 }
+*/
