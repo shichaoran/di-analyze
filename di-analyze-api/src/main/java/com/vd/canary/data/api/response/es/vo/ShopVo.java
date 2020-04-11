@@ -31,7 +31,7 @@ public class ShopVo implements Serializable {
     private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
-    private String businessBrand;//品牌
+    private List<String> businessBrand;//品牌
     private String businessArea;//区域
     private String imageOrder;
     private String imageName; //名
@@ -163,13 +163,6 @@ public class ShopVo implements Serializable {
         this.imageName = imageName;
     }
 
-    public String getBusinessBrand() {
-        return businessBrand;
-    }
-
-    public void setBusinessBrand(String businessBrand) {
-        this.businessBrand = businessBrand;
-    }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -179,6 +172,14 @@ public class ShopVo implements Serializable {
 
     public String getBoothScheduledTime() {
         return boothScheduledTime;
+    }
+
+    public List<String> getBusinessBrand() {
+        return businessBrand;
+    }
+
+    public void setBusinessBrand(List<String> businessBrand) {
+        this.businessBrand = businessBrand;
     }
 
     public void setBoothScheduledTime(String boothScheduledTime) {
