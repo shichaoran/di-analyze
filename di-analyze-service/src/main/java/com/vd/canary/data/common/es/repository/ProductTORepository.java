@@ -8,14 +8,14 @@ import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 public interface ProductTORepository extends ElasticsearchRepository<ProductsTO, String> {
 
-    @Query("{\"bool\" : {\"must\" : {\"field\" : {\"content\" : \"?\"}}}}")
-    Page<ProductsTO> findByContent(String content, Pageable pageable);
+    //@Query("{\"bool\" : {\"must\" : {\"field\" : {\"content\" : \"?\"}}}}")
+    //Page<ProductsTO> findByContent(String content, Pageable pageable);
 
-    @Query("{\"bool\" : {\"must\" : {\"field\" : {\"firstCode.keyword\" : \"?\"}}}}")
-    Page<ProductsTO> findByFirstCode(String firstCode, Pageable pageable);
+    //@Query("{\"bool\" : {\"must\" : {\"field\" : {\"firstCode.keyword\" : \"?\"}}}}")
+    //Page<ProductsTO> findByFirstCode(String firstCode, Pageable pageable);
 
-    @Query("{\"bool\" : {\"must\" : {\"field\" : {\"secordCode.keyword\" : \"?\"}}}}")
-    Page<ProductsTO> findBySecordCode(String secordCode, Pageable pageable);
+    //@Query("{\"bool\" : {\"must\" : {\"field\" : {\"secordCode.keyword\" : \"?\"}}}}")
+    //Page<ProductsTO> findBySecordCode(String secordCode, Pageable pageable);
 
 
     //按userName like查询
