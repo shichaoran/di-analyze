@@ -8,7 +8,6 @@ import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
 import com.vd.canary.data.api.response.es.vo.CategoryVO;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
-import com.vd.canary.data.common.kafka.consumer.impl.obmpProduct.AttributeManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

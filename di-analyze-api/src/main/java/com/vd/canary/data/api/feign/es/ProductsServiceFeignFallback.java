@@ -10,7 +10,6 @@ import com.vd.canary.data.api.response.es.ProductsRes;
 import feign.hystrix.FallbackFactory;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 
@@ -37,7 +36,7 @@ public class ProductsServiceFeignFallback implements FallbackFactory<ProductsSer
             }
 
             @Override
-            public ResponseBO<CategoryRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) {
+            public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 

@@ -1,4 +1,4 @@
-/*
+
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import java.util.HashMap;
@@ -35,4 +35,4 @@ public class TestTable implements Function {
 
 
 }
-*/
+

@@ -1,6 +1,28 @@
+server:
+  port: 8878
+  undertow:
+    direct-buffers: true
+    io-threads: 4
+    worker-threads: 160
+
 spring:
+  datasource:
+    url: jdbc:mysql://192.168.5.11:3306/di_dataanalyze?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: QazWsx12345.
+  redis:
+    password: 12345678
+    cluster:
+      max-redirects: 5
+      nodes:
+      - 192.168.5.11:6379
+      - 192.168.5.12:6379
+      - 192.168.5.13:6379
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
   canal:
-    ip:192.168.1.1
+    ip:192.168.5.20
     port:11111
     topic-prefix: etl_timely.
     destination:
@@ -9,7 +31,7 @@ spring:
     password:
     dealy-limit: 2000
   kafka:
-    bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: 192.168.5.20:9092
     producer:
       acks: 1
       batch-size: 4096
@@ -27,16 +49,21 @@ spring:
       default-topic: etl_canal
   data:
     elasticsearch:
-      cluster-nodes: 127.0.0.1:9300
+      cluster-nodes: 192.168.5.20:9300
       cluster-name: binlog-es
       repositories:
         enabled: true
 
   elasticsearch:
     rest:
-      uris: http://192.168.0.211:9200
+      uris: http://192.168.5.20:9201
       username: elastic
       password: 123456
+
+
+
+
+
 
 
 
