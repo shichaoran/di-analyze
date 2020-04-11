@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="45e4dee8-4f31-44f9-b866-005800fee7a4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ShopTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/response/es/vo/ShopVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/response/es/vo/ShopVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/es/index/ShopTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/es/index/ShopTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/BoothBusiness.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/BoothBusiness.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/ProtocolAgreement.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/ProtocolAgreement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/StoreInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/StoreInfo.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1aLZ5rbuBOZmTWCYo86fNp2OMg3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/obmp-customer-api-1.0.3-SNAPSHOT1.jar!/" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.3045977" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.vd.canary.data.service.es.impl" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="DataAnalyzeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="di-analyze-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.vd.canary.data.DataAnalyzeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="45e4dee8-4f31-44f9-b866-005800fee7a4" name="Default Changelist" comment="" />
+      <created>1586516653656</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586516653656</updated>
+      <workItem from="1586516659686" duration="8501000" />
+      <workItem from="1586568654238" duration="24792000" />
+    </task>
+    <task id="LOCAL-00001" summary="更新">
+      <created>1586517541014</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586517541014</updated>
+    </task>
+    <task id="LOCAL-00002" summary="更新">
+      <created>1586526109345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1586526109345</updated>
+    </task>
+    <task id="LOCAL-00003" summary="更新">
+      <created>1586590691455</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586590691455</updated>
+    </task>
+    <task id="LOCAL-00004" summary="更新">
+      <created>1586597476168</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1586597476168</updated>
+    </task>
+    <task id="LOCAL-00005" summary="更新">
+      <created>1586598658863</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1586598658863</updated>
+    </task>
+    <task id="LOCAL-00006" summary="更新">
+      <created>1586599761123</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1586599761123</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser" timestamp="1586604826802">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586604826802" />
+    <state x="-1693" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586517303681">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1693" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586517303681" />
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2" timestamp="1586599759745">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599759745" />
+    <state x="-1500" y="457" key="FileChooserDialogImpl" timestamp="1586598384675">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1500" y="457" key="FileChooserDialogImpl/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586598384675" />
+    <state width="1258" height="492" key="GridCell.Tab.0.bottom" timestamp="1586599510292">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="492" key="GridCell.Tab.0.bottom/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599510292" />
+    <state width="1258" height="492" key="GridCell.Tab.0.center" timestamp="1586599510291">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="492" key="GridCell.Tab.0.center/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599510291" />
+    <state width="1258" height="492" key="GridCell.Tab.0.left" timestamp="1586599510291">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="492" key="GridCell.Tab.0.left/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599510291" />
+    <state width="1258" height="492" key="GridCell.Tab.0.right" timestamp="1586599510292">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="492" key="GridCell.Tab.0.right/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599510292" />
+    <state width="1293" height="411" key="GridCell.Tab.1.bottom" timestamp="1586599507652">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1293" height="411" key="GridCell.Tab.1.bottom/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599507652" />
+    <state width="1293" height="411" key="GridCell.Tab.1.center" timestamp="1586599507652">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1293" height="411" key="GridCell.Tab.1.center/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599507652" />
+    <state width="1293" height="411" key="GridCell.Tab.1.left" timestamp="1586599507652">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1293" height="411" key="GridCell.Tab.1.left/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599507652" />
+    <state width="1293" height="411" key="GridCell.Tab.1.right" timestamp="1586599507652">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1293" height="411" key="GridCell.Tab.1.right/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599507652" />
+    <state x="-2052" y="299" key="SettingsEditor" timestamp="1586598428828">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-2052" y="299" key="SettingsEditor/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586598428828" />
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2" timestamp="1586599773667">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586599773667" />
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog" timestamp="1586590712536">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586590712536" />
+    <state x="-1617" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1586605372237">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1617" y="315" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586605372237" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/di_analyze$DataAnalyzeApplication.ic" NAME="DataAnalyzeApplication Coverage Results" MODIFIED="1586581405986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
