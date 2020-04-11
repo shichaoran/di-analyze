@@ -84,21 +84,33 @@ public class ProductSku implements Function {
                 productsTO.setSkuIntroduce(entry.getValue());
             }
 
-           /* if(entry.getKey().equals("gmt_create_time")){
+            if(entry.getKey().equals("gmt_create_time")){
                 productsTO.setSkuGmtCreateTime(entry.getValue());
             }
             if(entry.getKey().equals("gmt_modify_time")){
                 productsTO.setSkuGmtModifyTime(entry.getValue());
-            }*/
-
-
-
-
+            }
 
 
         }
-
-        // updateES(messages);
+//
+//        1、主表
+//        tpye.eques("insert"){
+//            ProductTO produc;
+//            saveES(produc);
+//        }
+//        tpye.eques("update"){
+//            product = getProductByESService("id");
+//            updateESByID(product)
+//        }
+//        tpye.eques("delete"){
+//            product = getProductByESService("id");
+//            deleteByID(product)
+//        }
+//
+//        2、副表
+//        product = getProductByESService("id");
+//        updateESByID(product)
 
     }
 }

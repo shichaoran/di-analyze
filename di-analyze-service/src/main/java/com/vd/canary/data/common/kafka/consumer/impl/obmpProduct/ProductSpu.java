@@ -20,14 +20,14 @@ public class ProductSpu implements Function {
     @Override
     public void performES(String msg) {
         logger.info("ProductSpu.msg"+msg);
-        ProductsTO productsTO = new ProductsTO();
-
-        ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(productsTO.getProSkuSpuId());
-        ProductSpuDetailResp pro =  (ProductSpuDetailResp)res.getData();
-
-        productsTO.setSpuState(pro.getSpuState());
-        productsTO.setProSpuSpuPic(pro.getSpuPic());
-        productsTO.setSpuTitle(pro.getSpuTitle());
+//        ProductsTO productsTO = new ProductsTO();
+//
+//        ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(productsTO.getProSkuSpuId());
+//        ProductSpuDetailResp pro =  (ProductSpuDetailResp)res.getData();
+//
+//        productsTO.setSpuState(pro.getSpuState());
+//        productsTO.setProSpuSpuPic(pro.getSpuPic());
+//        productsTO.setSpuTitle(pro.getSpuTitle());
 
 
     }

@@ -79,9 +79,9 @@ public class ProductsTO implements Serializable {
      * 属性attribute_aggregation
      */
     //sku创建时间
-    private Date skuGmtCreateTime;
+    private String  skuGmtCreateTime;
     //sku修改时间
-    private Date skuGmtModifyTime;
+    private String  skuGmtModifyTime;
 
 
     /**
@@ -121,7 +121,7 @@ public class ProductsTO implements Serializable {
     /**
      * 商品属性 key为属性id+属性类型，value为属性值
      */
-    private Map<String, HashSet> attributeMap;
+    private Map<String, HashSet<String>> attributeMap;
 
 
     /**
@@ -214,9 +214,9 @@ public class ProductsTO implements Serializable {
      * sku_selling_price表   sku定价管理
      */
     //商品定价信息
-    private JSON skuSellPriceJson;
+    private String skuSellPriceJson;
     //定价类型
-    private String skuSellPriceType;
+    private Integer skuSellPriceType;
 
 
     /**
