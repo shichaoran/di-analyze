@@ -29,12 +29,18 @@ public class BrandManagement implements Function {
 
         ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(productsTO.getProSkuBrandId());
         BrandManagementResp pro =  (BrandManagementResp)res.getData();
-
+/*
         productsTO.setBrandCode(pro.getBrandCode());
         productsTO.setBBrandName(pro.getBrandName());
         productsTO.setBrandLoge(pro.getBrandLogo());
         productsTO.setBrandShorthand(pro.getBrandShorthand());
-        productsTO.setBrandIntroduction(pro.getBrandIntroduction());
+        productsTO.setBrandIntroduction(pro.getBrandIntroduction());*/
+
+        productsTO.setBrandCode("222");
+        productsTO.setBBrandName("钢材");
+        productsTO.setBrandLoge("2");
+        productsTO.setBrandShorthand("钢");
+        productsTO.setBrandIntroduction("钢铁是什么");
 
     }
 }

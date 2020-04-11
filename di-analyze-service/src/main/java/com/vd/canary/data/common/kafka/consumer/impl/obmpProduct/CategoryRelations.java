@@ -27,7 +27,6 @@ public class CategoryRelations implements Function {
 //
 //        ResponseBO<BrandManagementResp> res = categoryRelationsFeign.listByIds(productsTO.getThreeCategoryId());
 //        BrandManagementResp pro =  (BrandManagementResp)res.getData();
-//
 //        productsTO.setBrandCode(pro.getBrandCode());
 
 

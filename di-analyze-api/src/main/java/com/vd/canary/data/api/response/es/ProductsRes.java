@@ -54,7 +54,7 @@ public class ProductsRes implements Serializable {
     //商品属性 key为属性id+属性类型，value为属性值
     private Map<String, HashSet> attributeMap;
     //商品定价
-    private JSON skuSellPriceJson;
+    private String skuSellPriceJson;
     //定价类型
     private String skuSellPriceType;
     //sku创建时间

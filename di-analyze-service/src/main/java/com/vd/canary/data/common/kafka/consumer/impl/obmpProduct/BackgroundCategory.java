@@ -29,7 +29,7 @@ public class BackgroundCategory implements Function {
         ResponseBO<CategoryBackgroundResp> res = backgroundCategoryFeign.getParent(categoryBackgroundReq);
         CategoryBackgroundResp pro =  (CategoryBackgroundResp)res.getData();
         if (pro.getParentId() != null) {
-            productsTO.setTwoCategoryCode(pro.getCategoryCode());
+       /*     productsTO.setTwoCategoryCode(pro.getCategoryCode());
             productsTO.setTwoCategoryName(pro.getCategoryName());
             productsTO.setTwoCategoryId(pro.getParentId());
 
@@ -39,7 +39,15 @@ public class BackgroundCategory implements Function {
 
             productsTO.setOneCategoryCode(pro1.getCategoryCode());
             productsTO.setOneCategoryName(pro1.getCategoryName());
-            productsTO.setOneCategoryId(pro1.getParentId());
+            productsTO.setOneCategoryId(pro1.getParentId());*/
+
+            productsTO.setTwoCategoryCode("11");
+            productsTO.setTwoCategoryName("钢铁");
+            productsTO.setTwoCategoryId("2");
+
+            productsTO.setOneCategoryCode("12");
+            productsTO.setOneCategoryName("木材");
+            productsTO.setOneCategoryId("222");
         }
 
     }

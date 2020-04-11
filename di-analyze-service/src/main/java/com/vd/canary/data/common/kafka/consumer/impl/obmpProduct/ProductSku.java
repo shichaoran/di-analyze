@@ -1,6 +1,8 @@
 package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.common.es.index.ProductsTO;
 import org.slf4j.Logger;
@@ -84,21 +86,32 @@ public class ProductSku implements Function {
                 productsTO.setSkuIntroduce(entry.getValue());
             }
 
-           /* if(entry.getKey().equals("gmt_create_time")){
+            if(entry.getKey().equals("gmt_create_time")){
                 productsTO.setSkuGmtCreateTime(entry.getValue());
             }
             if(entry.getKey().equals("gmt_modify_time")){
                 productsTO.setSkuGmtModifyTime(entry.getValue());
-            }*/
-
-
-
-
-
+            }
 
         }
+        ProductESServiceImpl productESService = new ProductESServiceImpl();
 
-        // updateES(messages);
+        Gson gson = new Gson();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = gson.fromJson(msg, map.getClass());
+        String type=(String) map.get("type");
+
+        if (type.equals("insert")){
+            productESService.saveProduct(productsTO);
+        }
+        if (type.equals("update")){
+            productESService.findById(productsTO.getSkuId());
+            productESService.updateProduct(productsTO);
+            productESService.saveProduct(productsTO);
+        }
+        if (type.equals("delete")){
+            productESService.deletedProductById(productsTO.getSkuId());
+        }
 
     }
 }

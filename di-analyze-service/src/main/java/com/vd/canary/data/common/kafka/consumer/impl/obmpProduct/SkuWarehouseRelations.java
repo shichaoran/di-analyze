@@ -35,11 +35,7 @@ public class SkuWarehouseRelations implements Function {
         logger.info("StoreInfo.msg"+msg);
         ResponseBO<SkuWarehouseRelationsVO> res = skuWarehouseRelationsFeign.get("");
         SkuWarehouseRelationsVO skuWarehouseRelationsVO = (SkuWarehouseRelationsVO)res.getData();
-        skuWarehouseRelationsVO.getWarehouseId();
-        skuWarehouseRelationsVO.getWarehouseName();
-        skuWarehouseRelationsVO.getInventory();
-        skuWarehouseRelationsVO.getRegionalId();
-        skuWarehouseRelationsVO.getRegionalName();
+
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
         ProductsTO productsTO = new ProductsTO();
@@ -49,5 +45,5 @@ public class SkuWarehouseRelations implements Function {
         productsTO.setRegionalName(skuWarehouseRelationsVO.getRegionalName());
         productsTO.setRegionalId(skuWarehouseRelationsVO.getRegionalId());
     }
-    }
+}
 
