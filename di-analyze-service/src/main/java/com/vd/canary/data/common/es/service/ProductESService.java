@@ -13,11 +13,11 @@ public interface ProductESService {
     void batchAddProduct(List<ProductsTO> products);
 
     // 删除商品
-    void deletedUserById(String id);
+    void deletedProductById(String id);
 
-    //
+    //通过商品id更新商品信息
     void updateProduct(ProductsTO product);
 
-    List<ProductsTO> queryByProductName(String userName);
+
 
 }

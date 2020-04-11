@@ -241,6 +241,9 @@ public class ProductsTO implements Serializable {
     private String storeId;
     //店铺分类id
     private String categoryId;
+    // 店铺名称
+    @Field(type = FieldType.Keyword)
+    private String storeName;
 
     /**
     * warehouse_management表    仓库管理

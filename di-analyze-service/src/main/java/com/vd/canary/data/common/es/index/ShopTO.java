@@ -40,6 +40,7 @@ public class ShopTO implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
+    @Field(type = FieldType.Nested, includeInParent = true)
     private List<ShopRes> shopRes;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID

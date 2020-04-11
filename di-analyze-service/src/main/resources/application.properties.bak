@@ -26,15 +26,17 @@ spring:
     template:
       default-topic: etl_canal
   data:
-      elasticsearch:
-        cluster-nodes: 127.0.0.1:9300
-        cluster-name: binlog-es
-        repositories:
-          enabled: true
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: binlog-es
+      repositories:
+        enabled: true
 
-
-
-
+  elasticsearch:
+    rest:
+      uris: http://192.168.0.211:9200
+      username: elastic
+      password: 123456
 
 
 
