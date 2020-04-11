@@ -1,4 +1,4 @@
-package com.vd.canary.data.service.es.impl;
+package com.vd.canary.data.common.es.index;
 
 import com.vd.canary.data.api.response.es.ShopRes;
 import lombok.Data;
@@ -11,6 +11,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 /**
  * @Author shichaoran
  * @Date 2020/4/6 10:37
@@ -21,10 +26,12 @@ import java.util.Map;
 @Setter
 @ToString
 @Accessors(chain = true)
-
+@Document(indexName = "shopindex", type = "shop", shards = 5, replicas = 2)
 public class ShopTO implements Serializable {
-    private String name; //店铺名称
+    @Id
     private String id; //店铺id
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    private String name; //店铺名称
     private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
@@ -33,6 +40,7 @@ public class ShopTO implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
+    @Field(type = FieldType.Nested, includeInParent = true)
     private List<ShopRes> shopRes;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID

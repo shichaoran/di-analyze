@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import javax.management.relation.Role;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +31,13 @@ public class ShopVo implements Serializable {
     private String boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
-    private List<Map<String,String>> businessBrand;//品牌
+    private HashSet<String> businessBrand;//品牌
     private String businessArea;//区域
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
     private List<ShopRes> shopRes;
-    private Map<String, String> classify;
+    private HashSet<String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
@@ -62,13 +63,7 @@ public class ShopVo implements Serializable {
         return id;
     }
 
-    public List<Map<String, String>> getBusinessBrand() {
-        return businessBrand;
-    }
 
-    public void setBusinessBrand(List<Map<String, String>> businessBrand) {
-        this.businessBrand = businessBrand;
-    }
 
     public String getBoothCode() {
         return boothCode;
@@ -100,10 +95,6 @@ public class ShopVo implements Serializable {
     }
 
 
-
-    public Map<String, String> getClassify() {
-        return classify;
-    }
 
     public String getCustomerId() {
         return customerId;
@@ -157,6 +148,22 @@ public class ShopVo implements Serializable {
         this.shopRes = shopRes;
     }
 
+    public HashSet<String> getBusinessBrand() {
+        return businessBrand;
+    }
+
+    public void setBusinessBrand(HashSet<String> businessBrand) {
+        this.businessBrand = businessBrand;
+    }
+
+    public HashSet<String> getClassify() {
+        return classify;
+    }
+
+    public void setClassify(HashSet<String> classify) {
+        this.classify = classify;
+    }
+
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
@@ -175,7 +182,4 @@ public class ShopVo implements Serializable {
         this.boothScheduledTime = boothScheduledTime;
     }
 
-    public void setClassify(Map<String, String> classify) {
-        this.classify = classify;
-    }
 }

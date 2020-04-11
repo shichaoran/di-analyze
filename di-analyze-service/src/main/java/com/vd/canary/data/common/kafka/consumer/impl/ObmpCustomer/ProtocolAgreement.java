@@ -2,7 +2,9 @@ package com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer;
 
 import com.alibaba.fastjson.JSON;
 import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.data.api.response.es.ShopRes;
 import com.vd.canary.data.api.response.es.vo.ShopVo;
+import com.vd.canary.data.common.es.index.ProductsTO;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
 import com.vd.canary.obmp.customer.api.response.store.vo.StoreMediaVO;
@@ -20,18 +22,36 @@ import java.util.Set;
  */
 public class ProtocolAgreement implements Function {
     private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
-    private StoreMediaFeignClient storeMediaFeignClient;
+
     @Override
     public void performES(String msg) {
-        logger.info("StoreInfo.msg"+msg);
-        ResponseBO<StoreMediaVO> res = storeMediaFeignClient.get("");
-        StoreMediaVO storeMediaVO = (StoreMediaVO)res.getData();
-        storeMediaVO.getMediaUrl();
-        storeMediaVO.getStoreTemplateId();
+        logger.info("StoreInfo.msg" + msg);
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
+        ProductsTO productsTO = new ProductsTO();
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        ShopVo shopVo = new ShopVo();
-        shopVo.setMediaUrl(storeMediaVO.getMediaUrl());
-        shopVo.setStoreTemplateId(storeMediaVO.getStoreTemplateId());
+        ShopRes shopRes = new ShopRes();
+        for (Map.Entry<String, String> entry : entries) {
+            if (entry.getKey().equals("")
+            ) {
+                logger.info("key={},value={}" + entry.getKey(), entry.getValue());
+                productsTO.getSkuId();
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkuID(productsTO.getSkuId());
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkuName(productsTO.getProSkuSkuName());
+
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkuName(productsTO.getProSkuSkuName());
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkupic(productsTO.getProSkuSkuPic());
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkuprice(productsTO.getSkuSellPriceJson());
+            } else if (entry.getKey().equals("")) {
+                shopRes.setSkuSubtitle(productsTO.getProSkuTitle());
+            } else if (entry.getKey().equals("")) {
+                shopRes.setUnit(productsTO.getSkuValuationUnit());
+            }
+        }
+
     }
 }
