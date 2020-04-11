@@ -214,7 +214,7 @@ public class ProductsTO implements Serializable {
      * sku_selling_price表   sku定价管理
      */
     //商品定价信息
-    private JSON skuSellPriceJson;
+    private String skuSellPriceJson;
     //定价类型
     private String skuSellPriceType;
 

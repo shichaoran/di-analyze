@@ -2,6 +2,7 @@ package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.request.es.CustomerReq;
+import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
 import com.vd.canary.data.api.response.es.ShopRes;
@@ -52,6 +53,17 @@ public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFe
              */
             @Override
             public ResponseBO<ShopPageReq> getID(@Valid CustomerReq customerReq) {
+                return null;
+            }
+
+            /**
+             * Detail
+             * shangpin
+             *
+             * @param productList
+             */
+            @Override
+            public ResponseBO<ShopRes> getList(@Valid ProductListReq productList) {
                 return null;
             }
         };

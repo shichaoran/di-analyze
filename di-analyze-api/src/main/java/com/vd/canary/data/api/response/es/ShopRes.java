@@ -1,5 +1,6 @@
 package com.vd.canary.data.api.response.es;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,4 +53,5 @@ public class ShopRes implements Serializable {
      */
     private String unit;
 
+    private String priceType;
 }
