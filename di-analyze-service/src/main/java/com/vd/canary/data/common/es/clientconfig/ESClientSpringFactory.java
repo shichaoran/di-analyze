@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.es.configuration;
+package com.vd.canary.data.common.es.clientconfig;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;

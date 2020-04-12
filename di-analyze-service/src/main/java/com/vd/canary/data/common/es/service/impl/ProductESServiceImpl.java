@@ -1,73 +1,96 @@
 package com.vd.canary.data.common.es.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.vd.canary.data.api.request.es.ProductsReq;
-import com.vd.canary.data.common.es.index.ProductsTO;
+import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
+import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
 import com.vd.canary.data.util.JsonUtils;
 import com.vd.canary.utils.DateUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
-//import org.elasticsearch.action.update.UpdateRequest;
-//import org.elasticsearch.common.unit.DistanceUnit;
-//import org.elasticsearch.index.query.BoolQueryBuilder;
-//import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
-//import org.elasticsearch.index.query.Operator;
-//import org.elasticsearch.index.query.QueryBuilder;
-//import org.elasticsearch.index.query.QueryBuilders;
-//import org.elasticsearch.index.query.QueryStringQueryBuilder;
-//import org.elasticsearch.index.query.RangeQueryBuilder;
-//import org.elasticsearch.index.query.TermQueryBuilder;
-//import org.elasticsearch.index.query.WildcardQueryBuilder;
-//import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-//import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
-//import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
-//import org.elasticsearch.search.sort.SortBuilders;
-//import org.elasticsearch.search.sort.SortOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-//import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-//import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-//import org.springframework.data.elasticsearch.core.query.IndexQuery;
-//import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-//import org.springframework.data.elasticsearch.core.query.SearchQuery;
-//import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 商品 ES 业务逻辑实现类
  *
  */
+@Slf4j
 @Data
 @Service
 public class ProductESServiceImpl implements ProductESService {
 
-//    @Autowired
-//    private ProductTORepository productRepository;
-//
-//    @Autowired
-//    //private ElasticsearchTemplate elasticsearchTemplate;
-//    private ElasticsearchRestTemplate elasticsearchTemplate;
-//
-//    //新增商品信息
-//    @Override
-//    public void saveProduct(ProductsTO product) {
-//
-//        productRepository.save(product);
-//    }
+    // 索引
+    private String indexName="productindex";
+
+    //类型
+    private String esType="producttype";
+
+    // 创建索引
+    public String createIndex() {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            if (ElasticsearchUtil.createIndex(indexName)) {//index json file!!!!
+                return "Create productindex success.";
+            } else {
+                return "Create productindex failure！";
+            }
+        } else {
+            return "Productindex exist！";
+        }
+    }
+
+    //新增商品信息
+    @Deprecated
+    public String saveProduct(ProductsTO product) throws IOException {
+        JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
+        String id = ElasticsearchUtil.addData(jsonObject,indexName,product.getSkuId());
+        if(StringUtils.isNotBlank(id)){
+            return "SaveProduct success.";
+        }
+        else{
+            return "SaveProduct failure!";
+        }
+    }
+
+    //新增或修改商品信息
+    public void saveOrUpdateProduct(ProductsTO product) throws IOException {
+        if(product == null || StringUtils.isEmpty(product.getSkuId()) ){
+            return ;
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName);
+        }
+        if(ElasticsearchUtil.existById(indexName,product.getSkuId())){
+            Map content = JSONObject.parseObject(JSONObject.toJSONString(product), Map.class);
+            ElasticsearchUtil.updateData(content,indexName,product.getSkuId());
+            log.info("indexName:{},skuid:{},update product .",indexName, product.getSkuId());
+        }else{
+            JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
+            String id = ElasticsearchUtil.addData(jsonObject,indexName,product.getSkuId());
+            log.info("indexName:{},skuid:{},save product return id: {}",indexName, product.getSkuId(),id);
+        }
+    }
+
+
 //
 //    // 批量新增商品信息
 //    @Override

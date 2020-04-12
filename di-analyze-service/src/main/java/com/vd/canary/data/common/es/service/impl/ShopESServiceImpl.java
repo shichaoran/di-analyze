@@ -1,24 +1,82 @@
 package com.vd.canary.data.common.es.service.impl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import com.vd.canary.data.common.es.index.ShopTO;
+import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
+import com.vd.canary.data.common.es.model.ShopTO;
 import com.vd.canary.data.util.JsonUtils;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-//import org.elasticsearch.action.update.UpdateRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-//import org.springframework.data.elasticsearch.core.query.IndexQuery;
-//import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.stereotype.Service;
 
+/**
+ * 店铺 ES 业务逻辑实现类
+ *
+ */
+@Slf4j
 @Data
 @Service
 public class ShopESServiceImpl {
+
+    // 索引
+    private String indexName="shopindex";
+
+    //类型
+    private String esType="shoptype";
+
+    // 创建索引
+    public String createIndex() {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            if (ElasticsearchUtil.createIndex(indexName)) {//index json file!!!!
+                return "create shopindex success.";
+            } else {
+                return "create shopindex failure！";
+            }
+        } else {
+            return "shopindex exist！";
+        }
+    }
+
+    //新增店铺信息
+    @Deprecated
+    public String saveShop(ShopTO shop) throws IOException {
+        JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(shop).toString());
+        String id = ElasticsearchUtil.addData(jsonObject,indexName,shop.getId());
+        if(StringUtils.isNotBlank(id)){
+            return "Save Shop success.";
+        }
+        else{
+            return "Save Shop failure!";
+        }
+    }
+
+    //新增或修改店铺信息
+    public void saveOrUpdateProduct(ShopTO shop) throws IOException {
+        if(shop == null || StringUtils.isEmpty(shop.getId()) ){
+            return ;
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName);
+        }
+        if(ElasticsearchUtil.existById(indexName,shop.getId())){
+            Map content = JSONObject.parseObject(JSONObject.toJSONString(shop), Map.class);
+            ElasticsearchUtil.updateData(content,indexName,shop.getId());
+            log.info("indexName:{},skuid:{},update shop .",indexName, shop.getId());
+        }else{
+            JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(shop).toString());
+            String id = ElasticsearchUtil.addData(jsonObject,indexName,shop.getId());
+            log.info("indexName:{},skuid:{},save shop return id: {}",indexName, shop.getId(),id);
+        }
+    }
 
 //    @Autowired
 //    private ElasticsearchTemplate elasticsearchTemplate;

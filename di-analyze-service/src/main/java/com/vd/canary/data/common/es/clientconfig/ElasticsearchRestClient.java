@@ -1,17 +1,6 @@
-package com.vd.canary.data.common.es.configuration;
+package com.vd.canary.data.common.es.clientconfig;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Arrays;
-import java.util.Objects;
 
 @Configuration
 public class ElasticsearchRestClient {

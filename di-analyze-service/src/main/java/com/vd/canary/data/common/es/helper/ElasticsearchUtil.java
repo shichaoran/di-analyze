@@ -1,6 +1,8 @@
 package com.vd.canary.data.common.es.helper;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -23,6 +25,7 @@ import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.SearchHit;
@@ -45,12 +48,14 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class ElasticsearchUtil {
+public class ElasticsearchUtil<T> {
 
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
     private static RestHighLevelClient client;
+
+    private static ObjectMapper mapper = new ObjectMapper();
 
     /**
      * spring容器初始化的时候执行该方法
@@ -66,7 +71,6 @@ public class ElasticsearchUtil {
      *
      * @param index 索引，类似数据库
      * @return boolean
-     * @auther: LHL
      */
     public static boolean isIndexExist(String index) {
         boolean exists = false;
@@ -88,7 +92,6 @@ public class ElasticsearchUtil {
      *
      * @param: indexName  索引，类似数据库
      * @return: boolean
-     * @auther: LHL
      */
     public static boolean createIndex(String indexName) {
         if (!isIndexExist(indexName)) {
@@ -157,7 +160,7 @@ public class ElasticsearchUtil {
         return createIndexResponse.isAcknowledged();
     }
 
-    public static boolean exists(String index, String id) throws IOException {
+    public static boolean existById(String index, String id) throws IOException {
         GetRequest getRequest = new GetRequest(index, id);
         boolean exists = client.exists(getRequest, RequestOptions.DEFAULT);
         log.info("exists: {}", exists);
@@ -171,8 +174,14 @@ public class ElasticsearchUtil {
      * @param indexName 索引，类似数据库
      * @param id        id
      * @return String
-     * @auther: LHL
      */
+    public static String addData(JSONObject content, String indexName, String id) throws IOException {
+        IndexResponse response = null;
+        IndexRequest request = new IndexRequest(indexName).id(id).source(mapper.writeValueAsString(content), XContentType.JSON);
+        response = client.index(request, RequestOptions.DEFAULT);
+        log.info("addData response status:{},id:{}", response.status().getStatus(), response.getId());
+        return response.getId();
+    }
     public static String addData(XContentBuilder content, String indexName, String id) throws IOException {
         IndexResponse response = null;
         IndexRequest request = new IndexRequest(indexName).id(id).source(content);
@@ -181,7 +190,6 @@ public class ElasticsearchUtil {
         return response.getId();
     }
 
-
     /**
      * 数据修改
      *
@@ -189,8 +197,14 @@ public class ElasticsearchUtil {
      * @param indexName 索引，类似数据库
      * @param id        id
      * @return String
-     * @auther: LHL
      */
+    public static String updateData(Map<String, Object> content, String indexName, String id) throws IOException {
+        UpdateResponse response = null;
+        UpdateRequest request = new UpdateRequest(indexName, id).doc(content);
+        response = client.update(request, RequestOptions.DEFAULT);
+        log.info("updateData response status:{},id:{}", response.status().getStatus(), response.getId());
+        return response.getId();
+    }
     public static String updateData(XContentBuilder content, String indexName, String id) throws IOException {
         UpdateResponse response = null;
         UpdateRequest request = new UpdateRequest(indexName, id).doc(content);
@@ -205,7 +219,6 @@ public class ElasticsearchUtil {
      * @param builder   要删除的数据  new TermQueryBuilder("userId", userId)
      * @param indexName 索引，类似数据库
      * @return
-     * @auther: LHL
      */
     public static void deleteByQuery(String indexName, QueryBuilder builder) {
         DeleteByQueryRequest request = new DeleteByQueryRequest(indexName);
@@ -225,7 +238,6 @@ public class ElasticsearchUtil {
      *
      * @param indexName
      * @param id
-     * @auther LHL
      */
     public static void deleteData(String indexName, String id) throws IOException {
         DeleteRequest deleteRequest = new DeleteRequest(indexName, id);
@@ -237,7 +249,6 @@ public class ElasticsearchUtil {
      * 清空记录
      *
      * @param indexName
-     * @auther: LHL
      */
     public static void clear(String indexName) {
         DeleteRequest deleteRequest = new DeleteRequest(indexName);
@@ -378,7 +389,6 @@ public class ElasticsearchUtil {
      *
      * @param: [hit, highlightField]
      * @return: java.util.Map<java.lang.String, java.lang.Object>
-     * @auther: LHL
      */
     private static Map<String, Object> getResultMap(SearchHit hit, String highlightField) {
         hit.getSourceAsMap().put("id", hit.getId());
@@ -431,7 +441,6 @@ public class ElasticsearchUtil {
      *
      * @param: [response, highlightField]
      * @return: java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
-     * @auther: LHL
      */
     private static List<Map<String, Object>> disposeScrollResult(SearchResponse response, String highlightField) {
         List<Map<String, Object>> sourceList = new ArrayList<>();
