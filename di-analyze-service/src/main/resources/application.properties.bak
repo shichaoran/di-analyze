@@ -45,14 +45,8 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       bootstrap-servers: 192.168.5.20:9092
-  data:
-    elasticsearch:
-      cluster-nodes: 192.168.5.20:9300
-      cluster-name: binlog-es
-      repositories:
-        enabled: true
-  elasticsearch:
-    rest:
-      uris: http://192.168.5.20:9201
-      username: elastic
-      password: 123456
+  elasticSearch:
+    hostlist: 192.168.5.20:9201
+    client:
+      connectNum: 10
+      connectPerRoute: 50

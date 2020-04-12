@@ -8,7 +8,6 @@ import java.util.Optional;
 import com.google.common.collect.Lists;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.common.es.index.ProductsTO;
-import com.vd.canary.data.common.es.repository.ProductTORepository;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
 import com.vd.canary.data.util.JsonUtils;

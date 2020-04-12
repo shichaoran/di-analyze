@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.vd.canary.data.common.es.index.ProductsTO;
-import com.vd.canary.data.common.es.repository.ProductTORepository;
 //import org.elasticsearch.index.query.MatchQueryBuilder;
 //import org.elasticsearch.index.query.QueryBuilders;
 //import org.elasticsearch.search.aggregations.Aggregation;
