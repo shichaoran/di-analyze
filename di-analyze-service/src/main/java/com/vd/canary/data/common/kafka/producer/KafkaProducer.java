@@ -19,17 +19,18 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /*
  * kafka 生产者
  */
-@Component
+@Service
 public class KafkaProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
 
     @Autowired
-    KafkaTemplate kafkaTemplate;
+    private KafkaTemplate kafkaTemplate;
 
     public void createTopic(String host,String topic,int partNum,short repeatNum) {
         Properties props = new Properties();
@@ -42,6 +43,17 @@ public class KafkaProducer {
         adminClient.createTopics(topicList);
 
         adminClient.close(10, TimeUnit.SECONDS);
+    }
+
+    public void sendSyncHello(String topic, String message) throws InterruptedException, ExecutionException {
+        logger.debug("发送信息");
+        try {
+            kafkaTemplate.send(topic, message).get();
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.debug("消费成功"+System.currentTimeMillis());
     }
 
     /**
@@ -89,7 +101,6 @@ public class KafkaProducer {
         kafkaTemplate.send(record);
         return new AsyncResult<>("send kafka message accomplished!");
     }
-
 
 
 }

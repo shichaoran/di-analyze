@@ -13,10 +13,10 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.w3c.dom.Text;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.elasticsearch.annotations.Document;
+//import org.springframework.data.elasticsearch.annotations.Field;
+//import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * 所以实体类，
@@ -30,31 +30,31 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @AllArgsConstructor
 @ToString
 @Accessors(chain = true)
-@Document(indexName = "productindex", type = "product", shards = 5, replicas = 2)
+//@Document(indexName = "productindex", type = "product", shards = 5, replicas = 2)
 public class ProductsTO implements Serializable {
 
-    @Id
+    //@Id
     private String skuId;
     //品牌id
-    @Field(type = FieldType.Keyword)
+    //@Field(type = FieldType.Keyword)
     private String proSkuBrandId;
     //spuid
     private String proSkuSpuId;
     //spu编码
     private String proSkuSpuCode;
     //spu名称
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String proSkuSpuName;
     //sku编码
     private String proSkuSkuCode;
     //sku名称
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String proSkuSkuName;
     //sku标题
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String proSkuTitle;
     //sku副标题
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String proSkuSubTitle;
     //后台三级分类id
     private String threeCategoryId;
@@ -65,7 +65,7 @@ public class ProductsTO implements Serializable {
     //供应商id
     private String skuSupplierId;
     //供应商名称
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String skuSupplierName;
     //sku状态
     private String skuState;
@@ -242,7 +242,7 @@ public class ProductsTO implements Serializable {
     //店铺分类id
     private String categoryId;
     // 店铺名称
-    @Field(type = FieldType.Keyword)
+    //@Field(type = FieldType.Keyword)
     private String storeName;
 
     /**

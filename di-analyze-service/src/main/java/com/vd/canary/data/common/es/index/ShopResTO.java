@@ -8,24 +8,24 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+//import org.springframework.data.annotation.Id;
+//import org.springframework.data.elasticsearch.annotations.Document;
+//import org.springframework.data.elasticsearch.annotations.Field;
+//import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Data
 @Getter
 @Setter
 @ToString
 @Accessors(chain = true)
-@Document(indexName = "shopresindex", type = "shopres", shards = 5, replicas = 2)
+//@Document(indexName = "shopresindex", type = "shopres", shards = 5, replicas = 2)
 public class ShopResTO implements Serializable {
-    @Id
+    //@Id
     private String skuID;
     /**
      * 商品名称
      */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String skuName;
     /**
      * 商品图片地址
@@ -38,7 +38,7 @@ public class ShopResTO implements Serializable {
     /**
      * 商品标题
      */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
+    //@Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String skuTitle;
     /**
      * 商品副标题

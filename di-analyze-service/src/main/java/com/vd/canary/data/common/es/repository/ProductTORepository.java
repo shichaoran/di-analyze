@@ -4,9 +4,10 @@ import java.util.List;
 import com.vd.canary.data.common.es.index.ProductsTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.annotations.Query;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-public interface ProductTORepository extends ElasticsearchRepository<ProductsTO, String> {
+//import org.springframework.data.elasticsearch.annotations.Query;
+//import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+//public interface ProductTORepository extends ElasticsearchRepository<ProductsTO, String> {
+public interface ProductTORepository {
 
     //@Query("{\"bool\" : {\"must\" : {\"field\" : {\"content\" : \"?\"}}}}")
     //Page<ProductsTO> findByContent(String content, Pageable pageable);

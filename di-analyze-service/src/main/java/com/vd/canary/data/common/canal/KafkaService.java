@@ -8,13 +8,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.vd.canary.data.common.kafka.producer.KafkaProducer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
+import javax.validation.constraints.Size;
+
 /**
  * 业务数据实时通过canalclient写入kafka，topic格式为:binglog_{database}_2r3p;
  */
+@Slf4j
 @Component
 public class KafkaService {
 
@@ -97,6 +101,7 @@ public class KafkaService {
                 }
                 map.put("info",map_info);
                 System.out.println(map);
+                log.info("========================>binlog send to kafka,topic:"+"binglog_" + schemaName + "_2r3p,msg:" + map);
                 kafkaProducer.send( "binglog_" + schemaName + "_2r3p", JSON.toJSONString(map)); // binglog_{database}_2r3p
             }
         }

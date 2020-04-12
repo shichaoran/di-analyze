@@ -1,6 +1,7 @@
 package com.vd.canary.data.common.canal;
 
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  *Canal client，目前没有直接配置Canal Service直接把数据打到kafka，而是通过转换后按固定的topic和固定额msg定制化打到kafka
@@ -27,26 +29,42 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "spring.canal")
 public class CanalClient implements CommandLineRunner {
+//    @Getter
+//    @Setter
+//    private String ip;
+//
+//    @Getter
+//    @Setter
+//    private Integer port;
+//
+//    @Getter
+//    @Setter
+//    private String username;
+//
+//    @Getter
+//    @Setter
+//    private String password;
+//
+//    @Getter
+//    @Setter
+//    private Map<String, String> destination;
 
-    @Getter
-    @Setter
+    @Value("${spring.canal.ip}")
     private String ip;
+    @Value("${spring.canal.port}")
+    private int port;
+    //@Value("${spring.canal.destination}")
+    private Map<String, String> destination = new HashMap<>(){{
+        put("example", "0");
+    }};
 
-    @Getter
-    @Setter
-    private Integer port;
+    //@Value("${spring.canal.username}")
+    private String username = "";
+    //@Value("${spring.canal.password}")
+    private String password = "";
 
-    @Getter
-    @Setter
-    private String username;
-
-    @Getter
-    @Setter
-    private String password;
-
-    @Getter
-    @Setter
-    private Map<String, String> destination;
+    //@Value("${canal.server.batchSize}")
+    private int batchSize = 1000;
 
     @Autowired
     KafkaService kafkaService;

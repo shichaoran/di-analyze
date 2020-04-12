@@ -49,7 +49,8 @@
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.client</artifactId>
-            <version>1.0.25</version>
+            <version>1.1.4</version>
+<!--            <version>1.0.25</version>-->
         </dependency>
         <dependency>
             <groupId>com.lmax</groupId>
@@ -57,17 +58,33 @@
             <version>3.4.2</version>
         </dependency>
 
+        <!--spring springframework -->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+
         <!-- kafka http api client start -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-            <!--<version>2.2.4.RELEASE</version> -->
+        </dependency>
+
+        <!-- <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
             <version>1.1.1</version>
-        </dependency>
+        </dependency> -->
 
         <!-- elasticsearch http api client -->
         <!--<dependency>
@@ -76,32 +93,43 @@
             <version>6.3.1</version>
             <version>5.3.3</version>
         </dependency> -->
-        <!-- Spring Boot Elasticsearch 2.2.0.RELEASE=>7.x -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-            <version>2.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.elasticsearch.plugin</groupId>
-            <artifactId>transport-netty3-client</artifactId>
-            <version>5.6.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-            <!-- <version>3.1.6.RELEASE</version> -->
-        </dependency>
 
-        <dependency>
+        <!-- Spring Boot Elasticsearch 2.2.0.RELEASE=>7.x -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
+<!--            <version>2.2.5.RELEASE</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.plugin</groupId>-->
+<!--            <artifactId>transport-netty4-client</artifactId>-->
+<!--            <version>7.4.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.data</groupId>-->
+<!--            <artifactId>spring-data-elasticsearch</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch</groupId>-->
+<!--            <artifactId>elasticsearch</artifactId>-->
+<!--            <version>7.4.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.client</groupId>-->
+<!--            <artifactId>elasticsearch-rest-high-level-client</artifactId>-->
+<!--            <version>7.4.0</version>-->
+<!--        </dependency>-->
+
+
+        <!--<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
+        </dependency> -->
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>

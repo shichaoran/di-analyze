@@ -17,34 +17,34 @@ import lombok.Data;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.action.update.UpdateRequest;
-import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
-import org.elasticsearch.index.query.RangeQueryBuilder;
-import org.elasticsearch.index.query.TermQueryBuilder;
-import org.elasticsearch.index.query.WildcardQueryBuilder;
-import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
-import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
-import org.elasticsearch.search.sort.SortBuilders;
-import org.elasticsearch.search.sort.SortOrder;
+//import org.elasticsearch.action.update.UpdateRequest;
+//import org.elasticsearch.common.unit.DistanceUnit;
+//import org.elasticsearch.index.query.BoolQueryBuilder;
+//import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
+//import org.elasticsearch.index.query.Operator;
+//import org.elasticsearch.index.query.QueryBuilder;
+//import org.elasticsearch.index.query.QueryBuilders;
+//import org.elasticsearch.index.query.QueryStringQueryBuilder;
+//import org.elasticsearch.index.query.RangeQueryBuilder;
+//import org.elasticsearch.index.query.TermQueryBuilder;
+//import org.elasticsearch.index.query.WildcardQueryBuilder;
+//import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
+//import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
+//import org.elasticsearch.search.sort.GeoDistanceSortBuilder;
+//import org.elasticsearch.search.sort.SortBuilders;
+//import org.elasticsearch.search.sort.SortOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.IndexQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.data.elasticsearch.core.query.UpdateQuery;
+//import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+//import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+//import org.springframework.data.elasticsearch.core.query.IndexQuery;
+//import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+//import org.springframework.data.elasticsearch.core.query.SearchQuery;
+//import org.springframework.data.elasticsearch.core.query.UpdateQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,158 +56,158 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Service
 public class ProductESServiceImpl implements ProductESService {
 
-    @Autowired
-    private ProductTORepository productRepository;
-
-    @Autowired
-    //private ElasticsearchTemplate elasticsearchTemplate;
-    private ElasticsearchRestTemplate elasticsearchTemplate;
-
-    //新增商品信息
-    @Override
-    public void saveProduct(ProductsTO product) {
-
-        productRepository.save(product);
-    }
-
-    // 批量新增商品信息
-    @Override
-    public void batchAddProduct(List<ProductsTO> products) {
-        if(CollectionUtils.isEmpty(products)) {
-            return ;
-        }
-        List<IndexQuery> queries = Lists.newArrayListWithExpectedSize(products.size());
-        IndexQuery indexItem  = null;
-        for(ProductsTO product :products) {
-            indexItem = new IndexQuery();
-            indexItem.setObject(product);
-            queries.add(indexItem);
-        }
-        elasticsearchTemplate.bulkIndex(queries);
-    }
-
-    //删除商品信息
-    @Override
-    public void deletedProductById(String id) {
-        productRepository.deleteById(id);
-    }
-
-    /**
-     * 根据productId更新信息
-     */
-    @Override
-    public void updateProduct(ProductsTO product) {
-        UpdateQuery updateQuery = new UpdateQuery();
-        updateQuery.setId(product.getSkuId().toString());
-        updateQuery.setClazz(ProductsTO.class);
-        product.setSkuId(null);
-        UpdateRequest request = new UpdateRequest();
-        try{
-            request.doc(JsonUtils.beanToJson(product));
-        }catch (Exception e){
-        }
-        updateQuery.setUpdateRequest(request);
-        elasticsearchTemplate.update(updateQuery);
-    }
-
-    public ProductsTO findById(String id) {
-        Optional<ProductsTO> productOptional= productRepository.findById(id);
-        return productOptional.get();
-    }
-
-    public Iterator<ProductsTO> findAll() {
-        return productRepository.findAll().iterator();
-    }
-
-
-    /**
-     * 功能：首页顶部商品搜索框通过 关键字 查询
-     * must 多条件 &（并且）   mustNot 多条件 != (非)   should 多条件 || (或)
-     */
-    public List<ProductsTO> boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
-        if (pageSize == null || pageSize <= 0) {
-            pageSize = Constant.ES_PAGE_SIZE;
-        }
-        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
-            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
-        }
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        /*
-        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSpuName", "*" + keyword + "*"));
-        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSkuName", "*" + keyword + "*"));
-        // 2  分词
-        if (StringUtils.isNotBlank(wayBill.getSendAddress())){
-            // 2 改进的第一个问题：北京市顺义区   北  京  市  北京  顺义 义区   这种方式允许查吗？
-            WildcardQueryBuilder sendAddressequeryBuilder1 = QueryBuilders.wildcardQuery("sendAddress", "*" + wayBill.getSendAddress() + "*");
-            // 3 改进的第二个问题：北京顺义    这种方式要被允许-->这种方式需要对 查询词条进行分词后   再进行查询
-            // QueryStringQueryBuilder此对象会对查询的词条分词后的各种情况进行分词查找
-            // 参数：就是前台传过来的查询内容
-            QueryStringQueryBuilder queryStringQueryBuilder = new QueryStringQueryBuilder(wayBill.getSendAddress()).field("sendAddress").defaultOperator(Operator.AND);
-            BoolQueryBuilder should = QueryBuilders.boolQuery().should(sendAddressequeryBuilder1).should(queryStringQueryBuilder);
-            boolQuery.must(should);
-        }
-        //地址
-        if (StringUtils.isNotBlank(wayBill.getRecAddress())){
-            WildcardQueryBuilder recAddressQuery = QueryBuilders.wildcardQuery("recAddress", "*" + wayBill.getRecAddress() + "*");
-            //改进   允许对词条分词后  在查询
-            QueryStringQueryBuilder recAddressQueryString = new QueryStringQueryBuilder(wayBill.getRecAddress()).field("recAddress").defaultOperator(Operator.AND);
-            //取并集
-            BoolQueryBuilder should = QueryBuilders.boolQuery().should(recAddressQuery).should(recAddressQueryString);
-            boolQuery.must(should);
-        }
-        // 执行分页
-        queryBuilder.withPageable(PageRequest.of(page-1,rows));
-        // 执行查询
-        queryBuilder.withQuery(boolQuery);
-        Page<ESWayBill> list = wayBillRepository.search(queryBuilder.build());
-        //拼接结果
-        DatagridResult result = new DatagridResult();
-        result.setTotal(list.getTotalElements());
-        result.setRows(list.getContent());
-        return result;*/
-
-        QueryBuilder query = QueryBuilders.boolQuery()
-                                          .should(QueryBuilders.termQuery("userId","2019040499"))  //精确查询
-                                          .should(QueryBuilders.wildcardQuery("proSkuSpuName","*"+req.getKey()+"*"))    //模糊查询
-                                          .should(QueryBuilders.wildcardQuery("proSkuSkuName","*"+req.getKey()+"*"))    //模糊查询
-                                          .should(QueryBuilders.wildcardQuery("proSkuTitle","*"+req.getKey()+"*"))    //模糊查询
-                                          .should(QueryBuilders.wildcardQuery("proSkuSubTitle","*"+req.getKey()+"*"))    //模糊查询
-                                          .should(QueryBuilders.wildcardQuery("skuSupplierName","*"+req.getKey()+"*"))    //模糊查询
-                                          .should(QueryBuilders.wildcardQuery("storeName.keyword","*"+req.getKey()+"*"));    //模糊查询
-                                          //.must(QueryBuilders.rangeQuery("createDate")
-                                          //                   .from(DateUtil.getDateTimeString())
-                                          //                   .to(DateUtil.getDateTimeString()));  //范围查询
-        if(!CollectionUtils.isEmpty(req.getBBrandId()) ){
-
-        }
-        if(!CollectionUtils.isEmpty(req.getFThreeCategoryName())){
-
-        }
-        if(!CollectionUtils.isEmpty(req.getBusinessArea())){
-
-        }
-        if(StringUtils.isNotBlank(req.getPriceSort())){
-
-        }
-        if(StringUtils.isNotBlank(req.getIsDiscussPrice())){
-
-        }
-        if(StringUtils.isNotBlank(req.getIsHaveHouse())){
-
-        }
-
-        //List<String> properties = new ArrayList<>();
-        //Sort sort = Sort.by(Sort.Direction.DESC, "createDate");//排序
-        //多条件排序
-        //Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"userId");
-        // Sort.Order order2 = new Sort.Order(Sort.Direction.ASC,"userId");
-        // Sort sortList = Sort.by(order1,order2);
-        //Pageable pageable = PageRequest.of(0, 10, sort);
-        Page<ProductsTO> userPage = productRepository.search(query, pageable);
-        return userPage.getContent();
-    }
+//    @Autowired
+//    private ProductTORepository productRepository;
+//
+//    @Autowired
+//    //private ElasticsearchTemplate elasticsearchTemplate;
+//    private ElasticsearchRestTemplate elasticsearchTemplate;
+//
+//    //新增商品信息
+//    @Override
+//    public void saveProduct(ProductsTO product) {
+//
+//        productRepository.save(product);
+//    }
+//
+//    // 批量新增商品信息
+//    @Override
+//    public void batchAddProduct(List<ProductsTO> products) {
+//        if(CollectionUtils.isEmpty(products)) {
+//            return ;
+//        }
+//        List<IndexQuery> queries = Lists.newArrayListWithExpectedSize(products.size());
+//        IndexQuery indexItem  = null;
+//        for(ProductsTO product :products) {
+//            indexItem = new IndexQuery();
+//            indexItem.setObject(product);
+//            queries.add(indexItem);
+//        }
+//        elasticsearchTemplate.bulkIndex(queries);
+//    }
+//
+//    //删除商品信息
+//    @Override
+//    public void deletedProductById(String id) {
+//        productRepository.deleteById(id);
+//    }
+//
+//    /**
+//     * 根据productId更新信息
+//     */
+//    @Override
+//    public void updateProduct(ProductsTO product) {
+//        UpdateQuery updateQuery = new UpdateQuery();
+//        updateQuery.setId(product.getSkuId().toString());
+//        updateQuery.setClazz(ProductsTO.class);
+//        product.setSkuId(null);
+//        UpdateRequest request = new UpdateRequest();
+//        try{
+//            request.doc(JsonUtils.beanToJson(product));
+//        }catch (Exception e){
+//        }
+//        updateQuery.setUpdateRequest(request);
+//        elasticsearchTemplate.update(updateQuery);
+//    }
+//
+//    public ProductsTO findById(String id) {
+//        Optional<ProductsTO> productOptional= productRepository.findById(id);
+//        return productOptional.get();
+//    }
+//
+//    public Iterator<ProductsTO> findAll() {
+//        return productRepository.findAll().iterator();
+//    }
+//
+//
+//    /**
+//     * 功能：首页顶部商品搜索框通过 关键字 查询
+//     * must 多条件 &（并且）   mustNot 多条件 != (非)   should 多条件 || (或)
+//     */
+//    public List<ProductsTO> boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
+//        if (pageSize == null || pageSize <= 0) {
+//            pageSize = Constant.ES_PAGE_SIZE;
+//        }
+//        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
+//            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
+//        }
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//        /*
+//        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+//        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+//        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSpuName", "*" + keyword + "*"));
+//        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSkuName", "*" + keyword + "*"));
+//        // 2  分词
+//        if (StringUtils.isNotBlank(wayBill.getSendAddress())){
+//            // 2 改进的第一个问题：北京市顺义区   北  京  市  北京  顺义 义区   这种方式允许查吗？
+//            WildcardQueryBuilder sendAddressequeryBuilder1 = QueryBuilders.wildcardQuery("sendAddress", "*" + wayBill.getSendAddress() + "*");
+//            // 3 改进的第二个问题：北京顺义    这种方式要被允许-->这种方式需要对 查询词条进行分词后   再进行查询
+//            // QueryStringQueryBuilder此对象会对查询的词条分词后的各种情况进行分词查找
+//            // 参数：就是前台传过来的查询内容
+//            QueryStringQueryBuilder queryStringQueryBuilder = new QueryStringQueryBuilder(wayBill.getSendAddress()).field("sendAddress").defaultOperator(Operator.AND);
+//            BoolQueryBuilder should = QueryBuilders.boolQuery().should(sendAddressequeryBuilder1).should(queryStringQueryBuilder);
+//            boolQuery.must(should);
+//        }
+//        //地址
+//        if (StringUtils.isNotBlank(wayBill.getRecAddress())){
+//            WildcardQueryBuilder recAddressQuery = QueryBuilders.wildcardQuery("recAddress", "*" + wayBill.getRecAddress() + "*");
+//            //改进   允许对词条分词后  在查询
+//            QueryStringQueryBuilder recAddressQueryString = new QueryStringQueryBuilder(wayBill.getRecAddress()).field("recAddress").defaultOperator(Operator.AND);
+//            //取并集
+//            BoolQueryBuilder should = QueryBuilders.boolQuery().should(recAddressQuery).should(recAddressQueryString);
+//            boolQuery.must(should);
+//        }
+//        // 执行分页
+//        queryBuilder.withPageable(PageRequest.of(page-1,rows));
+//        // 执行查询
+//        queryBuilder.withQuery(boolQuery);
+//        Page<ESWayBill> list = wayBillRepository.search(queryBuilder.build());
+//        //拼接结果
+//        DatagridResult result = new DatagridResult();
+//        result.setTotal(list.getTotalElements());
+//        result.setRows(list.getContent());
+//        return result;*/
+//
+//        QueryBuilder query = QueryBuilders.boolQuery()
+//                                          .should(QueryBuilders.termQuery("userId","2019040499"))  //精确查询
+//                                          .should(QueryBuilders.wildcardQuery("proSkuSpuName","*"+req.getKey()+"*"))    //模糊查询
+//                                          .should(QueryBuilders.wildcardQuery("proSkuSkuName","*"+req.getKey()+"*"))    //模糊查询
+//                                          .should(QueryBuilders.wildcardQuery("proSkuTitle","*"+req.getKey()+"*"))    //模糊查询
+//                                          .should(QueryBuilders.wildcardQuery("proSkuSubTitle","*"+req.getKey()+"*"))    //模糊查询
+//                                          .should(QueryBuilders.wildcardQuery("skuSupplierName","*"+req.getKey()+"*"))    //模糊查询
+//                                          .should(QueryBuilders.wildcardQuery("storeName.keyword","*"+req.getKey()+"*"));    //模糊查询
+//                                          //.must(QueryBuilders.rangeQuery("createDate")
+//                                          //                   .from(DateUtil.getDateTimeString())
+//                                          //                   .to(DateUtil.getDateTimeString()));  //范围查询
+//        if(!CollectionUtils.isEmpty(req.getBBrandId()) ){
+//
+//        }
+//        if(!CollectionUtils.isEmpty(req.getFThreeCategoryName())){
+//
+//        }
+//        if(!CollectionUtils.isEmpty(req.getBusinessArea())){
+//
+//        }
+//        if(StringUtils.isNotBlank(req.getPriceSort())){
+//
+//        }
+//        if(StringUtils.isNotBlank(req.getIsDiscussPrice())){
+//
+//        }
+//        if(StringUtils.isNotBlank(req.getIsHaveHouse())){
+//
+//        }
+//
+//        //List<String> properties = new ArrayList<>();
+//        //Sort sort = Sort.by(Sort.Direction.DESC, "createDate");//排序
+//        //多条件排序
+//        //Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"userId");
+//        // Sort.Order order2 = new Sort.Order(Sort.Direction.ASC,"userId");
+//        // Sort sortList = Sort.by(order1,order2);
+//        //Pageable pageable = PageRequest.of(0, 10, sort);
+//        Page<ProductsTO> userPage = productRepository.search(query, pageable);
+//        return userPage.getContent();
+//    }
 
     // 权重复杂相关查询 start
     /*@Override

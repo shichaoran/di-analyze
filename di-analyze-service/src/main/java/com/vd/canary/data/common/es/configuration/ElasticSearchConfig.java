@@ -4,12 +4,12 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringBootConfiguration;
 
-@SpringBootConfiguration
+//@SpringBootConfiguration
 public class ElasticSearchConfig {
 
-    @PostConstruct
-    void init() {
-        System.setProperty("es.set.netty.runtime.available.processors", "false");
-    }
+//    @PostConstruct
+//    void init() {
+//        System.setProperty("es.set.netty.runtime.available.processors", "false");
+//    }
 
 }

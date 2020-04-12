@@ -5,7 +5,9 @@ import java.util.List;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.EventHandler;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DisruptorConfig {
 
     //定义用来交换的数据类
@@ -35,6 +37,7 @@ public class DisruptorConfig {
         }
         @Override
         public void onEvent(Element element, long l, boolean b) throws Exception {
+            log.info("========================>binlog:"+element.getValue());
             kafkaService.sendMessage(element.getValue());
         }
     }
