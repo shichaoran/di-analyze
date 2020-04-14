@@ -1,18 +1,14 @@
 package com.vd.canary.data.api.response.es.vo;
 
-import ch.qos.logback.core.boolex.EvaluationException;
-import com.vd.canary.data.api.response.es.ShopRes;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import javax.management.relation.Role;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author shichaoran
@@ -20,15 +16,13 @@ import java.util.Map;
  * @Version
  */
 @Data
-@Getter
-@Setter
 @ToString
 @Accessors(chain = true)
 
 public class ShopVo implements Serializable {
     private String name; //店铺名称
     private String id; //店铺id
-    private String boothCode;//展厅编号
+    private List<String> boothCode;//展厅编号
     private String mediaUrl; //多媒体地址
     private String businessCategory; //经营类目
     private List<String> businessBrand;//品牌
@@ -36,12 +30,12 @@ public class ShopVo implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
-    private List<ShopRes> shopRes;
+    private List<ShopProductRes> shopProductRes;
     private HashSet<String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
-    private String boothScheduledTime; //入驻时间
+    private Date boothScheduledTime; //入驻时间
 
     public String getMainProducts() {
         return mainProducts;
@@ -63,11 +57,6 @@ public class ShopVo implements Serializable {
         return id;
     }
 
-
-
-    public String getBoothCode() {
-        return boothCode;
-    }
 
     public String getMediaUrl() {
         return mediaUrl;
@@ -95,7 +84,6 @@ public class ShopVo implements Serializable {
     }
 
 
-
     public String getCustomerId() {
         return customerId;
     }
@@ -112,10 +100,10 @@ public class ShopVo implements Serializable {
     }
 
 
-
-    public void setCustomerId(String customerId){
+    public void setCustomerId(String customerId) {
         customerId = customerId;
     }
+
     public void setId(String id) {
         id = id;
     }
@@ -140,15 +128,13 @@ public class ShopVo implements Serializable {
         this.imageOrder = imageOrder;
     }
 
-    public List<ShopRes> getShopRes() {
-        return shopRes;
+    public List<ShopProductRes> getShopProductRes() {
+        return shopProductRes;
     }
 
-    public void setShopRes(List<ShopRes> shopRes) {
-        this.shopRes = shopRes;
+    public void setShopProductRes(List<ShopProductRes> shopProductRes) {
+        this.shopProductRes = shopProductRes;
     }
-
-
 
 
     public HashSet<String> getClassify() {
@@ -169,11 +155,6 @@ public class ShopVo implements Serializable {
     }
 
 
-
-    public String getBoothScheduledTime() {
-        return boothScheduledTime;
-    }
-
     public List<String> getBusinessBrand() {
         return businessBrand;
     }
@@ -181,9 +162,5 @@ public class ShopVo implements Serializable {
     public void setBusinessBrand(List<String> businessBrand) {
         this.businessBrand = businessBrand;
     }
-
-    public void setBoothScheduledTime(String boothScheduledTime) {
-        this.boothScheduledTime = boothScheduledTime;
-    }
-
 }
+

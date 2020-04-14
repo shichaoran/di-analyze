@@ -1,7 +1,7 @@
 package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.data.api.feign.es.ShopServiceFeign;
-import com.vd.canary.data.api.response.es.ShopRes;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.es.index.ShopTO;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
@@ -10,9 +10,7 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Author shichaoran
@@ -40,15 +38,15 @@ public class ShopTest implements Function {
         shopVO.setName("fffffff");
         shopVO.setStoreTemplateId("sddsfasdf");
         shopVO.setBoothCode("1123343547");
-        shopVO.setBoothScheduledTime("124324234");
-        ShopRes shopRes = new ShopRes();
-        shopRes.setUnit("sdfafgasdg");
-        shopRes.setSkuSubtitle("dfgadfafaf");
-        shopRes.setSkuprice("fdasfasdfa");
-        shopRes.setSkupic("dffffff");
-        shopRes.setSkuName("3ddddddd");
-        shopRes.setSkuID("33333333333");
-        shopRes.setPriceType("1111111111111111111");
-        shopRes.setSkuTitle("1111111");
+//        shopVO.setBoothScheduledTime("124324234");
+        ShopProductRes shopProductRes = new ShopProductRes();
+        shopProductRes.setUnit("sdfafgasdg");
+        shopProductRes.setSkuSubtitle("dfgadfafaf");
+        shopProductRes.setSkuPrice("fdasfasdfa");
+//        shopProductRes.setSkupic("dffffff");
+        shopProductRes.setSkuName("3ddddddd");
+//        shopProductRes.setSkuID("33333333333");
+        shopProductRes.setPriceType("1111111111111111111");
+        shopProductRes.setSkuTitle("1111111");
     }
 }

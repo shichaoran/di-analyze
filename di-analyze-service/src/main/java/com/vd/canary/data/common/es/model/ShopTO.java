@@ -1,6 +1,6 @@
 package com.vd.canary.data.common.es.model;
 
-import com.vd.canary.data.api.response.es.ShopRes;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,7 +22,7 @@ public class ShopTO implements Serializable {
     private String imageOrder;
     private String imageName; //名
     private String imageUrl; //地址
-    private List<ShopRes> shopRes;
+    private List<ShopProductRes> shopProductRes;
     private Map<String, String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
@@ -146,12 +146,12 @@ public class ShopTO implements Serializable {
         this.imageOrder = imageOrder;
     }
 
-    public List<ShopRes> getShopRes() {
-        return shopRes;
+    public List<ShopProductRes> getShopProductRes() {
+        return shopProductRes;
     }
 
-    public void setShopRes(List<ShopRes> shopRes) {
-        this.shopRes = shopRes;
+    public void setShopProductRes(List<ShopProductRes> shopProductRes) {
+        this.shopProductRes = shopProductRes;
     }
 
     public void setImageName(String imageName) {

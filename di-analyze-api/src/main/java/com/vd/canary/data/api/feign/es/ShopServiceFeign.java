@@ -6,6 +6,7 @@ import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.api.response.es.ShopRes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +26,18 @@ import javax.validation.Valid;
         fallbackFactory = ShopServiceFallbackFactory.class)
 public interface ShopServiceFeign extends Feign {
     /**
-     *商铺搜索
+     * 商铺搜索
      */
     @PostMapping("/shop/search")
     ResponseBO<ShopRes> search(@RequestBody @Valid ShopSearchReq shopSearchBO);
+
     /**
      * 商铺详情
      * 给shopid
      */
     @GetMapping("/shop/product")
     ResponseBO<ShopPageReq> getByID(@RequestBody @Valid ShopPageReq shopPageBO);
+
     /**
      * costemer id
      */
@@ -42,10 +45,10 @@ public interface ShopServiceFeign extends Feign {
     @GetMapping("/shop/customer")
     ResponseBO<ShopPageReq> getID(@RequestBody @Valid CustomerReq customerReq);
 
-    /**Detail
-     *shangpin
+    /**
+     * Detail
+     * shangpin
      */
     @GetMapping("/shop/productDetail ")
-    ResponseBO<ShopRes> getList(@RequestBody @Valid ProductListReq productList);
-
+    ResponseBO<ShopProductRes> getList(@RequestBody @Valid ProductListReq productList);
 }
