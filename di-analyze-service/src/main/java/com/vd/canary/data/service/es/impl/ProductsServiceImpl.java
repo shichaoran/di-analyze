@@ -1,39 +1,50 @@
 package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.core.bo.ResponsePageBO;
+import com.vd.canary.core.bo.ResponsePageVO;
+import com.vd.canary.data.api.feign.es.ProductsServiceFeign;
+import com.vd.canary.data.api.request.es.CategoryReq;
+import com.vd.canary.data.api.request.es.ProductDetailsReq;
 import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.ThreeCategoryReq;
+import com.vd.canary.data.api.response.es.CategoryRes;
 import com.vd.canary.data.api.response.es.ESPageRes;
+import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
 import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
-import com.vd.canary.data.service.es.ProductsReService;
+import com.vd.canary.data.service.es.ProductsService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.Valid;
+import java.util.*;
 
-/**
- * @Author shichaoran
- * @Date 2020/4/14 16:57
- * @Version
- */
-public class ProductsReServiceImp implements ProductsReService {
+
+@Slf4j
+@Service
+public class ProductsServiceImpl implements ProductsService {
+
     @Autowired
     private ProductESServiceImpl productESServiceImpl;
+
     @Override
-    public ResponseBO<ProductsRes> getProductByCategory(ProductsReq threeCategoryReq) {
+    public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
-        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(threeCategoryReq.getPageNum(),threeCategoryReq.getPageSize(),threeCategoryReq);
+        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(),productsReq.getPageSize(),productsReq);
         List<Map<String, Object>> recordList = esPageRes.getRecordList();
         if(recordList != null && recordList.size() > 0 ){
             Map<String,String> categorys = new HashMap<>();//fThreeCategoryId:fThreeCategoryName
             Map<String,String> brands = new HashMap<>(); //proSkuBrandId:bBrandName
             Map<String,Map<String,String>> attributes = new HashMap<>(); //属性
             List<ProductsDetailRes> productDetailResList = new ArrayList<>(); //商品详细列表
-            for(Map<String, Object> recordMap: recordList) {
+            for(Map<String, Object> recordMap: recordList){
                 ProductsDetailRes productsDetailRes = new ProductsDetailRes();
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
                 productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
@@ -64,15 +75,14 @@ public class ProductsReServiceImp implements ProductsReService {
                     Map<String,String> mapt = new HashMap<>();
                     mapt.put(recordMap.get("attributeValueId").toString(),recordMap.get("value_Name").toString());
                     attributes.put(recordMap.get("attributeName").toString(),mapt);
+                }
             }
-        }
             productsRes.setCategorys(categorys);
             productsRes.setBrands(brands);
             productsRes.setAttributes(attributes);
             productsRes.setProductDetailRes(productDetailResList);
-
-    }
+        }
         res.setData(productsRes);
         return res;
-}
+    }
 }

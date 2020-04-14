@@ -13,5 +13,6 @@ public class ESEntityWordServiceImpl extends BaseServiceImpl<ESEntityWordMapper,
     @Override
     public Boolean existEntityWord(String key) {
         return null;
+
     }
 }

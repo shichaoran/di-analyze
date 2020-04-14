@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="45e4dee8-4f31-44f9-b866-005800fee7a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/controller/es/CategoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/controller/es/ProductDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/controller/es/ProductsReController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/CategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/ProductDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/ProductsReService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ProductsReServiceImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/CategoryServiceImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ProductsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ShopServiceFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-api/src/main/java/com/vd/canary/data/api/feign/es/ShopServiceFallbackFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ProductsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/ProductsReService.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/ProductsReService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ESEntityWordServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ESEntityWordServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ProductsReServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/src/main/java/com/vd/canary/data/service/es/impl/ProductsReServiceImp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +78,9 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.vd.canary.data.service.es.impl" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\di-analyze\di-analyze-service\src\main\java\com\vd\canary\data\service\es\impl" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="DataAnalyzeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -122,7 +121,7 @@
       <workItem from="1586831438585" duration="370000" />
       <workItem from="1586831828391" duration="8571000" />
       <workItem from="1586848251204" duration="7094000" />
-      <workItem from="1586855371016" duration="79000" />
+      <workItem from="1586855371016" duration="2092000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1586517541014</created>
@@ -201,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586853088737</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="更新">
+      <created>1586855500208</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1586855500208</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,18 +222,18 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1826" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829822897" />
-    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser" timestamp="1586854717364">
+    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser" timestamp="1586856064788">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586854717364" />
+    <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586856064788" />
     <state x="-1693" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586853052825">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1693" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586853052825" />
-    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2" timestamp="1586853087378">
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2" timestamp="1586855498785">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586853087378" />
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586855498785" />
     <state x="-1500" y="457" key="FileChooserDialogImpl" timestamp="1586598384675">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
@@ -296,10 +302,10 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-2052" y="299" key="SettingsEditor/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586598428828" />
-    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2" timestamp="1586853128421">
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2" timestamp="1586855508559">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586853128421" />
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586855508559" />
     <state x="0" y="0" width="1294" height="766" key="dock-window-1" timestamp="1586855337728">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -308,14 +314,14 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1660" y="431" width="779" height="538" key="find.popup/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586609687048" />
-    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog" timestamp="1586853096991">
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog" timestamp="1586855544539">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586853096991" />
-    <state x="-1791" y="311" key="refactoring.ChangeSignatureDialog" timestamp="1586855141074">
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586855544539" />
+    <state x="-1791" y="311" key="refactoring.ChangeSignatureDialog" timestamp="1586855750023">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1791" y="311" key="refactoring.ChangeSignatureDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586855141074" />
+    <state x="-1791" y="311" key="refactoring.ChangeSignatureDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586855750023" />
     <state x="-1617" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1586605372237">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
