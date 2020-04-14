@@ -1,24 +1,13 @@
 package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.core.bo.ResponsePageBO;
-import com.vd.canary.core.bo.ResponsePageVO;
-import com.vd.canary.data.api.feign.es.ProductsServiceFeign;
-import com.vd.canary.data.api.request.es.CategoryReq;
-import com.vd.canary.data.api.request.es.ProductDetailsReq;
 import com.vd.canary.data.api.request.es.ProductsReq;
-import com.vd.canary.data.api.request.es.ThreeCategoryReq;
-import com.vd.canary.data.api.response.es.CategoryRes;
-import com.vd.canary.data.api.response.es.ESPageRes;
-import com.vd.canary.data.api.response.es.ProductDetailsRes;
+import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
 import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.service.es.ProductsService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.functions.T;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

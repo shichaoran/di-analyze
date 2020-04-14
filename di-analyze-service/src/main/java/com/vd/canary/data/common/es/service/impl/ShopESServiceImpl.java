@@ -4,30 +4,23 @@ import java.io.IOException;
 import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
-import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
-import com.vd.canary.data.api.response.es.ESPageRes;
-import com.vd.canary.data.api.response.es.ShopProductRes;
+import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
-import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.model.ShopTO;
 import com.vd.canary.data.constants.Constant;
-import com.vd.canary.data.util.JsonUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryparser.classic.QueryParser;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
