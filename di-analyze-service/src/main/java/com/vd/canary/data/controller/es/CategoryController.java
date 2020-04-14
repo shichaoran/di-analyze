@@ -1,0 +1,33 @@
+package com.vd.canary.data.controller.es;
+
+import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.data.api.request.es.CategoryReq;
+import com.vd.canary.data.api.response.es.CategoryRes;
+import com.vd.canary.data.api.response.es.ProductsRes;
+import com.vd.canary.data.service.es.CategoryService;
+import com.vd.canary.data.service.es.ShopService;
+import com.vd.canary.service.controller.BaseController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+/**
+ * @Author shichaoran
+ * @Date 2020/4/14 16:37
+ * @Version
+ */
+@RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+public class CategoryController extends BaseController {
+    private final CategoryService categoryService;
+
+    @PostMapping("/products/category")
+    ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq) {
+        ResponseBO<CategoryRes> res = categoryService.categoryres(categoryReq);
+        return res;
+    }
+}
