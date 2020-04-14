@@ -20,7 +20,7 @@ public class ProductsServiceFeignFallback implements FallbackFactory<ProductsSer
     public ProductsServiceFeign create(Throwable e) {
         return new ProductsServiceFeign() {
             @Override
-            public ResponsePageBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
+            public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
                 throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 
