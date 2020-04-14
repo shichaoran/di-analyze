@@ -22,11 +22,7 @@ import javax.validation.constraints.NotNull;
         decode404 = true,
         fallbackFactory = ProductsServiceFeignFallback.class)
 public interface ProductsServiceFeign extends Feign {
-    /**
-     *
-     * @param productsReq
-     * @return ResponsePageBO<ProductsRes>
-     */
+
     /**
      * 通过首页搜索框输入商品名称
      */
@@ -44,7 +40,6 @@ public interface ProductsServiceFeign extends Feign {
      */
     @PostMapping("/products/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
-
 
     /**
      * 根据一级目录、二级目录和三级目录名称返回商品列表

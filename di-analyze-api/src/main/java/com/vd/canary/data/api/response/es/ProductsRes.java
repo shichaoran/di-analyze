@@ -1,6 +1,7 @@
 package com.vd.canary.data.api.response.es;
 
 import com.alibaba.fastjson.JSON;
+import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -19,69 +20,13 @@ import java.util.Map;
 @Accessors(chain = true)
 public class ProductsRes implements Serializable {
 
+    private Map<String,String> categorys;//fThreeCategoryId:fThreeCategoryName
 
+    private Map<String,String> brands; //proSkuBrandId:bBrandName
 
-    //前台一级分类id
-    private String fOneCategoryId;
-    //前台一级分类code
-    private String fOneCategoryCode;
-    //前台一级分类
-    private String fOneCategoryName;
-    //前台二级分类id
-    private String fTwoCategoryId;
-    //前台二级分类code
-    private String fTwoCategoryCode;
-    //前台二级分类
-    private String fTwoCategoryName;
-    //前台三级分类id
-    private String fThreeCategoryId;
-    //前台三级分类code
-    private String fThreeCategoryCode;
-    //前台三级分类
-    private String fThreeCategoryName;
-    //品牌id
-    private String proSkuBrandId;
-    //品牌名称
-    private String bBrandName;
-    //skuid
-    private String skuId;
-    //sku标题
-    private String proSkuTitle;
-    //sku副标题
-    private String proSkuSubTitle;
-    //sku图片地址
-    private String proSkuSkuPic;
-    //商品属性 key为属性id+属性类型，value为属性值
-    private Map<String, HashSet<String>> attributeMap;
-    //商品定价
-    private String skuSellPriceJson;
-    //定价类型
-    private String skuSellPriceType;
-    //sku创建时间
-    private String skuGmtCreateTime;
-
-    //店铺id
-    private String shopId;
-    //店铺名称
-    private String storeInfoName;
-    //主营类目
-    private String businessCategory;
-    //主营产品
-    private String mainProducts;
-    //所在地区
-    private String businessArea;
-    //展厅编号
-    private List boothBusinessBoothCode;
-    //会员等级
-    private String customerProfilesLevel;
-    //认证信息
-    private String approveState;
-    //供方类别
-    private String enterpriseType;
-    //店铺二维码
-    private String storeInfoStoreQrCode;
-    //创建时间
-    private String gmtCreateTime;
+    private Map<String,Map<String,String>> attributes; //属性
+    //商品详细列表
+    private List<ProductsDetailRes> productDetailRes;
 
 
 }
