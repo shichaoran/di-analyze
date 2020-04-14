@@ -30,6 +30,7 @@ public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFe
              * 商铺搜索
              *
              * @param shopSearchBO
+             * @return
              */
             @Override
             public ResponseBO<ShopRes> search(@Valid ShopSearchReq shopSearchBO) {

@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.ThreeCategoryReq;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.model.ProductsTO;
@@ -22,6 +23,8 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
 
 /**
  * 商品 ES 业务逻辑实现类
@@ -137,7 +140,7 @@ public class ProductESServiceImpl implements ProductESService {
      *          .should:                  : OR
      *
      */
-    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
+    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, @Valid ThreeCategoryReq req) {
         if(req == null){
             List<Map<String, Object>> recordList = new ArrayList<>();
             return new ESPageRes(0, 0, 0, recordList );
