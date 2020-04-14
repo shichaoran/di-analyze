@@ -1,1 +1,1 @@
-{"doc":" 商品 ES 业务逻辑实现类\n\n","fields":[],"enumConstants":[],"methods":[{"name":"updateProduct","paramTypes":["com.vd.canary.data.common.es.index.ProductsTO"],"doc":" 根据productId更新信息\n"},{"name":"boolQueryByKeyword","paramTypes":["java.lang.Integer","java.lang.Integer","com.vd.canary.data.api.request.es.ProductsReq"],"doc":" 功能：首页顶部商品搜索框通过 关键字 查询\n must 多条件 &（并且）   mustNot 多条件 != (非)   should 多条件 || (或)\n"}]}
+{"doc":" 商品 ES 业务逻辑实现类\n\n","fields":[],"enumConstants":[],"methods":[]}
