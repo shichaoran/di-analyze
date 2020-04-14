@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.es.helper;
+package com.vd.canary.data.api.response.es;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @ToString
-public class EsPage {
+public class ESPageRes {
 
     // 当前页
     private int currentPage;
@@ -42,7 +42,7 @@ public class EsPage {
      * @param recordCount
      * @param recordList
      */
-    public EsPage(int currentPage, int pageSize, int recordCount, List<Map<String, Object>> recordList) {
+    public ESPageRes(int currentPage, int pageSize, int recordCount, List<Map<String, Object>> recordList) {
         this.currentPage = currentPage;
         this.pageSize = pageSize;
         this.recordCount = recordCount;
