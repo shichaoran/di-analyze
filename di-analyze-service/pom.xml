@@ -74,7 +74,11 @@
         </dependency> -->
 
         <!-- SpringBoot整合ES的方式二：基于http协议，使用RestClinet)，ES官方推荐使用这种方式 -->
+        <!-- https://mvnrepository.com/artifact/org.elasticsearch.client/transport -->
+
+
         <dependency>
+
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
             <version>7.4.0</version>
@@ -88,6 +92,7 @@
                     <artifactId>elasticsearch-rest-client</artifactId>
                 </exclusion>
             </exclusions>
+
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>

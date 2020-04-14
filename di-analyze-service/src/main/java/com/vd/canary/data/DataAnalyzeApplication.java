@@ -5,7 +5,7 @@ import com.vd.canary.service.constants.ClusterConstant;
 import com.vd.canary.service.launch.CanaryApplication;
 
 
-@CanaryCloudApplication(clusterName = ClusterConstant.OBMP, applicationName = "canary-dataanalyze")
+@CanaryCloudApplication(clusterName = ClusterConstant.OBMP, applicationName = "canary-dataanalyze",nacosNamespaceId = "13c80def-b092-4d3f-b662-64e2ecdf2d6c")
 public class DataAnalyzeApplication {
     //System.setProperty("es.set.netty.runtime.available.processors","false");
     public static void main(String[] args) {

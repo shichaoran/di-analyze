@@ -19,8 +19,6 @@ import java.util.Map;
  * @Version
  */
 @Data
-@Getter
-@Setter
 @ToString
 @Accessors(chain = true)
 public class ShopProductRes implements Serializable {
