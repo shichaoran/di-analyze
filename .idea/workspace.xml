@@ -3,41 +3,45 @@
   <component name="ChangeListManager">
     <list default="true" id="45e4dee8-4f31-44f9-b866-005800fee7a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-api/di-analyze-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-api/di-analyze-api.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/di-analyze-service/di-analyze-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/di-analyze-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/application.properties.bak" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/application.properties.bak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/DataAnalyzeApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$CanalEventHandle.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$CanalEventHandle.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$Element.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$Element.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/KafkaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/KafkaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/configuration/ElasticSearchConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ProductsTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ShopResTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ShopTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/repository/ProductTORepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/repository/ShopTORepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/ProductESService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl__Javadoc.json" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl__Javadoc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/impl/ShopESServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/KafkaConsumerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/KafkaConsumerForES.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/Function.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/FunctionFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/producer/KafkaProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/producer/KafkaProducer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/thread/ThreadPool.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/constants/Constant.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/controller/es/ESEntityWordController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/exception/DataAnalyzeException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/repository/es/entity/ESEntityWordEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/repository/es/mapper/ESEntityWordMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/repository/es/model/ESEntityWordModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/service/es/ESEntityWordService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/service/es/impl/ESEntityWordServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/util/JsonUtils$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/util/JsonUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/di-analyze.iml" beforeDir="false" afterPath="$PROJECT_DIR$/di-analyze.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/application.properties.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalBean$RowData$ColumnEntry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalBean$RowData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/CanalClient__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$CanalEventHandle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig$Element.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/DisruptorConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/KafkaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/canal/KafkaService__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ProductsTO__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ShopResTO__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/index/ShopTO__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/es/service/impl/ProductESServiceImpl__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/KafkaConsumerForES__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/BoothBusiness__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/ProtocolAgreement__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/StoreInfo__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/ObmpCustomer/StoreMedia__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/AttributeManagement__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/AttributeValueRelations__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/AttributeValue__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/BackgroundCategory__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/BrandManagement__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/CategoryRelations__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/ProductSku__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/ProductSpu__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/RegionalManagement__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/SkuAttributeRelations__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/SkuSellingPrice__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/SkuWarehouseRelations__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/StoreProductRelations__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/consumer/impl/obmpProduct/WarehouseManagement__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/producer/KafkaProducer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/common/kafka/producer/KafkaProducer__Javadoc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/di-analyze-service/target/classes/com/vd/canary/data/util/JsonUtils__Javadoc.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +144,9 @@
       <updated>1586516653656</updated>
       <workItem from="1586516659686" duration="8501000" />
       <workItem from="1586568654238" duration="27980000" />
-      <workItem from="1586827269263" duration="1112000" />
+      <workItem from="1586827269263" duration="3372000" />
+      <workItem from="1586831438585" duration="370000" />
+      <workItem from="1586831828391" duration="1344000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1586517541014</created>
@@ -198,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586606538768</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="更新">
+      <created>1586829066233</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1586829066233</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,10 +222,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="更新" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1826" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586828791463">
+    <state x="-1826" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586829822897">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1826" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586828791463" />
+    <state x="-1826" y="358" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829822897" />
     <state x="-1475" y="408" key="#com.intellij.ide.util.MemberChooser" timestamp="1586604826802">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
@@ -221,30 +234,30 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1693" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586517303681" />
-    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2" timestamp="1586606537329">
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2" timestamp="1586829064742">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586606537329" />
+    <state x="-1648" y="0" width="1500" height="1381" key="CommitChangelistDialog2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829064742" />
     <state x="-1500" y="457" key="FileChooserDialogImpl" timestamp="1586598384675">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1500" y="457" key="FileChooserDialogImpl/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586598384675" />
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1586607060254">
+    <state width="2517" height="1242" key="GridCell.Tab.0.bottom" timestamp="1586831808473">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586607060254" />
-    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1586607060254">
+    <state width="2517" height="1242" key="GridCell.Tab.0.bottom/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831808473" />
+    <state width="2517" height="1242" key="GridCell.Tab.0.center" timestamp="1586831808472">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586607060254" />
-    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1586607060254">
+    <state width="2517" height="1242" key="GridCell.Tab.0.center/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831808472" />
+    <state width="2517" height="1242" key="GridCell.Tab.0.left" timestamp="1586831808472">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586607060254" />
-    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1586607060254">
+    <state width="2517" height="1242" key="GridCell.Tab.0.left/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831808472" />
+    <state width="2517" height="1242" key="GridCell.Tab.0.right" timestamp="1586831808472">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586607060254" />
+    <state width="2517" height="1242" key="GridCell.Tab.0.right/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831808472" />
     <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1586607355546">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
@@ -277,26 +290,34 @@
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="492" key="GridCell.Tab.2.right/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586607060009" />
-    <state x="-1750" y="358" key="Maven.ArtifactSearchDialog" timestamp="1586828712085">
+    <state x="-1750" y="358" key="Maven.ArtifactSearchDialog" timestamp="1586830218553">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1750" y="358" key="Maven.ArtifactSearchDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586828712085" />
+    <state x="-1750" y="358" key="Maven.ArtifactSearchDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586830218553" />
+    <state x="-1800" y="410" key="MergeDialog" timestamp="1586829786568">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1800" y="410" key="MergeDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829786568" />
+    <state x="-1571" y="416" key="MultipleFileMergeDialog" timestamp="1586829788253">
+      <screen x="-2560" y="0" width="2560" height="1400" />
+    </state>
+    <state x="-1571" y="416" key="MultipleFileMergeDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829788253" />
     <state x="-2052" y="299" key="SettingsEditor" timestamp="1586598428828">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-2052" y="299" key="SettingsEditor/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586598428828" />
-    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2" timestamp="1586829043907">
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2" timestamp="1586831898227">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829043907" />
+    <state x="-1688" y="436" key="Vcs.Push.Dialog.v2/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831898227" />
     <state x="-1660" y="431" width="779" height="538" key="find.popup" timestamp="1586609687048">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
     <state x="-1660" y="431" width="779" height="538" key="find.popup/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586609687048" />
-    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog" timestamp="1586829030764">
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog" timestamp="1586831982736">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
-    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586829030764" />
+    <state x="-1599" y="502" key="git4idea.merge.GitPullDialog/0.0.1280.680/-2560.0.2560.1400@-2560.0.2560.1400" timestamp="1586831982736" />
     <state x="-1617" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1586605372237">
       <screen x="-2560" y="0" width="2560" height="1400" />
     </state>
