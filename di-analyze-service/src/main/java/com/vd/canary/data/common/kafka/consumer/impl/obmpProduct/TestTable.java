@@ -18,14 +18,14 @@ public class TestTable implements Function {
 
     @Override
     public void performES(String msg) {
-        logger.info("TestTable.msg"+msg);
+        logger.info("TestTable.msg" + msg);
 
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
 
-        Set<Map.Entry<String,String>> entries = hashMap.entrySet();
-        for(Map.Entry<String,String> entry : entries){
-            logger.info("key"+entry.getKey());
-            logger.info("value"+entry.getValue());
+        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            logger.info("key" + entry.getKey());
+            logger.info("value" + entry.getValue());
 
         }
 

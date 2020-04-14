@@ -103,7 +103,7 @@ public class ProductsTO implements Serializable {
      * sku_attribute_relations表   sku属性映射关系
      */
     //属性类型：0定价属性   1一般属性
-    private String attriType;
+    private Integer attributeType;
 
 
     /**
