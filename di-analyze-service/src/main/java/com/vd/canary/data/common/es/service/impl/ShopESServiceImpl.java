@@ -1,25 +1,31 @@
 package com.vd.canary.data.common.es.service.impl;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
+import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.ShopPageReq;
+import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.response.es.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.model.ShopTO;
+import com.vd.canary.data.constants.Constant;
 import com.vd.canary.data.util.JsonUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -122,7 +128,82 @@ public class ShopESServiceImpl {
         return (ShopTO)ElasticsearchUtil.searchDataById(indexName,id);
     }
 
+    /**
+     * 功能：首页顶部店铺搜索框通过 关键字分词查询  支持 高亮 排序 并分页
+     *      使用QueryBuilders
+     *          .termQuery("key", obj) 完全匹配
+     *          .termsQuery("key", obj1, obj2..)   一次匹配多个值
+     *          .matchQuery("key", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
+     *          .multiMatchQuery("text", "field1", "field2"..);  匹配多个字段, field有通配符忒行
+     *          .matchAllQuery();         匹配所有文件
+     *          .termQuery(key+".keyword",value) 精准查找
+     *      组合查询 QueryBuilders.boolQuery()
+     *          .must(QueryBuilders) :   AND
+     *          .mustNot(QueryBuilders): NOT
+     *          .should:                  : OR
+     *
+     */
+    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ShopPageReq req) {
+        if(req == null){
+            List<Map<String, Object>> recordList = new ArrayList<>();
+            return new ESPageRes(0, 0, 0, recordList );
+        }
+        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
+            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = Constant.ES_PAGE_SIZE;
+        }
+        String fields = null;
+        String sortField = null;
+        String sortTpye = null;
+        String highlightField = null;
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        if(StringUtils.isNotBlank(req.getKey())){// keyword 关键字搜索
+            String escapeKey = QueryParser.escape(req.getKey());
+            boolQuery.must(QueryBuilders.multiMatchQuery(escapeKey,
+                    "proSkuSpuName","proSkuSkuName","proSkuTitle","proSkuSubTitle",
+                    "threeCategoryName","bBrandName","brandShorthand").fuzziness(Fuzziness.AUTO));
+        }
+        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);
+        return esPageRes;
+    }
 
+    // 通过关键字＋快速查找
+    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ShopSearchReq req) {
+        if(req == null){
+            List<Map<String, Object>> recordList = new ArrayList<>();
+            return new ESPageRes(0, 0, 0, recordList );
+        }
+        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
+            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = Constant.ES_PAGE_SIZE;
+        }
+        String fields = null;
+        String sortField = null;
+        String sortTpye = null;
+        String highlightField = null;
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        if(StringUtils.isNotBlank(req.getKey())){// keyword 关键字搜索
+            String escapeKey = QueryParser.escape(req.getKey());
+            boolQuery.must(QueryBuilders.multiMatchQuery(escapeKey,
+                    "proSkuSpuName","proSkuSkuName","proSkuTitle","proSkuSubTitle",
+                    "threeCategoryName","bBrandName","brandShorthand").fuzziness(Fuzziness.AUTO));
+        }
+        if(req.getBrandIds() != null && req.getBrandIds().size() > 0 ){//品牌id
+            boolQuery.must(QueryBuilders.termsQuery("proSkuBrandId",req.getBrandIds()));
+        }
+        if(req.getCategoryIds() != null && req.getCategoryIds().size() > 0 ){//后台三级分类id
+            boolQuery.must(QueryBuilders.termsQuery("businessCategory",req.getCategoryIds()));
+        }
+        if( req.isExhibitionJoined() ){//是否入驻展厅
+            //boolQuery.must();
+        }
+        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);
+        return esPageRes;
+    }
 
 
     /**
