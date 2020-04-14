@@ -4,31 +4,24 @@ import java.io.IOException;
 import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
+import com.vd.canary.data.api.response.es.ESPageRes;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
-import com.vd.canary.data.util.JsonUtils;
-import com.vd.canary.utils.DateUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 商品 ES 业务逻辑实现类
@@ -48,7 +41,7 @@ public class ProductESServiceImpl implements ProductESService {
     // 创建索引
     public String createIndex() {
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            if (ElasticsearchUtil.createIndex(indexName)) {//index json file!!!!
+            if (ElasticsearchUtil.createIndex( indexName,createIndexMapping() )) {
                 return "Create productindex success.";
             } else {
                 return "Create productindex failure！";
@@ -59,8 +52,13 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     //新增商品信息
-    @Deprecated
     public String saveProduct(ProductsTO product) throws IOException {
+        if(product == null || StringUtils.isEmpty(product.getSkuId()) ){
+            return "param is null.";
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
+        }
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
         String id = ElasticsearchUtil.addData(jsonObject,indexName,product.getSkuId());
         if(StringUtils.isNotBlank(id)){
@@ -77,7 +75,7 @@ public class ProductESServiceImpl implements ProductESService {
             return ;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName);
+            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
         }
         if(ElasticsearchUtil.existById(indexName,product.getSkuId())){
             Map content = JSONObject.parseObject(JSONObject.toJSONString(product), Map.class);
@@ -90,146 +88,194 @@ public class ProductESServiceImpl implements ProductESService {
         }
     }
 
+    // 批量新增商品信息
+    public void batchAddProduct(List<ProductsTO> products) {
+        if(CollectionUtils.isEmpty(products)) {
+            return ;
+        }
+        if(products == null || products.size() == 0 ){
+            return ;
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
+        }
+        Map<String ,JSONObject> map = new HashMap<>();
+        for(ProductsTO product :products) {
+            JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
+            map.put(product.getSkuId(),jsonObject);
+        }
+        ElasticsearchUtil.insertBatch(indexName,map);
+    }
 
-//
-//    // 批量新增商品信息
-//    @Override
-//    public void batchAddProduct(List<ProductsTO> products) {
-//        if(CollectionUtils.isEmpty(products)) {
-//            return ;
-//        }
-//        List<IndexQuery> queries = Lists.newArrayListWithExpectedSize(products.size());
-//        IndexQuery indexItem  = null;
-//        for(ProductsTO product :products) {
-//            indexItem = new IndexQuery();
-//            indexItem.setObject(product);
-//            queries.add(indexItem);
-//        }
-//        elasticsearchTemplate.bulkIndex(queries);
-//    }
-//
-//    //删除商品信息
-//    @Override
-//    public void deletedProductById(String id) {
-//        productRepository.deleteById(id);
-//    }
-//
-//    /**
-//     * 根据productId更新信息
-//     */
-//    @Override
-//    public void updateProduct(ProductsTO product) {
-//        UpdateQuery updateQuery = new UpdateQuery();
-//        updateQuery.setId(product.getSkuId().toString());
-//        updateQuery.setClazz(ProductsTO.class);
-//        product.setSkuId(null);
-//        UpdateRequest request = new UpdateRequest();
-//        try{
-//            request.doc(JsonUtils.beanToJson(product));
-//        }catch (Exception e){
-//        }
-//        updateQuery.setUpdateRequest(request);
-//        elasticsearchTemplate.update(updateQuery);
-//    }
-//
-//    public ProductsTO findById(String id) {
-//        Optional<ProductsTO> productOptional= productRepository.findById(id);
-//        return productOptional.get();
-//    }
-//
-//    public Iterator<ProductsTO> findAll() {
-//        return productRepository.findAll().iterator();
-//    }
-//
-//
-//    /**
-//     * 功能：首页顶部商品搜索框通过 关键字 查询
-//     * must 多条件 &（并且）   mustNot 多条件 != (非)   should 多条件 || (或)
-//     */
-//    public List<ProductsTO> boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
-//        if (pageSize == null || pageSize <= 0) {
-//            pageSize = Constant.ES_PAGE_SIZE;
-//        }
-//        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
-//            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
-//        }
-//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//        /*
-//        NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-//        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-//        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSpuName", "*" + keyword + "*"));
-//        boolQuery.should(QueryBuilders.wildcardQuery("proSkuSkuName", "*" + keyword + "*"));
-//        // 2  分词
-//        if (StringUtils.isNotBlank(wayBill.getSendAddress())){
-//            // 2 改进的第一个问题：北京市顺义区   北  京  市  北京  顺义 义区   这种方式允许查吗？
-//            WildcardQueryBuilder sendAddressequeryBuilder1 = QueryBuilders.wildcardQuery("sendAddress", "*" + wayBill.getSendAddress() + "*");
-//            // 3 改进的第二个问题：北京顺义    这种方式要被允许-->这种方式需要对 查询词条进行分词后   再进行查询
-//            // QueryStringQueryBuilder此对象会对查询的词条分词后的各种情况进行分词查找
-//            // 参数：就是前台传过来的查询内容
-//            QueryStringQueryBuilder queryStringQueryBuilder = new QueryStringQueryBuilder(wayBill.getSendAddress()).field("sendAddress").defaultOperator(Operator.AND);
-//            BoolQueryBuilder should = QueryBuilders.boolQuery().should(sendAddressequeryBuilder1).should(queryStringQueryBuilder);
-//            boolQuery.must(should);
-//        }
-//        //地址
-//        if (StringUtils.isNotBlank(wayBill.getRecAddress())){
-//            WildcardQueryBuilder recAddressQuery = QueryBuilders.wildcardQuery("recAddress", "*" + wayBill.getRecAddress() + "*");
-//            //改进   允许对词条分词后  在查询
-//            QueryStringQueryBuilder recAddressQueryString = new QueryStringQueryBuilder(wayBill.getRecAddress()).field("recAddress").defaultOperator(Operator.AND);
-//            //取并集
-//            BoolQueryBuilder should = QueryBuilders.boolQuery().should(recAddressQuery).should(recAddressQueryString);
-//            boolQuery.must(should);
-//        }
-//        // 执行分页
-//        queryBuilder.withPageable(PageRequest.of(page-1,rows));
-//        // 执行查询
-//        queryBuilder.withQuery(boolQuery);
-//        Page<ESWayBill> list = wayBillRepository.search(queryBuilder.build());
-//        //拼接结果
-//        DatagridResult result = new DatagridResult();
-//        result.setTotal(list.getTotalElements());
-//        result.setRows(list.getContent());
-//        return result;*/
-//
-//        QueryBuilder query = QueryBuilders.boolQuery()
-//                                          .should(QueryBuilders.termQuery("userId","2019040499"))  //精确查询
-//                                          .should(QueryBuilders.wildcardQuery("proSkuSpuName","*"+req.getKey()+"*"))    //模糊查询
-//                                          .should(QueryBuilders.wildcardQuery("proSkuSkuName","*"+req.getKey()+"*"))    //模糊查询
-//                                          .should(QueryBuilders.wildcardQuery("proSkuTitle","*"+req.getKey()+"*"))    //模糊查询
-//                                          .should(QueryBuilders.wildcardQuery("proSkuSubTitle","*"+req.getKey()+"*"))    //模糊查询
-//                                          .should(QueryBuilders.wildcardQuery("skuSupplierName","*"+req.getKey()+"*"))    //模糊查询
-//                                          .should(QueryBuilders.wildcardQuery("storeName.keyword","*"+req.getKey()+"*"));    //模糊查询
-//                                          //.must(QueryBuilders.rangeQuery("createDate")
-//                                          //                   .from(DateUtil.getDateTimeString())
-//                                          //                   .to(DateUtil.getDateTimeString()));  //范围查询
-//        if(!CollectionUtils.isEmpty(req.getBBrandId()) ){
-//
-//        }
-//        if(!CollectionUtils.isEmpty(req.getFThreeCategoryName())){
-//
-//        }
-//        if(!CollectionUtils.isEmpty(req.getBusinessArea())){
-//
-//        }
-//        if(StringUtils.isNotBlank(req.getPriceSort())){
-//
-//        }
-//        if(StringUtils.isNotBlank(req.getIsDiscussPrice())){
-//
-//        }
-//        if(StringUtils.isNotBlank(req.getIsHaveHouse())){
-//
-//        }
-//
-//        //List<String> properties = new ArrayList<>();
-//        //Sort sort = Sort.by(Sort.Direction.DESC, "createDate");//排序
-//        //多条件排序
-//        //Sort.Order order1 = new Sort.Order(Sort.Direction.DESC,"userId");
-//        // Sort.Order order2 = new Sort.Order(Sort.Direction.ASC,"userId");
-//        // Sort sortList = Sort.by(order1,order2);
-//        //Pageable pageable = PageRequest.of(0, 10, sort);
-//        Page<ProductsTO> userPage = productRepository.search(query, pageable);
-//        return userPage.getContent();
-//    }
+    //删除商品信息
+    public void deletedProductById(String id) throws IOException {
+        ElasticsearchUtil.deleteById(indexName,id);
+    }
+
+    // 根据productId更新信息
+    public void updateProduct(ProductsTO product) throws IOException {
+        saveOrUpdateProduct(product);
+    }
+
+    // 通过id获取数据
+    public ProductsTO findById(String id) throws IOException{
+        return (ProductsTO)ElasticsearchUtil.searchDataById(indexName,id);
+    }
+
+    /**
+     * 功能：首页顶部商品搜索框通过 关键字分词查询  支持 高亮 排序 并分页
+     *      使用QueryBuilders
+     *          .termQuery("key", obj) 完全匹配
+     *          .termsQuery("key", obj1, obj2..)   一次匹配多个值
+     *          .matchQuery("key", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
+     *          .multiMatchQuery("text", "field1", "field2"..);  匹配多个字段, field有通配符忒行
+     *          .matchAllQuery();         匹配所有文件
+     *          .termQuery(key+".keyword",value) 精准查找
+     *      组合查询 QueryBuilders.boolQuery()
+     *          .must(QueryBuilders) :   AND
+     *          .mustNot(QueryBuilders): NOT
+     *          .should:                  : OR
+     *
+     */
+    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
+        if(req == null){
+            List<Map<String, Object>> recordList = new ArrayList<>();
+            return new ESPageRes(0, 0, 0, recordList );
+        }
+        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
+            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = Constant.ES_PAGE_SIZE;
+        }
+        String fields = null;
+        String sortField = null;
+        String sortTpye = null;
+        String highlightField = null;
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        if(StringUtils.isNotBlank(req.getKey())){// keyword 关键字搜索
+            String escapeKey = QueryParser.escape(req.getKey());
+            boolQuery.must(QueryBuilders.multiMatchQuery(escapeKey,
+                    "proSkuSpuName","proSkuSkuName","proSkuTitle","proSkuSubTitle",
+                    "threeCategoryName","bBrandName","brandShorthand").fuzziness(Fuzziness.AUTO));
+        }
+        if(req.getBBrandId() != null && req.getBBrandId().size() > 0 ){//品牌id
+            boolQuery.must(QueryBuilders.termsQuery("proSkuBrandId",req.getBBrandId()));
+        }
+        if(req.getFThreeCategoryName() != null && req.getFThreeCategoryName().size() > 0 ){//后台三级分类id
+            boolQuery.must(QueryBuilders.termsQuery("threeCategoryId",req.getFThreeCategoryName()));
+        }
+        if(req.getBusinessArea() != null && req.getBusinessArea().size() > 0 ){ //供货区域id
+            boolQuery.must(QueryBuilders.termsQuery("regionalId",req.getBusinessArea()));
+        }
+        if(StringUtils.isNotBlank(req.getPriceSort()) ){
+            sortField = "skuSellPriceJson"; // 商品定价信息，需要嵌套查询xxx.xxx
+            sortTpye = req.getPriceSort(); // 商品价格排序
+        }
+        if(StringUtils.isNotBlank(req.getIsDiscussPrice()) ){//是否议价，需要嵌套查询xxx.xxx
+            //boolQuery.must(QueryBuilders.rangeQuery("skuSellPriceJson").from(30).to(60).includeLower(true).includeUpper(true)); //适用价格区间查找
+            boolQuery.must(QueryBuilders.rangeQuery("skuSellPriceJson").gt(0));
+            //boolQuery.mustNot();
+        }
+        if(StringUtils.isNotBlank(req.getIsHaveHouse()) ){//是否入驻展厅
+            //boolQuery.must();
+        }
+        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);
+        return esPageRes;
+    }
+
+    /**
+     * index mapping
+     * 说明：xx.startObject("m_id").field("type","keyword").endObject().field("type", "date")
+     *        .field("format", "yyyy-MM")  //m_id:字段名,type:文本类型,analyzer 分词器类型
+     *      该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
+     *      创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
+     */
+    private XContentBuilder createIndexMapping(){
+        XContentBuilder mapping = null;
+        try {
+            mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
+                    //.startObject("m_id").field("type","keyword").endObject()  //m_id:字段名,type:文本类型,analyzer 分词器类型
+                    .startObject("skuId").field("type", "keyword").endObject()
+                    .startObject("proSkuBrandId").field("type", "keyword").endObject()
+                    .startObject("proSkuSpuId").field("type", "keyword").endObject()
+                    .startObject("proSkuSpuCode").field("type", "keyword").endObject()
+                    .startObject("proSkuSpuName").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
+                    .startObject("proSkuSkuCode").field("type", "keyword").endObject()
+                    .startObject("proSkuSkuName").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
+                    .startObject("proSkuTitle").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
+                    .startObject("proSkuSubTitle").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
+                    .startObject("threeCategoryId").field("type", "keyword").endObject()
+                    .startObject("threeCategoryCode").field("type", "keyword").endObject()
+                    .startObject("threeCategoryName").field("type", "keyword").endObject()
+                    .startObject("skuSupplierId").field("type", "keyword").endObject()
+                    .startObject("skuSupplierName").field("type", "keyword").endObject()
+                    .startObject("skuState").field("type", "keyword").endObject()
+                    .startObject("proSkuSkuPic").field("type", "keyword").endObject()
+                    .startObject("skuValuationUnit").field("type", "keyword").endObject()
+                    .startObject("skuIntroduce").field("type", "keyword").endObject()
+                    .startObject("skuGmtCreateTime").field("type", "keyword").endObject()
+                    .startObject("skuGmtModifyTime").field("type", "keyword").endObject()
+                    .startObject("spuState").field("type", "keyword").endObject()
+                    .startObject("proSpuSpuPic").field("type", "keyword").endObject()
+                    .startObject("spuTitle").field("type", "keyword").endObject()
+                    .startObject("attributeCode").field("type", "keyword").endObject()
+                    .startObject("attributeName").field("type", "keyword").endObject()
+                    .startObject("value_Name").field("type", "keyword").endObject()
+                    .startObject("attributeId").field("type", "keyword").endObject()
+                    .startObject("attributeValueId").field("type", "keyword").endObject()
+                    .startObject("attributeMap").field("type", "keyword").endObject()
+                    .startObject("attriType").field("type", "keyword").endObject()
+                    .startObject("oneCategoryId").field("type", "keyword").endObject()
+                    .startObject("oneCategoryCode").field("type", "keyword").endObject()
+                    .startObject("oneCategoryName").field("type", "keyword").endObject()
+                    .startObject("twoCategoryId").field("type", "keyword").endObject()
+                    .startObject("twoCategoryCode").field("type", "keyword").endObject()
+                    .startObject("twoCategoryName").field("type", "keyword").endObject()
+                    .startObject("brandCode").field("type", "keyword").endObject()
+                    .startObject("bBrandName").field("type", "keyword").endObject()
+                    .startObject("brandLoge").field("type", "keyword").endObject()
+                    .startObject("brandShorthand").field("type", "keyword").endObject()
+                    .startObject("brandIntroduction").field("type", "keyword").endObject()
+                    .startObject("fOneCategoryId").field("type", "keyword").endObject()
+                    .startObject("fOneCategoryCode").field("type", "keyword").endObject()
+                    .startObject("fOneCategoryName").field("type", "keyword").endObject()
+                    .startObject("fTwoCategoryId").field("type", "keyword").endObject()
+                    .startObject("fTwoCategoryCode").field("type", "keyword").endObject()
+                    .startObject("fTwoCategoryName").field("type", "keyword").endObject()
+                    .startObject("fThreeCategoryId").field("type", "keyword").endObject()
+                    .startObject("fThreeCategoryCode").field("type", "keyword").endObject()
+                    .startObject("fThreeCategoryName").field("type", "keyword").endObject()
+                    .startObject("type").field("type", "keyword").endObject()
+                    .startObject("fileUrl").field("type", "keyword").endObject()
+                    .startObject("fileSortNumber").field("type", "keyword").endObject()
+                    .startObject("regionalCode").field("type", "keyword").endObject()
+                    .startObject("regionalName").field("type", "keyword").endObject()
+                    .startObject("regionalScope").field("type", "keyword").endObject()
+                    .startObject("skuSellPriceJson").field("type", "keyword").endObject()
+                    .startObject("skuSellPriceType").field("type", "keyword").endObject()
+                    .startObject("warehouseId").field("type", "keyword").endObject()
+                    .startObject("warehouseName").field("type", "keyword").endObject()
+                    .startObject("inventory").field("type", "keyword").endObject()
+                    .startObject("regionalId").field("type", "keyword").endObject()
+                    .startObject("skuRegionalName").field("type", "keyword").endObject()
+                    .startObject("storeId").field("type", "keyword").endObject()
+                    .startObject("categoryId").field("type", "keyword").endObject()
+                    .startObject("storeName").field("type", "keyword").endObject()
+                    .startObject("warehouseCode").field("type", "keyword").endObject()
+                    .startObject("warehouseType").field("type", "keyword").endObject()
+                    .startObject("warehouseRegional").field("type", "keyword").endObject()
+                    .startObject("detailedAddress").field("type", "keyword").endObject()
+                    .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
+                    .endObject().endObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mapping;
+    }
+
+
+
 
     // 权重复杂相关查询 start
     /*@Override
@@ -281,5 +327,8 @@ public class ProductESServiceImpl implements ProductESService {
                 .withQuery(functionScoreQueryBuilder).build();
     }*/
     // 权重复杂相关查询 end
+
+
+
 
 }

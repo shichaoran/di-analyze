@@ -3,11 +3,14 @@ package com.vd.canary.data.common.es.helper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vd.canary.data.api.response.es.ESPageRes;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.ClearScrollRequest;
@@ -24,7 +27,6 @@ import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
@@ -67,8 +69,7 @@ public class ElasticsearchUtil<T> {
 
 
     /**
-     * 判断索引是否存在     *
-     *
+     * 判断索引是否存在
      * @param index 索引，类似数据库
      * @return boolean
      */
@@ -93,65 +94,13 @@ public class ElasticsearchUtil<T> {
      * @param: indexName  索引，类似数据库
      * @return: boolean
      */
-    public static boolean createIndex(String indexName) {
+    public static boolean createIndex(String indexName,XContentBuilder mapping) {
         if (!isIndexExist(indexName)) {
             log.info("Index is not exits!");
         }
         CreateIndexResponse createIndexResponse = null;
         try {
-            //创建映射
-            XContentBuilder mapping = null;
-            try {
-                mapping = XContentFactory.jsonBuilder()
-                        .startObject()
-                        .startObject("properties")
-                        //.startObject("m_id").field("type","keyword").endObject()  //m_id:字段名,type:文本类型,analyzer 分词器类型
-                        //该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
-                        .startObject("id")
-                        .field("type", "text")
-                        .endObject()
-                        .startObject("pdfId")
-                        .field("type", "text")
-                        .endObject()
-                        .startObject("title")
-                        .field("type", "text")
-                        .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("author")
-                        .field("type", "text")
-                        .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("content")
-                        .field("type", "text")
-                        .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("columnName")
-                        .field("type", "text")
-                        .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("articlesSource")
-                        .field("type", "text")
-                        .field("analyzer", "ik_max_word")
-                        .endObject()
-                        .startObject("periodicalDate")
-                        .field("type", "text")
-                        // .field("type", "date")
-                        .field("analyzer", "ik_max_word")
-                        // .field("format", "yyyy-MM")
-                        .endObject()
-                        .endObject()
-                        .startObject("settings")
-                        //分片数
-                        .field("number_of_shards", 3)
-                        //副本数
-                        .field("number_of_replicas", 1)
-                        .endObject()
-                        .endObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             CreateIndexRequest request = new CreateIndexRequest(indexName).source(mapping);
-            //设置创建索引超时2分钟
             request.setTimeout(TimeValue.timeValueMinutes(2));
             createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
@@ -160,6 +109,13 @@ public class ElasticsearchUtil<T> {
         return createIndexResponse.isAcknowledged();
     }
 
+    /**
+     * 通过id索引查找是否存在数据
+     * @param index
+     * @param id
+     * @return
+     * @throws IOException
+     */
     public static boolean existById(String index, String id) throws IOException {
         GetRequest getRequest = new GetRequest(index, id);
         boolean exists = client.exists(getRequest, RequestOptions.DEFAULT);
@@ -191,7 +147,24 @@ public class ElasticsearchUtil<T> {
     }
 
     /**
-     * 数据修改
+     * 批量添加数据
+     * @param idxName
+     * @param map
+     */
+    public static void insertBatch(String idxName, Map<String ,JSONObject> map) {
+        BulkRequest request = new BulkRequest();
+        map.forEach( (key,value) -> {
+            request.add(new IndexRequest(idxName).id(key).source(JSON.toJSONString(value), XContentType.JSON));
+        } );
+        try {
+            client.bulk(request, RequestOptions.DEFAULT);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 通过id数据修改
      *
      * @param content   要修改的数据
      * @param indexName 索引，类似数据库
@@ -214,6 +187,19 @@ public class ElasticsearchUtil<T> {
     }
 
     /**
+     * 通过id删除记录
+     *
+     * @param indexName
+     * @param id
+     */
+    public static void deleteById(String indexName, String id) throws IOException {
+        DeleteRequest deleteRequest = new DeleteRequest(indexName, id);
+        DeleteResponse response = client.delete(deleteRequest, RequestOptions.DEFAULT);
+        log.info("delete:{}" , JSON.toJSONString(response));
+    }
+
+
+    /**
      * 根据条件删除
      *
      * @param builder   要删除的数据  new TermQueryBuilder("userId", userId)
@@ -223,7 +209,6 @@ public class ElasticsearchUtil<T> {
     public static void deleteByQuery(String indexName, QueryBuilder builder) {
         DeleteByQueryRequest request = new DeleteByQueryRequest(indexName);
         request.setQuery(builder);
-        //设置批量操作数量,最大为10000
         request.setBatchSize(10000);
         request.setConflicts("proceed");
         try {
@@ -231,18 +216,6 @@ public class ElasticsearchUtil<T> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * 删除记录
-     *
-     * @param indexName
-     * @param id
-     */
-    public static void deleteData(String indexName, String id) throws IOException {
-        DeleteRequest deleteRequest = new DeleteRequest(indexName, id);
-        DeleteResponse response = client.delete(deleteRequest, RequestOptions.DEFAULT);
-        log.info("delete:{}" , JSON.toJSONString(response));
     }
 
     /**
@@ -261,6 +234,23 @@ public class ElasticsearchUtil<T> {
         log.info("delete: {}" ,JSON.toJSONString(response));
     }
 
+
+    /**
+     * 通过id检索
+     * @param index
+     * @return
+     * @throws IOException
+     */
+    public static Object searchDataById(String index, String id) throws IOException {
+        GetRequest getRequest = new GetRequest(index, id);
+        GetResponse getResponse = client.get(getRequest,RequestOptions.DEFAULT);
+        if (getResponse.isExists()) {
+            String sourceAsString = getResponse.getSourceAsString();
+            return sourceAsString;
+        }
+        return null;
+    }
+
     /**
      * 使用分词查询  高亮 排序 ,并分页
      *
@@ -270,10 +260,12 @@ public class ElasticsearchUtil<T> {
      * @param query          查询条件
      * @param fields         需要显示的字段，逗号分隔（缺省为全部字段）
      * @param sortField      排序字段
+     * @param sortTpye       排序方式："asc" or "desc"
      * @param highlightField 高亮字段
      * @return 结果
      */
-    public static EsPage searchDataPage(String index, Integer startPage, Integer pageSize, QueryBuilder query, String fields, String sortField, String highlightField) {
+    public static ESPageRes searchDataPage(String index, Integer startPage, Integer pageSize,
+                                           QueryBuilder query, String fields, String sortField, String sortTpye, String highlightField) {
         SearchRequest searchRequest = new SearchRequest(index);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //设置一个可选的超时，控制允许搜索的时间
@@ -284,7 +276,11 @@ public class ElasticsearchUtil<T> {
         }
         //排序字段
         if (StringUtils.isNotBlank(sortField)) {
-            searchSourceBuilder.sort(new FieldSortBuilder(sortField).order(SortOrder.ASC));
+            if(StringUtils.isNotBlank(sortTpye) && sortTpye.equals("desc")){
+                searchSourceBuilder.sort(new FieldSortBuilder(sortField).order(SortOrder.DESC));
+            }else{
+                searchSourceBuilder.sort(new FieldSortBuilder(sortField).order(SortOrder.ASC));
+            }
         }
         // 高亮（xxx=111,aaa=222）
         if (StringUtils.isNotBlank(highlightField)) {
@@ -315,7 +311,7 @@ public class ElasticsearchUtil<T> {
             startPage = 0;
         }
         //如果 pageSize是10 那么startPage>9990 (10000-pagesize) 如果 20  那么 >9980 如果 50 那么>9950
-        //深度分页  TODO
+        //深度分页
         if (startPage > (10000 - pageSize)) {
             searchSourceBuilder.query(query);
             searchSourceBuilder
@@ -336,7 +332,7 @@ public class ElasticsearchUtil<T> {
                 //使用scrollId迭代查询
                 List<Map<String, Object>> result = disposeScrollResult(searchResponse, highlightField);
                 List<Map<String, Object>> sourceList = result.stream().parallel().skip((startPage - 1 - (10000 / pageSize)) * pageSize).limit(pageSize).collect(Collectors.toList());
-                return new EsPage(startPage, pageSize, (int) totalHits, sourceList);
+                return new ESPageRes(startPage, pageSize, (int) totalHits, sourceList);
             }
         } else {//浅度分页
             searchSourceBuilder.query(query);
@@ -362,7 +358,7 @@ public class ElasticsearchUtil<T> {
             if (searchResponse.status().getStatus() == 200) {
                 // 解析对象
                 List<Map<String, Object>> sourceList = setSearchResponse(searchResponse, highlightField);
-                return new EsPage(startPage, pageSize, (int) totalHits, sourceList);
+                return new ESPageRes(startPage, pageSize, (int) totalHits, sourceList);
             }
         }
         return null;
