@@ -6,6 +6,7 @@ import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
 import com.vd.canary.data.api.response.es.ShopProductRes;
+import com.vd.canary.data.api.response.es.ShopRes;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFe
              * @param shopSearchBO
              */
             @Override
-            public ResponseBO<ShopProductRes> search(@Valid ShopSearchReq shopSearchBO) {
+            public ResponseBO<ShopRes> search(@Valid ShopSearchReq shopSearchBO) {
                 return null;
             }
 

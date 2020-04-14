@@ -6,7 +6,7 @@ import java.util.*;
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
-import com.vd.canary.data.api.response.es.ESPageRes;
+import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;

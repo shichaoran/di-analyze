@@ -1,4 +1,4 @@
-package com.vd.canary.data.api.response.es;
+package com.vd.canary.data.common.es.helper;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
