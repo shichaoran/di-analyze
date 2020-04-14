@@ -1,20 +1,20 @@
 package com.vd.canary.data.controller.es;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.core.bo.ResponsePageBO;
+import com.vd.canary.data.api.request.es.CategoryReq;
+import com.vd.canary.data.api.request.es.ProductDetailsReq;
 import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.ThreeCategoryReq;
+import com.vd.canary.data.api.response.es.CategoryRes;
+import com.vd.canary.data.api.response.es.ProductDetailsRes;
 import com.vd.canary.data.api.response.es.ProductsRes;
 import com.vd.canary.data.service.es.ProductsService;
 import com.vd.canary.service.controller.BaseController;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import com.vd.canary.service.controller.BaseController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -28,6 +28,24 @@ public class ProductsController extends BaseController {
     @PostMapping("/products/getProductsByKey")
     public ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq){
         ResponseBO<ProductsRes> res = productsService.getProductsByKey(productsReq);
+        return res;
+    }
+
+    @PostMapping("/products/getProductByCategory")
+    ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq) {
+        ResponseBO<ProductsRes> res = productsService.getProductByCategory(threeCategoryReq);
+        return null;
+
+
+    }
+    @PostMapping("/products/getProductDetail")
+    ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq) {
+        ResponseBO<ProductDetailsRes> res =  productsService.getProductsDetail(productDetailsReq);
+        return res;
+    }
+    @PostMapping("/products/category")
+    ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq) {
+        ResponseBO<CategoryRes> res = productsService.categoryres(categoryReq);
         return res;
     }
 

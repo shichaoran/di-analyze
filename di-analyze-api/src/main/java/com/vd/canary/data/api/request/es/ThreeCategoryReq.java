@@ -1,6 +1,14 @@
 package com.vd.canary.data.api.request.es;
 
+import lombok.*;
+import lombok.experimental.Accessors;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+@Getter
+@Setter
 
 public class ThreeCategoryReq extends ProductsBaseReq {
 

@@ -5,8 +5,8 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ProductsReq;
-import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.helper.ESPageRes;
+import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
@@ -283,8 +283,7 @@ public class ProductESServiceImpl implements ProductESService {
         return mapping;
     }
 
-    public ESPageRes boolQueryByKeyword(List<String> skuIdList) {
-    }
+
 
 
     // 权重复杂相关查询 start
