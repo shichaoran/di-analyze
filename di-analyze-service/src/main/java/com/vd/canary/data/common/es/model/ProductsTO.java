@@ -96,8 +96,8 @@ public class ProductsTO implements Serializable {
     /**
      * 商品属性 key为属性id+属性类型，value为属性值
      */
-    private Map<String, HashSet<String>> attributeMap;
-
+    //private Map<String, HashMap<String,String>> attributeMap;
+    private String attributeMap;
 
     /**
      * sku_attribute_relations表   sku属性映射关系
@@ -183,7 +183,8 @@ public class ProductsTO implements Serializable {
     //区域名称
     private String regionalName;
     //区域范围json
-    private Text regionalScope;
+    //private Text regionalScope;
+    private String regionalScope;
 
     /**
      * sku_selling_price表   sku定价管理
@@ -218,6 +219,26 @@ public class ProductsTO implements Serializable {
     private String categoryId;
     // 店铺名称
     private String storeName;
+
+    // 店铺相关的信息，从店铺索引拿
+    //主营类目
+    private String businessCategory;
+    //主营产品
+    private String mainProducts;
+    //所在地区
+    private String businessArea;
+    //展厅编号
+    private String boothBusinessBoothCode; //List boothBusinessBoothCode;
+    //会员等级
+    private String customerProfilesLevel;
+    //认证信息
+    private String approveState;
+    //供方类别
+    private String enterpriseType;
+    //店铺二维码
+    private String storeInfoStoreQrCode;
+    //创建时间
+    private String gmtCreateTime;
 
     /**
     * warehouse_management表    仓库管理

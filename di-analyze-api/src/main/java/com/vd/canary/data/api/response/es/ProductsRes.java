@@ -25,8 +25,8 @@ public class ProductsRes implements Serializable {
     private Map<String,String> brands; //proSkuBrandId:bBrandName
 
     private Map<String,Map<String,String>> attributes; //属性
-    //商品详细列表
-    private List<ProductsDetailRes> productDetailRes;
+
+    private List<ProductsDetailRes> productDetailRes; //商品详细列表
 
 
 }

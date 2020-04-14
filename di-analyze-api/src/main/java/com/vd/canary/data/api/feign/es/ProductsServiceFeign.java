@@ -27,7 +27,7 @@ public interface ProductsServiceFeign extends Feign {
      * 通过首页搜索框输入商品名称
      */
     @PostMapping("/products/getProductsByKey")
-    ResponsePageBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
+    ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
     /**
      * 一组skuid  返回对应的类目

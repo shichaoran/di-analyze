@@ -9,6 +9,7 @@ import com.vd.canary.data.service.es.ESEntityWordService;
 import com.vd.canary.service.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Validated
 @Slf4j
+@Component
 public class ESEntityWordController extends BaseController {
-    @Autowired
-    private ESEntityWordService esEntityWordService;
 
-//    @GetMapping("/member/get/{id}")
-//    public ResponseBO<AccountVO> get(@PathVariable @NotNull String id) {
-//        return accountService.get(id);
-//    }
+    private ESEntityWordService esEntityWordService;
 
     @GetMapping("/entityword/get/{id}")
     public ResponseBO<ESEntityWordRes> get(@PathVariable("id") @NotNull String id){

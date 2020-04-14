@@ -2,6 +2,7 @@ package com.vd.canary.data.api.response.es.vo;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.bouncycastle.util.StringList;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ public class ProductsDetailRes implements Serializable {
     //sku图片地址
     private String proSkuSkuPic;
     //商品属性 key为属性id+属性类型，value为属性值
-    private Map<String, HashSet<String>> attributeMap;
+    private String attributeMap ;//Map<String, HashSet<String>> attributeMap;
     //商品定价
     private String skuSellPriceJson;
     //定价类型
@@ -45,7 +46,7 @@ public class ProductsDetailRes implements Serializable {
     //所在地区
     private String businessArea;
     //展厅编号
-    private List boothBusinessBoothCode;
+    private String boothBusinessBoothCode; //List boothBusinessBoothCode;
     //会员等级
     private String customerProfilesLevel;
     //认证信息
