@@ -9,6 +9,7 @@ import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.ShopSearchReq;
 import com.vd.canary.data.api.response.es.ESPageRes;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.model.ShopTO;
@@ -216,17 +217,22 @@ public class ShopESServiceImpl {
         XContentBuilder mapping = null;
         try {
             mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
-                    //.startObject("m_id").field("type","keyword").endObject()  //m_id:字段名,type:文本类型,analyzer 分词器类型
-                    //
-                    .startObject("id").field("type", "text").endObject()
-                    .startObject("pdfId").field("type", "text").endObject()
-                    .startObject("title").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    .startObject("author").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    .startObject("content").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    .startObject("columnName").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    .startObject("articlesSource").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    .startObject("periodicalDate").field("type", "text").field("analyzer", "ik_max_word").endObject()
-                    // .field("type", "date").field("format", "yyyy-MM")
+                    .startObject("id").field("type", "keyword").endObject()
+                    .startObject("name").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
+                    .startObject("boothCode").field("type", "keyword").endObject()
+                    .startObject("mediaUrl").field("type", "keyword").endObject()
+                    .startObject("businessCategory").field("type", "keyword").endObject()
+                    .startObject("businessBrand").field("type", "keyword").endObject()
+                    .startObject("businessArea").field("type", "keyword").endObject()
+                    .startObject("imageOrder").field("type", "keyword").endObject()
+                    .startObject("imageName").field("type", "keyword").endObject()
+                    .startObject("imageUrl").field("type", "keyword").endObject()
+                    .startObject("shopProductRes").field("type", "keyword").endObject()
+                    .startObject("classify").field("type", "keyword").endObject()
+                    .startObject("customerId").field("type", "keyword").endObject()
+                    .startObject("storeTemplateId").field("type", "keyword").endObject()
+                    .startObject("mainProducts").field("type", "keyword").endObject()
+                    .startObject("boothScheduledTime").field("type", "date").field("format", "yyyy-MM-DD").endObject()
                     .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
                     .endObject().endObject();
         } catch (IOException e) {
