@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-public interface ProductsService  {
+public interface ProductsService {
 
     ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
+
     ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
+
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
+
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 }

@@ -31,14 +31,14 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
-        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(),productsReq.getPageSize(),productsReq);
+        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(), productsReq.getPageSize(), productsReq);
         List<Map<String, Object>> recordList = esPageRes.getRecordList();
-        if(recordList != null && recordList.size() > 0 ){
-            Map<String,String> categorys = new HashMap<>();//fThreeCategoryId:fThreeCategoryName
-            Map<String,String> brands = new HashMap<>(); //proSkuBrandId:bBrandName
-            Map<String,Map<String,String>> attributes = new HashMap<>(); //属性
+        if (recordList != null && recordList.size() > 0) {
+            Map<String, String> categorys = new HashMap<>();//fThreeCategoryId:fThreeCategoryName
+            Map<String, String> brands = new HashMap<>(); //proSkuBrandId:bBrandName
+            Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
             List<ProductsDetailRes> productDetailResList = new ArrayList<>(); //商品详细列表
-            for(Map<String, Object> recordMap: recordList){
+            for (Map<String, Object> recordMap : recordList) {
                 ProductsDetailRes productsDetailRes = new ProductsDetailRes();
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
                 productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
@@ -61,14 +61,14 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setGmtCreateTime(recordMap.get("gmtCreateTime").toString());
                 productDetailResList.add(productsDetailRes);
                 categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
-                brands.put(recordMap.get("proSkuBrandId").toString(),recordMap.get("bBrandName").toString());
-                if(attributes.containsKey(recordMap.get("attributeName").toString())){
-                    Map<String,String> mapt = attributes.get(recordMap.get("attributeName").toString());
-                    mapt.put(recordMap.get("attributeValueId").toString(),recordMap.get("value_Name").toString());
-                }else{
-                    Map<String,String> mapt = new HashMap<>();
-                    mapt.put(recordMap.get("attributeValueId").toString(),recordMap.get("value_Name").toString());
-                    attributes.put(recordMap.get("attributeName").toString(),mapt);
+                brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
+                if (attributes.containsKey(recordMap.get("attributeName").toString())) {
+                    Map<String, String> mapt = attributes.get(recordMap.get("attributeName").toString());
+                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                } else {
+                    Map<String, String> mapt = new HashMap<>();
+                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                    attributes.put(recordMap.get("attributeName").toString(), mapt);
                 }
             }
             productsRes.setCategorys(categorys);
@@ -84,14 +84,14 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
-        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(threeCategoryReq.getPageNum(),threeCategoryReq.getPageSize(),new ProductsReq());
+        ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(threeCategoryReq.getPageNum(), threeCategoryReq.getPageSize(), new ProductsReq());
         List<Map<String, Object>> recordList = esPageRes.getRecordList();
-        if(recordList != null && recordList.size() > 0 ){
-            Map<String,String> categorys = new HashMap<>();//fThreeCategoryId:fThreeCategoryName
-            Map<String,String> brands = new HashMap<>(); //proSkuBrandId:bBrandName
-            Map<String,Map<String,String>> attributes = new HashMap<>(); //属性
+        if (recordList != null && recordList.size() > 0) {
+            Map<String, String> categorys = new HashMap<>();//fThreeCategoryId:fThreeCategoryName
+            Map<String, String> brands = new HashMap<>(); //proSkuBrandId:bBrandName
+            Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
             List<ProductsDetailRes> productDetailResList = new ArrayList<>(); //商品详细列表
-            for(Map<String, Object> recordMap: recordList) {
+            for (Map<String, Object> recordMap : recordList) {
                 ProductsDetailRes productsDetailRes = new ProductsDetailRes();
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
                 productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
@@ -114,14 +114,14 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setGmtCreateTime(recordMap.get("gmtCreateTime").toString());
                 productDetailResList.add(productsDetailRes);
                 categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
-                brands.put(recordMap.get("proSkuBrandId").toString(),recordMap.get("bBrandName").toString());
-                if(attributes.containsKey(recordMap.get("attributeName").toString())){
-                    Map<String,String> mapt = attributes.get(recordMap.get("attributeName").toString());
-                    mapt.put(recordMap.get("attributeValueId").toString(),recordMap.get("value_Name").toString());
-                }else{
-                    Map<String,String> mapt = new HashMap<>();
-                    mapt.put(recordMap.get("attributeValueId").toString(),recordMap.get("value_Name").toString());
-                    attributes.put(recordMap.get("attributeName").toString(),mapt);
+                brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
+                if (attributes.containsKey(recordMap.get("attributeName").toString())) {
+                    Map<String, String> mapt = attributes.get(recordMap.get("attributeName").toString());
+                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                } else {
+                    Map<String, String> mapt = new HashMap<>();
+                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                    attributes.put(recordMap.get("attributeName").toString(), mapt);
                 }
             }
             productsRes.setCategorys(categorys);
@@ -133,7 +133,6 @@ public class ProductsServiceImpl implements ProductsService {
         res.setData(productsRes);
         return res;
     }
-
 
 
     @Override

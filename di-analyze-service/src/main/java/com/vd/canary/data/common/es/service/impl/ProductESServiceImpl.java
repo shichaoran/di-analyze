@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * 商品 ES 业务逻辑实现类
- *
  */
 @Slf4j
 @Data
@@ -33,15 +32,15 @@ import org.springframework.stereotype.Service;
 public class ProductESServiceImpl implements ProductESService {
 
     // 索引
-    private String indexName="productindex";
+    private String indexName = "productindex";
 
     //类型
-    private String esType="producttype";
+    private String esType = "producttype";
 
     // 创建索引
     public String createIndex() {
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            if (ElasticsearchUtil.createIndex( indexName,createIndexMapping() )) {
+            if (ElasticsearchUtil.createIndex(indexName, createIndexMapping())) {
                 return "Create productindex success.";
             } else {
                 return "Create productindex failure！";
@@ -53,63 +52,62 @@ public class ProductESServiceImpl implements ProductESService {
 
     //新增商品信息
     public String saveProduct(ProductsTO product) throws IOException {
-        if(product == null || StringUtils.isEmpty(product.getSkuId()) ){
+        if (product == null || StringUtils.isEmpty(product.getSkuId())) {
             return "param is null.";
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
         }
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
-        String id = ElasticsearchUtil.addData(jsonObject,indexName,product.getSkuId());
-        if(StringUtils.isNotBlank(id)){
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, product.getSkuId());
+        if (StringUtils.isNotBlank(id)) {
             return "SaveProduct success.";
-        }
-        else{
+        } else {
             return "SaveProduct failure!";
         }
     }
 
     //新增或修改商品信息
     public void saveOrUpdateProduct(ProductsTO product) throws IOException {
-        if(product == null || StringUtils.isEmpty(product.getSkuId()) ){
-            return ;
+        if (product == null || StringUtils.isEmpty(product.getSkuId())) {
+            return;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
         }
-        if(ElasticsearchUtil.existById(indexName,product.getSkuId())){
+        if (ElasticsearchUtil.existById(indexName, product.getSkuId())) {
             Map content = JSONObject.parseObject(JSONObject.toJSONString(product), Map.class);
-            ElasticsearchUtil.updateData(content,indexName,product.getSkuId());
-            log.info("indexName:{},skuid:{},update product .",indexName, product.getSkuId());
-        }else{
+            ElasticsearchUtil.updateData(content, indexName, product.getSkuId());
+            log.info("indexName:{},skuid:{},update product .", indexName, product.getSkuId());
+        } else {
             JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
-            String id = ElasticsearchUtil.addData(jsonObject,indexName,product.getSkuId());
-            log.info("indexName:{},skuid:{},save product return id: {}",indexName, product.getSkuId(),id);
+            String id = ElasticsearchUtil.addData(jsonObject, indexName, product.getSkuId());
+            log.info("indexName:{},skuid:{},save product return id: {}", indexName, product.getSkuId(), id);
         }
     }
 
     // 批量新增商品信息
     public void batchAddProduct(List<ProductsTO> products) {
-        if(CollectionUtils.isEmpty(products)) {
-            return ;
+        if (CollectionUtils.isEmpty(products)) {
+            return;
         }
-        if(products == null || products.size() == 0 ){
-            return ;
+        if (products == null || products.size() == 0) {
+            return;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex( indexName,createIndexMapping() );
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
         }
-        Map<String ,JSONObject> map = new HashMap<>();
-        for(ProductsTO product :products) {
+        Map<String, JSONObject> map = new HashMap<>();
+        for (ProductsTO product : products) {
             JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
-            map.put(product.getSkuId(),jsonObject);
+            map.put(product.getSkuId(), jsonObject);
         }
-        ElasticsearchUtil.insertBatch(indexName,map);
+        ElasticsearchUtil.insertBatch(indexName, map);
     }
 
     //删除商品信息
     public void deletedProductById(String id) throws IOException {
-        ElasticsearchUtil.deleteById(indexName,id);
+        ElasticsearchUtil.deleteById(indexName, id);
     }
 
     // 根据productId更新信息
@@ -118,29 +116,28 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     // 通过id获取数据
-    public ProductsTO findById(String id) throws IOException{
-        return (ProductsTO)ElasticsearchUtil.searchDataById(indexName,id);
+    public ProductsTO findById(String id) throws IOException {
+        return (ProductsTO) ElasticsearchUtil.searchDataById(indexName, id);
     }
 
     /**
      * 功能：首页顶部商品搜索框通过 关键字分词查询  支持 高亮 排序 并分页
-     *      使用QueryBuilders
-     *          .termQuery("key", obj) 完全匹配
-     *          .termsQuery("key", obj1, obj2..)   一次匹配多个值
-     *          .matchQuery("key", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
-     *          .multiMatchQuery("text", "field1", "field2"..);  匹配多个字段, field有通配符忒行
-     *          .matchAllQuery();         匹配所有文件
-     *          .termQuery(key+".keyword",value) 精准查找
-     *      组合查询 QueryBuilders.boolQuery()
-     *          .must(QueryBuilders) :   AND
-     *          .mustNot(QueryBuilders): NOT
-     *          .should:                  : OR
-     *
+     * 使用QueryBuilders
+     * .termQuery("key", obj) 完全匹配
+     * .termsQuery("key", obj1, obj2..)   一次匹配多个值
+     * .matchQuery("key", Obj) 单个匹配, field不支持通配符, 前缀具高级特性
+     * .multiMatchQuery("text", "field1", "field2"..);  匹配多个字段, field有通配符忒行
+     * .matchAllQuery();         匹配所有文件
+     * .termQuery(key+".keyword",value) 精准查找
+     * 组合查询 QueryBuilders.boolQuery()
+     * .must(QueryBuilders) :   AND
+     * .mustNot(QueryBuilders): NOT
+     * .should:                  : OR
      */
     public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ProductsReq req) {
-        if(req == null){
+        if (req == null) {
             List<Map<String, Object>> recordList = new ArrayList<>();
-            return new ESPageRes(0, 0, 0, recordList );
+            return new ESPageRes(0, 0, 0, recordList);
         }
         if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
             pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
@@ -153,45 +150,45 @@ public class ProductESServiceImpl implements ProductESService {
         String sortTpye = null;
         String highlightField = null;
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        if(StringUtils.isNotBlank(req.getKey())){// keyword 关键字搜索
+        if (StringUtils.isNotBlank(req.getKey())) {// keyword 关键字搜索
             String escapeKey = QueryParser.escape(req.getKey());
             boolQuery.must(QueryBuilders.multiMatchQuery(escapeKey,
-                    "proSkuSpuName","proSkuSkuName","proSkuTitle","proSkuSubTitle",
-                    "threeCategoryName","bBrandName","brandShorthand").fuzziness(Fuzziness.AUTO));
+                    "proSkuSpuName", "proSkuSkuName", "proSkuTitle", "proSkuSubTitle",
+                    "threeCategoryName", "bBrandName", "brandShorthand").fuzziness(Fuzziness.AUTO));
         }
-        if(req.getBBrandId() != null && req.getBBrandId().size() > 0 ){//品牌id
-            boolQuery.must(QueryBuilders.termsQuery("proSkuBrandId",req.getBBrandId()));
+        if (req.getBBrandId() != null && req.getBBrandId().size() > 0) {//品牌id
+            boolQuery.must(QueryBuilders.termsQuery("proSkuBrandId", req.getBBrandId()));
         }
-        if(req.getFThreeCategoryName() != null && req.getFThreeCategoryName().size() > 0 ){//后台三级分类id
-            boolQuery.must(QueryBuilders.termsQuery("threeCategoryId",req.getFThreeCategoryName()));
+        if (req.getFThreeCategoryName() != null && req.getFThreeCategoryName().size() > 0) {//后台三级分类id
+            boolQuery.must(QueryBuilders.termsQuery("threeCategoryId", req.getFThreeCategoryName()));
         }
-        if(req.getBusinessArea() != null && req.getBusinessArea().size() > 0 ){ //供货区域id
-            boolQuery.must(QueryBuilders.termsQuery("regionalId",req.getBusinessArea()));
+        if (req.getBusinessArea() != null && req.getBusinessArea().size() > 0) { //供货区域id
+            boolQuery.must(QueryBuilders.termsQuery("regionalId", req.getBusinessArea()));
         }
-        if(StringUtils.isNotBlank(req.getPriceSort()) ){
+        if (StringUtils.isNotBlank(req.getPriceSort())) {
             sortField = "skuSellPriceJson"; // 商品定价信息，需要嵌套查询xxx.xxx
             sortTpye = req.getPriceSort(); // 商品价格排序
         }
-        if(StringUtils.isNotBlank(req.getIsDiscussPrice()) ){//是否议价，需要嵌套查询xxx.xxx
+        if (StringUtils.isNotBlank(req.getIsDiscussPrice())) {//是否议价，需要嵌套查询xxx.xxx
             //boolQuery.must(QueryBuilders.rangeQuery("skuSellPriceJson").from(30).to(60).includeLower(true).includeUpper(true)); //适用价格区间查找
             boolQuery.must(QueryBuilders.rangeQuery("skuSellPriceJson").gt(0));
             //boolQuery.mustNot();
         }
-        if(StringUtils.isNotBlank(req.getIsHaveHouse()) ){//是否入驻展厅
+        if (StringUtils.isNotBlank(req.getIsHaveHouse())) {//是否入驻展厅
             //boolQuery.must();
         }
-        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);
+        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName, pageNumber, pageSize, boolQuery, fields, sortField, sortTpye, highlightField);
         return esPageRes;
     }
 
     /**
      * index mapping
      * 说明：xx.startObject("m_id").field("type","keyword").endObject().field("type", "date")
-     *        .field("format", "yyyy-MM")  //m_id:字段名,type:文本类型,analyzer 分词器类型
-     *      该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
-     *      创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
+     * .field("format", "yyyy-MM")  //m_id:字段名,type:文本类型,analyzer 分词器类型
+     * 该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
+     * 创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
      */
-    private XContentBuilder createIndexMapping(){
+    private XContentBuilder createIndexMapping() {
         XContentBuilder mapping = null;
         try {
             mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
@@ -284,8 +281,6 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
 
-
-
     // 权重复杂相关查询 start
     /*@Override
     public List<City> searchCity(Integer pageNumber, Integer pageSize, String searchContent) {
@@ -336,8 +331,6 @@ public class ProductESServiceImpl implements ProductESService {
                 .withQuery(functionScoreQueryBuilder).build();
     }*/
     // 权重复杂相关查询 end
-
-
 
 
 }
