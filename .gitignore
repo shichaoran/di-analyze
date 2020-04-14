@@ -1,7 +1,7 @@
 /target/
 target/
 .idea
-.idea/
+/**/.idea/*
 .project
 .settings
 *.iml
