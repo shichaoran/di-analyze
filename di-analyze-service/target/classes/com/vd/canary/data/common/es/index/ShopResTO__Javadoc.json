@@ -1,1 +1,0 @@
-{"doc":"","fields":[{"name":"skuName","doc":" 商品名称\n"},{"name":"skupic","doc":" 商品图片地址\n"},{"name":"skuprice","doc":" 商品价格\n"},{"name":"skuTitle","doc":" 商品标题\n"},{"name":"skuSubtitle","doc":" 商品副标题\n"},{"name":"unit","doc":" 商品计价单位\n"}],"enumConstants":[],"methods":[]}

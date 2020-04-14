@@ -1,1 +1,0 @@
-{"doc":" 业务数据实时通过canalclient写入kafka，topic格式为:binglog_{database}_2r3p;\n","fields":[],"enumConstants":[],"methods":[{"name":"sendMessage","paramTypes":["java.util.List"],"doc":" 发送消息\n"}]}
