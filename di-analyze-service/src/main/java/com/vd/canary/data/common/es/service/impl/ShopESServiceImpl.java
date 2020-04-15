@@ -226,6 +226,7 @@ public class ShopESServiceImpl {
                     .startObject("storeTemplateId").field("type", "keyword").endObject()
                     .startObject("mainProducts").field("type", "keyword").endObject()
                     .startObject("boothScheduledTime").field("type", "date").field("format", "yyyy-MM-DD").endObject()
+                    .startObject("level").field("type", "keyword").endObject()
                     .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
                     .endObject().endObject();
         } catch (IOException e) {

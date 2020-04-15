@@ -272,6 +272,9 @@ public class ProductESServiceImpl implements ProductESService {
                     .startObject("warehouseType").field("type", "keyword").endObject()
                     .startObject("warehouseRegional").field("type", "keyword").endObject()
                     .startObject("detailedAddress").field("type", "keyword").endObject()
+                    .startObject("skuAuxiliaryUnit").field("type", "keyword").endObject()
+                    .startObject("boothScheduledTime").field("type", "keyword").endObject()
+                    .startObject("proSkuSkuPicJson").field("type", "keyword").endObject()
                     .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
                     .endObject().endObject();
         } catch (IOException e) {
