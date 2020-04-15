@@ -40,6 +40,8 @@ public class ProductsDetailRes implements Serializable {
     private LocalDateTime skuGmtCreateTime;
     //辅助单位
     private String skuAuxiliaryUnit;
+    //三级类目名称
+    private String fThreeCategoryName;
 
     //店铺id
     private String shopId;
