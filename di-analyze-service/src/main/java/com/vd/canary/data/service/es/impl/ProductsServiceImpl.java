@@ -75,6 +75,7 @@ public class ProductsServiceImpl implements ProductsService {
             productsRes.setBrands(brands);
             productsRes.setAttributes(attributes);
             productsRes.setProductDetailRes(productDetailResList);
+            productsRes.setTotal(esPageRes.getRecordCount());
         }
         res.setData(productsRes);
         return res;
@@ -128,6 +129,7 @@ public class ProductsServiceImpl implements ProductsService {
             productsRes.setBrands(brands);
             productsRes.setAttributes(attributes);
             productsRes.setProductDetailRes(productDetailResList);
+            productsRes.setTotal(esPageRes.getRecordCount());
 
         }
         res.setData(productsRes);

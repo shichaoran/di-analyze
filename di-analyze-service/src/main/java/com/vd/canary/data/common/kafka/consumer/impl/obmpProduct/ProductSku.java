@@ -8,9 +8,12 @@ import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.product.api.feign.BackgroundCategoryFeign;
 import com.vd.canary.obmp.product.api.feign.BrandManagementFeign;
+import com.vd.canary.obmp.product.api.feign.CategoryRelationsFeign;
 import com.vd.canary.obmp.product.api.feign.ProductSpuFeign;
+import com.vd.canary.obmp.product.api.request.category.foreground.CategoryRelationsReq;
 import com.vd.canary.obmp.product.api.response.brand.BrandManagementResp;
 import com.vd.canary.obmp.product.api.response.category.CategoryBackgroundResp;
+import com.vd.canary.obmp.product.api.response.category.CategoryRelationsResp;
 import com.vd.canary.obmp.product.api.response.spu.ProductSpuDetailResp;
 import com.vd.canary.obmp.product.api.response.warehouse.WarehouseManagementDetailResp;
 import com.vd.canary.obmp.product.api.response.warehouse.vo.SkuWarehouseRelationsVO;
@@ -21,10 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -35,7 +35,7 @@ public class ProductSku implements Function {
     @Autowired
     private ProductSpuFeign productspu;
     @Autowired
-    private BackgroundCategoryFeign backgroundCategoryFeign;
+    private CategoryRelationsFeign categoryRelationsFeign;
     @Autowired
     private BrandManagementFeign brandManagementFeign;
 
@@ -82,15 +82,21 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_sub_title")) productsTO.setProSkuSubTitle(entry.getValue());
             if (entry.getKey().equals("three_category_id")) {
                 productsTO.setThreeCategoryId(entry.getValue());
-
+//                ResponseBO<List<CategoryRelationsResp>> res =
 
             }
             if (entry.getKey().equals("three_category_code")) {
 
                 threeCategoryCode = entry.getValue();
                 productsTO.setThreeCategoryCode(threeCategoryCode);
-                ResponseBO<List<CategoryBackgroundResp>> res = backgroundCategoryFeign.listAllParentByCode(threeCategoryCode);
-                List<CategoryBackgroundResp> pro = res.getData();
+                CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
+                categoryRelationsReq.setBackgroundCategoryId(threeCategoryCode);
+
+                ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
+                List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
+
+//                productsTO.setThreeCategoryCode(pro.toArray);
+
 
             }
             if (entry.getKey().equals("three_category_name")) productsTO.setThreeCategoryName(entry.getValue());

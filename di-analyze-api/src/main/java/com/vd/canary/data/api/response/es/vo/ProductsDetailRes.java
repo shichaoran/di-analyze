@@ -20,6 +20,8 @@ public class ProductsDetailRes implements Serializable {
 
     //skuid
     private String skuId;
+    //skuname
+    private String skuName;
     //sku标题
     private String proSkuTitle;
     //sku副标题
