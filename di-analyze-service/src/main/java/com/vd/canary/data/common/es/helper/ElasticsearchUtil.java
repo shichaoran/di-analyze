@@ -3,8 +3,11 @@ package com.vd.canary.data.common.es.helper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -18,8 +21,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.*;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
@@ -37,34 +39,67 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-
+@Configuration
 @Slf4j
+@Data
 @Component
 public class ElasticsearchUtil<T> {
 
+    private static ObjectMapper mapper = new ObjectMapper();
+
+    /*使用连接池，但是暂时报Connection refused
     @Autowired
     private RestHighLevelClient restHighLevelClient;
 
     private static RestHighLevelClient client;
 
-    private static ObjectMapper mapper = new ObjectMapper();
-
-    /**
-     * spring容器初始化的时候执行该方法
-     */
+    // spring容器初始化的时候执行该方法
     @PostConstruct
     public void initClient() {
         client = this.restHighLevelClient;
+    }*/
+
+    /*//直接连接可以使用
+    private static RestHighLevelClient client = new RestHighLevelClient(
+            RestClient.builder(
+                    new HttpHost("192.168.5.20", 9201, "http"),//此处写你自己的ip,如果是单机版本,删掉其他两个就好了
+                    new HttpHost("192.168.5.20", 9202, "http"),
+                    new HttpHost("192.168.5.20", 9203, "http")));*/
+
+    private static String hostlist;
+
+    public static String getHost() {
+        return hostlist;
     }
+
+    private static RestHighLevelClient client = null;
+
+    @Value("${spring.elasticSearch.hostlist}")
+    public void setEnv(String hostlist) {
+        this.hostlist = hostlist;
+        String[] split = hostlist.split(",");
+        HttpHost[] httpHostArray = new HttpHost[split.length];
+        for(int i=0;i<split.length;i++){
+            String item = split[i];
+            httpHostArray[i] = new HttpHost(item.split(":")[0], Integer.parseInt(item.split(":")[1]), "http");
+        }
+        this.client = new RestHighLevelClient( RestClient.builder(httpHostArray) );
+
+    }
+
+
 
 
     /**
@@ -351,16 +386,18 @@ public class ElasticsearchUtil<T> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            long totalHits = searchResponse.getHits().getTotalHits().value;
-            long length = searchResponse.getHits().getHits().length;
-            // LOGGER.info("共查询到[{}]条数据,处理数据条数[{}]", totalHits, length);
-            if (searchResponse.status().getStatus() == 200) {
-                // 解析对象
-                List<Map<String, Object>> sourceList = setSearchResponse(searchResponse, highlightField);
-                return new ESPageRes(startPage, pageSize, (int) totalHits, sourceList);
+            if(searchResponse != null){
+                long totalHits = searchResponse.getHits().getTotalHits().value;
+                long length = searchResponse.getHits().getHits().length;
+                // LOGGER.info("共查询到[{}]条数据,处理数据条数[{}]", totalHits, length);
+                if (searchResponse.status().getStatus() == 200) {
+                    // 解析对象
+                    List<Map<String, Object>> sourceList = setSearchResponse(searchResponse, highlightField);
+                    return new ESPageRes(startPage, pageSize, (int) totalHits, sourceList);
+                }
             }
         }
-        return null;
+        return new ESPageRes(startPage, pageSize, 0, new ArrayList<>());
     }
 
     /**

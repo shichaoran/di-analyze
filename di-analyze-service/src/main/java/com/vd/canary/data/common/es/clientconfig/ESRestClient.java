@@ -9,10 +9,11 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Slf4j
-//@Configuration
+@Configuration
 @Getter
 @Setter
 @ComponentScan(basePackageClasses=ESClientSpringFactory.class)
@@ -55,6 +56,13 @@ public class ESRestClient {
         return getFactory().getClient();
     }
 
+    /*
+    @Bean(name = "restHighLevelClient")
+    @Scope("singleton")
+    public RestHighLevelClient getRHLClient(){
+        log.info("RestHighLevelClient 初始化");
+        return getFactory().getRhlClient();
+    }*/
     @Bean(name = "restHighLevelClient")
     @Scope("singleton")
     public RestHighLevelClient getRHLClient(){

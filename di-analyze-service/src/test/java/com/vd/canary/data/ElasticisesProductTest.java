@@ -14,6 +14,13 @@ import com.vd.canary.data.common.es.index.ProductsTO;
 //import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 //import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 //import org.elasticsearch.search.aggregations.metrics.avg.ParsedAvg;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.metrics.ParsedAvg;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 

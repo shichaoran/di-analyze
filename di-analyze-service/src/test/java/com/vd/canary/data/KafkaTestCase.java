@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.UUID;
 
-@ActiveProfiles("dev")
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DataAnalyzeApplication.class)
 public class KafkaTestCase {
