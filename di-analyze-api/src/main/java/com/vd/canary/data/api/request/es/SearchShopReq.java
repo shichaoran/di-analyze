@@ -21,7 +21,7 @@ import java.util.List;
 @ToString
 @Data
 @Accessors(chain = true)
-public class ShopSearchReq extends RequestPageBO {
+public class SearchShopReq extends RequestPageBO {
     private List<String> categoryIds;
     private List<String> brandIds;
     private boolean exhibitionJoined;

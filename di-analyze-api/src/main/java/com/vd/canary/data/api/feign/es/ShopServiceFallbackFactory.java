@@ -5,7 +5,7 @@ import com.vd.canary.core.bo.ResponsePageBO;
 import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
-import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.api.response.es.ShopRes;
 import feign.hystrix.FallbackFactory;
@@ -34,7 +34,7 @@ public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFe
              * @return
              */
             @Override
-            public ResponseBO<ShopRes> search(@Valid ShopSearchReq shopSearchBO) {
+            public ResponseBO<ShopRes> search(@Valid SearchShopReq shopSearchBO) {
                 return null;
             }
 
