@@ -20,5 +20,5 @@ public interface ProductsService {
 
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
-    ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
+    ResponseBO<CategoryRes> categoryRes(@RequestBody @Valid CategoryReq categoryReq);
 }
