@@ -24,7 +24,8 @@ public class KafkaConsumerForES {
     public void listen(List<ConsumerRecord<?, ?>> list) {
         List<String> messages = new ArrayList<>();
         for (ConsumerRecord<?, ?> record : list) {
-            System.out.printf("topic = %s, offset = %d, value = %s \n", record.topic(), record.offset(), record.value());
+            log.info("------this is kafka consumer,topic = %s, offset = %d, receive = %s",record.topic(), record.offset(), record.value());
+            System.out.printf("------this is kafka consumer,topic = %s, offset = %d, receive = %s",record.topic(), record.offset(), record.value());
             Optional<?> kafkaMessage = Optional.ofNullable(record.value());
             // 获取消息
             kafkaMessage.ifPresent(o -> messages.add(o.toString()));

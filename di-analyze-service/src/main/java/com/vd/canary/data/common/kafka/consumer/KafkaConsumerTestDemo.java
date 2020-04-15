@@ -12,8 +12,8 @@ public class KafkaConsumerTestDemo {
     //@KafkaListener(topics = {"test"})
     @KafkaListener(topics = "test", id = "test_es", containerFactory = "batchFactory",concurrency="3" )
     public void receive(String message){
-        log.info("------hello：消费者处理消息------"+message);
-        System.out.println("--------------消费完成:"+System.currentTimeMillis()+"ms");
+        log.info("------this is kafka consumer,topic : test,receive:"+message);
+        System.out.println("------this is kafka consumer,topic : test,receive:"+System.currentTimeMillis()+"ms");
         log.debug(message);
     }
 
