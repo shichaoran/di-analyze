@@ -28,5 +28,7 @@ public class ProductsRes implements Serializable {
 
     private List<ProductsDetailRes> productDetailRes; //商品详细列表
 
+    private Integer total;//总条数
+
 
 }

@@ -51,11 +51,11 @@ public class SkuWarehouseRelations implements Function {
                 try {
                     ProductsTO productsTO = productESService.findById(skuId);
 
-                    productsTO.setWarehouseId(pro.getWarehouseId());
-                    productsTO.setWarehouseName(pro.getWarehouseName());
-                    productsTO.setInventory(pro.getInventory().toString());
-                    productsTO.setRegionalName(pro.getRegionalName());
-                    productsTO.setRegionalId(pro.getRegionalId());
+                    productsTO.setWarehouseId(pro.WAREHOUSE_ID);
+                    productsTO.setWarehouseName(pro.WAREHOUSE_NAME);
+                    productsTO.setInventory(pro.INVENTORY);
+                    productsTO.setRegionalName(pro.REGIONAL_NAME);
+                    productsTO.setRegionalId(pro.REGIONAL_ID);
 
                     ProductESServiceImpl productESService = new ProductESServiceImpl();
                     Gson gson = new Gson();

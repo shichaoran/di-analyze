@@ -12,6 +12,7 @@ import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.service.es.ShopService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -29,6 +30,7 @@ public class ShopServiceImpl implements ShopService {
         ShopRes shopRes = new ShopRes();
         ESPageRes esPageRes = shopESService.boolQueryByKeyword(shopSearchBO.getPageNum(), shopSearchBO.getPageSize(), shopSearchBO);
         List<Map<String, Object>> recordList = esPageRes.getRecordList();
+        LocalDateTime localDateTime = LocalDateTime.of(2019,10,01,00,00,00);
         if (recordList != null && recordList.size() > 0) {
             List<ShopSearchVO> categoryIds = new ArrayList<>();
             List<ShopVo> brandIds = new ArrayList<>();
@@ -38,7 +40,7 @@ public class ShopServiceImpl implements ShopService {
             for (Map<String, Object> recordMap : recordList) {
                 ShopSearchVO shopSearchVO = new ShopSearchVO();
                 shopSearchVO.setBoothCode((List<String>) recordMap.get(brandIds));
-                shopSearchVO.setBoothScheduledTime((Date) recordMap.get(brandIds));
+                shopSearchVO.setBoothScheduledTime(localDateTime);
                 shopSearchVO.setBusinessArea(recordMap.get("skuId").toString());
                 shopSearchVO.setBusinessBrand((List<String>) recordMap.get(brandIds));
                 shopSearchVO.setBusinessCategory(recordMap.get("skuId").toString());
@@ -48,7 +50,10 @@ public class ShopServiceImpl implements ShopService {
                 shopSearchVO.setImageName(recordMap.get("skuId").toString());
                 shopSearchVO.setImageOrder(recordMap.get("skuId").toString());
                 shopSearchVO.setName(recordMap.get("skuId").toString());
+
+                esPageRes.setRecordCount(shopRes.getTotal());
                 categoryIds.add(shopSearchVO);
+
             }
             shopRes.setShopSeatchVOS(categoryIds);
         }

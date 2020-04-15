@@ -4,6 +4,7 @@ import lombok.*;
 import org.w3c.dom.Text;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Map;
 /**
@@ -46,17 +47,20 @@ public class ProductsTO implements Serializable {
     private String skuState;
     //sku图片地址
     private String proSkuSkuPic;
-    //计量单位
+    //计价单位
     private String skuValuationUnit;
     //sku介绍
     private String  skuIntroduce;
+    //辅助单位
+    private String skuAuxiliaryUnit;
+
     /**
      * 属性attribute_aggregation
      */
     //sku创建时间
-    private String  skuGmtCreateTime;
+    private LocalDateTime skuGmtCreateTime;
     //sku修改时间
-    private String  skuGmtModifyTime;
+    private LocalDateTime skuGmtModifyTime;
 
 
     /**
@@ -238,8 +242,8 @@ public class ProductsTO implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private String gmtCreateTime;
-
+    private LocalDateTime gmtCreateTime;
+    private LocalDateTime boothScheduledTime; //入驻时间
     /**
     * warehouse_management表    仓库管理
     */
