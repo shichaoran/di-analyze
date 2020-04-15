@@ -37,7 +37,7 @@ public class DisruptorConfig {
         }
         @Override
         public void onEvent(Element element, long l, boolean b) throws Exception {
-            log.info("========================>binlog:"+element.getValue());
+            //log.info("========================>binlog:"+element.getValue());
             kafkaService.sendMessage(element.getValue());
         }
     }
