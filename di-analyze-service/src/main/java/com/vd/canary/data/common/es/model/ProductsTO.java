@@ -46,10 +46,13 @@ public class ProductsTO implements Serializable {
     private String skuState;
     //sku图片地址
     private String proSkuSkuPic;
-    //计量单位
+    //计价单位
     private String skuValuationUnit;
     //sku介绍
     private String  skuIntroduce;
+    //辅助单位
+    private String skuAuxiliaryUnit;
+
     /**
      * 属性attribute_aggregation
      */

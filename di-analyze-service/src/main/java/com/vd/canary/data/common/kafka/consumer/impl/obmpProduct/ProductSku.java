@@ -47,7 +47,7 @@ public class ProductSku implements Function {
 
         ProductsTO productsTO = new ProductsTO();
         String spuId = "";
-        String threeCategoryCode = "";
+        String threeCategoryId = "";
         String brandId = "";
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
         for (Map.Entry<String, String> entry : entries) {
@@ -81,24 +81,30 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_title")) productsTO.setProSkuTitle(entry.getValue());
             if (entry.getKey().equals("sku_sub_title")) productsTO.setProSkuSubTitle(entry.getValue());
             if (entry.getKey().equals("three_category_id")) {
-                productsTO.setThreeCategoryId(entry.getValue());
-//                ResponseBO<List<CategoryRelationsResp>> res =
-
-            }
-            if (entry.getKey().equals("three_category_code")) {
-
-                threeCategoryCode = entry.getValue();
-                productsTO.setThreeCategoryCode(threeCategoryCode);
+                threeCategoryId = entry.getValue();
+                productsTO.setThreeCategoryId(threeCategoryId);
                 CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
-                categoryRelationsReq.setBackgroundCategoryId(threeCategoryCode);
-
+                categoryRelationsReq.setBackgroundCategoryId(threeCategoryId);
                 ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
                 List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
+                CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
+                String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
+                productsTO.setFOneCategoryCode(foreCategoryFullCode[0]);
+                productsTO.setFTwoCategoryCode(foreCategoryFullCode[1]);
+                productsTO.setFThreeCategoryCode(foreCategoryFullCode[2]);
 
-//                productsTO.setThreeCategoryCode(pro.toArray);
+                String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
+                productsTO.setFOneCategoryName(foreCategoryFullName[0]);
+                productsTO.setFTwoCategoryName(foreCategoryFullName[1]);
+                productsTO.setFThreeCategoryName(foreCategoryFullName[2]);
 
+                String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
+                productsTO.setFOneCategoryId(foreCategoryFullId[0]);
+                productsTO.setFTwoCategoryId(foreCategoryFullId[1]);
+                productsTO.setFThreeCategoryId(foreCategoryFullId[2]);
 
             }
+            if (entry.getKey().equals("three_category_code")) productsTO.setThreeCategoryCode(entry.getValue());
             if (entry.getKey().equals("three_category_name")) productsTO.setThreeCategoryName(entry.getValue());
             if (entry.getKey().equals("sku_supplier_id")) productsTO.setSkuSupplierId(entry.getValue());
             if (entry.getKey().equals("sku_supplier_name")) productsTO.setSkuSupplierName(entry.getValue());
@@ -108,7 +114,7 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
             if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(entry.getValue());
             if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(entry.getValue());
-
+            if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
 
             Gson gson = new Gson();
             Map<String, Object> map = new HashMap<String, Object>();
@@ -130,8 +136,6 @@ public class ProductSku implements Function {
                     e.printStackTrace();
                 }
             }
-
-
         }
     }
 }

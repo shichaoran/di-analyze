@@ -139,11 +139,18 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) {
+        ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
+        ProductDetailsRes productDetailsRes = new ProductDetailsRes();
+
+
+
+
         return null;
     }
 
     @Override
-    public ResponseBO<CategoryRes> categoryres(@Valid CategoryReq categoryReq) {
+    public ResponseBO<CategoryRes> categoryRes(@Valid CategoryReq categoryReq) {
+
         return null;
     }
 }

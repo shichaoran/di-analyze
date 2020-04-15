@@ -33,9 +33,11 @@ public class ProductsDetailRes implements Serializable {
     //商品定价
     private String skuSellPriceJson;
     //定价类型
-    private String skuSellPriceType;
+    private Integer skuSellPriceType;
     //sku创建时间
     private String skuGmtCreateTime;
+    //辅助单位
+    private String skuAuxiliaryUnit;
 
     //店铺id
     private String shopId;
