@@ -1,12 +1,16 @@
 package com.vd.canary.data.api.response.es;
 
-import com.vd.canary.data.api.response.es.vo.ShopSearchVO;
+import com.vd.canary.data.api.response.es.vo.ShopBrand;
+
 import com.vd.canary.data.api.response.es.vo.ShopVo;
+
+import com.vd.canary.data.api.response.es.vo.shopThreeCategory;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author shichaoran
@@ -23,7 +27,8 @@ import java.util.List;
 public class ShopRes implements Serializable {
 
     private List<ShopVo> shopVos;
-    private List<ShopProductRes> shopProductRes;
-    private List<ShopSearchVO> shopSeatchVOS;
+    private List<ShopBrand> shopProductRes;
+    private Map<String,String> shopSeatchVOS;
+    private List<shopThreeCategory> shopThreeCategory;
     private int total;
 }
