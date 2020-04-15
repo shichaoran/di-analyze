@@ -1,11 +1,8 @@
 package com.vd.canary.data.controller.es;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.data.api.request.es.ProductsReq;
-import com.vd.canary.data.api.request.es.ShopSearchReq;
-import com.vd.canary.data.api.response.es.ProductsRes;
+import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopRes;
-import com.vd.canary.data.service.es.ProductsService;
 import com.vd.canary.data.service.es.ShopService;
 import com.vd.canary.service.controller.BaseController;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +25,7 @@ public class ShopController extends BaseController {
 
 
     @PostMapping("/shop/search")
-    public ResponseBO<ShopRes> search(@RequestBody @Valid ShopSearchReq shopSearchBO) {
+    public ResponseBO<ShopRes> search(@RequestBody @Valid SearchShopReq shopSearchBO) {
         ResponseBO<ShopRes> res = shopService.search(shopSearchBO);
         return res;
     }

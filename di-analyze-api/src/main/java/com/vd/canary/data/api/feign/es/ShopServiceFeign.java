@@ -6,7 +6,7 @@ import com.vd.canary.core.bo.ResponsePageBO;
 import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
-import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.api.response.es.ShopRes;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -30,7 +30,7 @@ public interface ShopServiceFeign extends Feign {
      * 商铺搜索
      */
     @PostMapping("/shop/search")
-    ResponseBO<ShopRes> search(@RequestBody @Valid ShopSearchReq shopSearchBO);
+    ResponseBO<ShopRes> search(@RequestBody @Valid SearchShopReq shopSearchBO);
 
     /**
      * 商铺详情

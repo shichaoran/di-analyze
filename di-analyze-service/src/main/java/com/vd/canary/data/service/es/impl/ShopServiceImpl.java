@@ -1,16 +1,13 @@
 package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.core.bo.ResponseBO;
-import com.vd.canary.data.api.request.es.ShopSearchReq;
-import com.vd.canary.data.api.response.es.ProductsRes;
+import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopRes;
-import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.api.response.es.vo.ShopSearchVO;
 import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.service.es.ShopService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -27,7 +24,7 @@ public class ShopServiceImpl implements ShopService {
     public ShopESServiceImpl shopESService;
 
     @Override
-    public ResponseBO<ShopRes> search(@Valid ShopSearchReq shopSearchBO) {
+    public ResponseBO<ShopRes> search(@Valid SearchShopReq shopSearchBO) {
 
         ResponseBO<ShopRes> res = new ResponseBO<ShopRes>();
         ShopRes shopRes = new ShopRes();

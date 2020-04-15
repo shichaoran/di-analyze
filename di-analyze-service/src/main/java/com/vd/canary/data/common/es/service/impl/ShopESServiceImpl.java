@@ -5,7 +5,7 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ShopPageReq;
-import com.vd.canary.data.api.request.es.ShopSearchReq;
+import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ShopTO;
@@ -164,7 +164,7 @@ public class ShopESServiceImpl {
     }
 
     // 通过关键字＋快速查找
-    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, ShopSearchReq req) {
+    public ESPageRes boolQueryByKeyword(Integer pageNumber, Integer pageSize, SearchShopReq req) {
         if(req == null){
             List<Map<String, Object>> recordList = new ArrayList<>();
             return new ESPageRes(0, 0, 0, recordList );
