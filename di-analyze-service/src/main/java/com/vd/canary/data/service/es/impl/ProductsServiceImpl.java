@@ -47,7 +47,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
                 productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
                 productsDetailRes.setProSkuSubTitle(recordMap.get("proSkuSubTitle").toString());
-                productsDetailRes.setProSkuSkuPic(recordMap.get("proSkuSkuPic").toString());
+                productsDetailRes.setProSkuSkuPicJson(recordMap.get("proSkuSkuPic").toString());
                 productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
                 productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
                 productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
@@ -101,7 +101,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
                 productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
                 productsDetailRes.setProSkuSubTitle(recordMap.get("proSkuSubTitle").toString());
-                productsDetailRes.setProSkuSkuPic(recordMap.get("proSkuSkuPic").toString());
+                productsDetailRes.setProSkuSkuPicJson(recordMap.get("proSkuSkuPic").toString());
                 productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
                 productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
                 productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
@@ -145,6 +145,7 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) {
         ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
         ProductDetailsRes productDetailsRes = new ProductDetailsRes();
+
         try {
                 ProductsTO productsTO = productESServiceImpl.findById(productDetailsReq.getProductId());
                 productDetailsRes.setSkuTitle(productsTO.getProSkuTitle());
@@ -152,7 +153,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productDetailsRes.setPriceJson(productsTO.getSkuSellPriceJson());
                 productDetailsRes.setPriceType(productsTO.getSkuSellPriceType());
                 productDetailsRes.setSkuIntroduce(productsTO.getSkuIntroduce());
-                productDetailsRes.setProSkuSkuPic(productsTO.getProSkuSkuPic());
+                productDetailsRes.setProSkuSkuPicJson(productsTO.getProSkuSkuPicJson());
                 productDetailsRes.setRegionalId(productsTO.getRegionalId());
                 productDetailsRes.setRegionalName(productsTO.getRegionalName());
 

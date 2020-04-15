@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.common.es.model.ProductsTO;
+import com.vd.canary.data.common.es.model.ShopTO;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.product.api.feign.StoreProductRelationsFeign;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +48,15 @@ public class StoreProductRelations implements Function {
                     productsTO.setStoreId(pro.getStoreId());
                     productsTO.setCategoryId(pro.getCategoryId());
 
+
+                    ShopTO shopTO = new ShopTO();
+
+                    productsTO.setStoreName(shopTO.getName());
+                    productsTO.setBoothBusinessBoothCode(shopTO.getBoothCode());
+                    productsTO.setBusinessCategory(shopTO.getBusinessCategory());
+                    productsTO.setBusinessArea(shopTO.getBusinessArea());
+                    productsTO.setMainProducts(shopTO.getMainProducts());
+                    productsTO.setBoothScheduledTime(LocalDateTime.parse(shopTO.getBoothScheduledTime()));
 
 
                     ProductESServiceImpl productESService = new ProductESServiceImpl();

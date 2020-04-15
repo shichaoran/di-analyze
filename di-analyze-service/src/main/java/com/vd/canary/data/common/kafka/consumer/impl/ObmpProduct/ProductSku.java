@@ -8,12 +8,14 @@ import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.product.api.feign.BrandManagementFeign;
 import com.vd.canary.obmp.product.api.feign.CategoryRelationsFeign;
+import com.vd.canary.obmp.product.api.feign.FileManagementFeign;
 import com.vd.canary.obmp.product.api.feign.ProductSpuFeign;
 
 import com.vd.canary.obmp.product.api.request.category.foreground.CategoryRelationsReq;
 import com.vd.canary.obmp.product.api.response.brand.BrandManagementResp;
 
 import com.vd.canary.obmp.product.api.response.category.CategoryRelationsResp;
+import com.vd.canary.obmp.product.api.response.file.vo.FileManagementVO;
 import com.vd.canary.obmp.product.api.response.spu.ProductSpuDetailResp;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -37,7 +39,8 @@ public class ProductSku implements Function {
     private CategoryRelationsFeign categoryRelationsFeign;
     @Autowired
     private BrandManagementFeign brandManagementFeign;
-
+    @Autowired
+    private FileManagementFeign fileManagementFeign;
     @Override
     public void performES(String msg) {
         logger.info("ProductSku.msg" + msg);
@@ -72,6 +75,9 @@ public class ProductSku implements Function {
                 productsTO.setSpuState(pro.getSpuState());
                 productsTO.setProSpuSpuPic(pro.getSpuPic());
                 productsTO.setSpuTitle(pro.getSpuTitle());
+
+
+
             }
             if (entry.getKey().equals("spu_code")) productsTO.setProSkuSpuCode(entry.getValue());
             if (entry.getKey().equals("spu_name")) productsTO.setProSkuSpuName(entry.getValue());
@@ -108,9 +114,22 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_supplier_id")) productsTO.setSkuSupplierId(entry.getValue());
             if (entry.getKey().equals("sku_supplier_name")) productsTO.setSkuSupplierName(entry.getValue());
             if (entry.getKey().equals("sku_state")) productsTO.setSkuState(entry.getValue());
-            if (entry.getKey().equals("sku_pic")) productsTO.setProSkuSkuPic(entry.getValue());
+            if (entry.getKey().equals("sku_pic")) {
+               String skuPicId = entry.getValue();
+                ResponseBO<FileManagementVO> res = fileManagementFeign.get(skuPicId);
+                FileManagementVO pro = (FileManagementVO) res.getData();
+                productsTO.setType(pro.getType());
+                productsTO.setFileUrl(pro.getFileUrl());
+                productsTO.setFileSortNumber(pro.getSortNumber());
+                List list = new ArrayList();
+                list.add(pro.getType());
+                list.add(pro.getFileUrl());
+                list.add(pro.getSortNumber());
+                productsTO.setProSkuSkuPicJson(list.toString());
+            }
             if (entry.getKey().equals("sku_valuation_unit")) productsTO.setSkuValuationUnit(entry.getValue());
             if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
+
 
             if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
             if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));

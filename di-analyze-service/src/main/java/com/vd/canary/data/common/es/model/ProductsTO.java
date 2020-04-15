@@ -46,7 +46,7 @@ public class ProductsTO implements Serializable {
     //sku状态
     private String skuState;
     //sku图片地址
-    private String proSkuSkuPic;
+    private String proSkuSkuPicJson;
     //计价单位
     private String skuValuationUnit;
     //sku介绍
@@ -176,7 +176,7 @@ public class ProductsTO implements Serializable {
     //文件存储地址
     private String fileUrl;
     //排序号
-    private String fileSortNumber;
+    private Integer fileSortNumber;
 
 
     /**

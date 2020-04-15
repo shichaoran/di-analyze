@@ -29,7 +29,7 @@ public class ProductsDetailRes implements Serializable {
     //sku副标题
     private String proSkuSubTitle;
     //sku图片地址
-    private String proSkuSkuPic;
+    private String proSkuSkuPicJson;
     //商品属性 key为属性id+属性类型，value为属性值
     private String attributeMap ;//Map<String, HashSet<String>> attributeMap;
     //商品定价
