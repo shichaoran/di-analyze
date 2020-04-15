@@ -25,10 +25,9 @@ import java.util.Map;
 @ToString
 @Accessors(chain = true)
 public class ShopRes implements Serializable {
-
+    private static final long serialVersionUID = 3799924045437177866L;
     private List<ShopVo> shopVos;
-    private List<ShopBrand> shopProductRes;
-    private Map<String,String> brandMap;
-    private Map<String,String> shopThreeCategory;
+    private Map<String,String> brands;
+    private Map<String,String> categories;
     private int total;
 }

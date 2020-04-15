@@ -34,10 +34,22 @@ public class ShopServiceImpl implements ShopService {
         if (recordList != null && recordList.size() > 0) {
             List<ShopSearchVO> categoryIds = new ArrayList<>();
             List<ShopVo> brandIds = new ArrayList<>();
+
             Set set = new HashSet();
             boolean exhibitionJoined;
             String key;
+
+            Map<String, String> brandMap = new HashMap<>();
+            Map<String, String> categoryMap = new HashMap<>();
             for (Map<String, Object> recordMap : recordList) {
+                String brandId = (String)recordMap.get("brandId");
+                String brandName = (String)recordMap.get("brandName");
+                brandMap.put(brandId,brandName);
+
+                String categoryId = (String)recordMap.get("categoryId");
+                String categoryName = (String)recordMap.get("categoryName");
+                categoryMap.put(categoryId,categoryName);
+
                 ShopSearchVO shopSearchVO = new ShopSearchVO();
                 shopSearchVO.setBoothCode((List<String>) recordMap.get(brandIds));
                 shopSearchVO.setBoothScheduledTime(localDateTime);
@@ -51,11 +63,14 @@ public class ShopServiceImpl implements ShopService {
                 shopSearchVO.setImageOrder(recordMap.get("skuId").toString());
                 shopSearchVO.setName(recordMap.get("skuId").toString());
 
+
                 esPageRes.setRecordCount(shopRes.getTotal());
                 categoryIds.add(shopSearchVO);
 
             }
-            shopRes.setShopSeatchVOS(categoryIds);
+            shopRes.setBrands(brandMap);
+            shopRes.setCategories(categoryMap);
+            shopRes.setTotal(esPageRes.getRecordCount());
         }
         res.setData(shopRes);
         return res;
