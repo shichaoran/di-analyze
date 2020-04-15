@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import org.bouncycastle.util.StringList;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,8 @@ public class ProductsDetailRes implements Serializable {
     private String storeInfoStoreQrCode;
     //创建时间
     private String gmtCreateTime;
+
+    private Date boothScheduledTime; //入驻时间
 
 
 }
