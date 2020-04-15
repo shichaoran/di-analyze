@@ -33,7 +33,7 @@ public class ProductDetailsRes implements Serializable {
     //sku描述
     private String skuIntroduce;
     //sku图片地址
-    private String proSkuSkuPic;
+    private String proSkuSkuPicJson;
     //供货区域id
     private String regionalId;
     //供货区域
