@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
+package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import java.io.IOException;
 import java.util.HashMap;

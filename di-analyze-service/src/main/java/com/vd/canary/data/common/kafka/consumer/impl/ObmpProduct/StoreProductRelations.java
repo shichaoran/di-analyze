@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
+package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -45,6 +45,8 @@ public class StoreProductRelations implements Function {
                     ProductsTO productsTO = productESService.findById(skuId);
                     productsTO.setStoreId(pro.getStoreId());
                     productsTO.setCategoryId(pro.getCategoryId());
+
+
 
                     ProductESServiceImpl productESService = new ProductESServiceImpl();
                     Gson gson = new Gson();

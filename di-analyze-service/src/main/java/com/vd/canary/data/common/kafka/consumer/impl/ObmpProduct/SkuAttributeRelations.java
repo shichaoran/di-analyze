@@ -1,4 +1,4 @@
-package com.vd.canary.data.common.kafka.consumer.impl.obmpProduct;
+package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -12,7 +12,6 @@ import com.vd.canary.obmp.product.api.feign.SkuAttributeRelationsFeign;
 import com.vd.canary.obmp.product.api.request.sku.SkuAttributeRelationsReq;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeManagementDetailResp;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeValueResp;
-import com.vd.canary.obmp.product.api.response.spu.ProductSpuDetailResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
