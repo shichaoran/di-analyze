@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -112,8 +113,9 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_pic")) productsTO.setProSkuSkuPic(entry.getValue());
             if (entry.getKey().equals("sku_valuation_unit")) productsTO.setSkuValuationUnit(entry.getValue());
             if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
-            if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(entry.getValue());
-            if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(entry.getValue());
+
+            if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
+            if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));
             if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
 
             Gson gson = new Gson();

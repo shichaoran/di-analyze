@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import org.bouncycastle.util.StringList;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ProductsDetailRes implements Serializable {
     //定价类型
     private Integer skuSellPriceType;
     //sku创建时间
-    private String skuGmtCreateTime;
+    private LocalDateTime skuGmtCreateTime;
     //辅助单位
     private String skuAuxiliaryUnit;
 
@@ -61,9 +62,9 @@ public class ProductsDetailRes implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private String gmtCreateTime;
+    private LocalDateTime gmtCreateTime;
 
-    private Date boothScheduledTime; //入驻时间
+    private LocalDateTime boothScheduledTime; //入驻时间
 
 
 }

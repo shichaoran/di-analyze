@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -50,7 +51,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
                 productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
                 productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
-                productsDetailRes.setSkuGmtCreateTime(recordMap.get("skuGmtCreateTime").toString());
+                productsDetailRes.setSkuGmtCreateTime(LocalDateTime.parse(recordMap.get("skuGmtCreateTime").toString()));
                 productsDetailRes.setShopId(recordMap.get("storeId").toString());
                 productsDetailRes.setStoreInfoName(recordMap.get("storeName").toString());
                 productsDetailRes.setBusinessCategory(recordMap.get("businessCategory").toString());
@@ -61,7 +62,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setApproveState(recordMap.get("approveState").toString());
                 productsDetailRes.setEnterpriseType(recordMap.get("enterpriseType").toString());
                 productsDetailRes.setStoreInfoStoreQrCode(recordMap.get("storeInfoStoreQrCode").toString());
-                productsDetailRes.setGmtCreateTime(recordMap.get("gmtCreateTime").toString());
+                productsDetailRes.setGmtCreateTime(LocalDateTime.parse(recordMap.get("gmtCreateTime").toString()));
                 productDetailResList.add(productsDetailRes);
                 categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
                 brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
@@ -104,7 +105,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
                 productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
                 productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
-                productsDetailRes.setSkuGmtCreateTime(recordMap.get("skuGmtCreateTime").toString());
+                productsDetailRes.setSkuGmtCreateTime(LocalDateTime.parse(recordMap.get("skuGmtCreateTime").toString()));
                 productsDetailRes.setShopId(recordMap.get("storeId").toString());
                 productsDetailRes.setStoreInfoName(recordMap.get("storeName").toString());
                 productsDetailRes.setBusinessCategory(recordMap.get("businessCategory").toString());
@@ -115,7 +116,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setApproveState(recordMap.get("approveState").toString());
                 productsDetailRes.setEnterpriseType(recordMap.get("enterpriseType").toString());
                 productsDetailRes.setStoreInfoStoreQrCode(recordMap.get("storeInfoStoreQrCode").toString());
-                productsDetailRes.setGmtCreateTime(recordMap.get("gmtCreateTime").toString());
+                productsDetailRes.setGmtCreateTime(LocalDateTime.parse(recordMap.get("gmtCreateTime").toString()));
                 productDetailResList.add(productsDetailRes);
                 categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
                 brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
