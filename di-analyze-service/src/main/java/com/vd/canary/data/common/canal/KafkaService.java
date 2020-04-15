@@ -51,7 +51,7 @@ public class KafkaService {
             int type = eventType.getNumber();
 
             //根据binlog的filename和position来定位
-            System.out.println(String.format("================> binlog[%s:%s] , name[%s,%s] , eventType : %s",
+            log.info(String.format("================>from mysql binlog[%s:%s] , name[%s,%s] , eventType : %s",
                                              entry.getHeader().getLogfileName(), entry.getHeader().getLogfileOffset(),
                                              entry.getHeader().getSchemaName(), entry.getHeader().getTableName(),
                                              eventType));
@@ -101,7 +101,7 @@ public class KafkaService {
                 }
                 map.put("info",map_info);
                 System.out.println(map);
-                log.info("========================>binlog send to kafka,topic:"+"binglog_" + schemaName + "_2r3p,msg:" + map);
+                log.info("================>binlog send to kafka,topic:"+"binglog_" + schemaName + "_2r3p,msg:" + map);
                 kafkaProducer.send( "binglog_" + schemaName + "_2r3p", JSON.toJSONString(map)); // binglog_{database}_2r3p
             }
         }
