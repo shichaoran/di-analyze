@@ -6,6 +6,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,132 +36,7 @@ public class ShopVo implements Serializable {
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
-    private Date boothScheduledTime; //入驻时间
+    private LocalDateTime boothScheduledTime; //入驻时间
 
-    public String getMainProducts() {
-        return mainProducts;
-    }
-
-    public void setMainProducts(String mainProducts) {
-        mainProducts = mainProducts;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-
-    public String getMediaUrl() {
-        return mediaUrl;
-    }
-
-    public String getBusinessCategory() {
-        return businessCategory;
-    }
-
-
-    public String getBusinessArea() {
-        return businessArea;
-    }
-
-    public String getImageOrder() {
-        return imageOrder;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public String getStoreTemplateId() {
-        return storeTemplateId;
-    }
-
-    public void setStoreTemplateId(String storeTemplateId) {
-        this.storeTemplateId = storeTemplateId;
-    }
-
-    public ShopVo() {
-    }
-
-
-    public void setCustomerId(String customerId) {
-        customerId = customerId;
-    }
-
-    public void setId(String id) {
-        id = id;
-    }
-
-    public void setBoothCode(String boothCode) {
-        boothCode = boothCode;
-    }
-
-    public void setMediaUrl(String mediaUrl) {
-        this.mediaUrl = mediaUrl;
-    }
-
-    public void setBusinessCategory(String businessCategory) {
-        this.businessCategory = businessCategory;
-    }
-
-    public void setBusinessArea(String businessArea) {
-        this.businessArea = businessArea;
-    }
-
-    public void setImageOrder(String imageOrder) {
-        this.imageOrder = imageOrder;
-    }
-
-    public List<ShopProductRes> getShopProductRes() {
-        return shopProductRes;
-    }
-
-    public void setShopProductRes(List<ShopProductRes> shopProductRes) {
-        this.shopProductRes = shopProductRes;
-    }
-
-
-    public HashSet<String> getClassify() {
-        return classify;
-    }
-
-    public void setClassify(HashSet<String> classify) {
-        this.classify = classify;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-
-    public List<String> getBusinessBrand() {
-        return businessBrand;
-    }
-
-    public void setBusinessBrand(List<String> businessBrand) {
-        this.businessBrand = businessBrand;
-    }
 }
 

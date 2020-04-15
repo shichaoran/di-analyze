@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.lang.invoke.SerializedLambda;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,5 +36,5 @@ public class ShopSearchVO implements Serializable {
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
-    private Date boothScheduledTime; //入驻时间
+    private LocalDateTime boothScheduledTime; //入驻时间
 }

@@ -10,6 +10,8 @@ import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.service.es.ShopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -20,6 +22,7 @@ import java.util.*;
  * @Date 2020/4/14 19:53
  * @Version
  */
+@Service
 public class ShopServiceImpl implements ShopService {
     public ShopESServiceImpl shopESService;
 

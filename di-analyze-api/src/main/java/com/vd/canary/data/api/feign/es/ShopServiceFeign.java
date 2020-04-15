@@ -2,6 +2,7 @@ package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.api.Feign;
 import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.core.bo.ResponsePageBO;
 import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
@@ -36,7 +37,7 @@ public interface ShopServiceFeign extends Feign {
      * 给shopid
      */
     @GetMapping("/shop/product")
-    ResponseBO<ShopPageReq> getByID(@RequestBody @Valid ShopPageReq shopPageBO);
+    ResponsePageBO<ShopPageReq> getByID(@RequestBody @Valid ShopPageReq shopPageBO);
 
     /**
      * costemer id

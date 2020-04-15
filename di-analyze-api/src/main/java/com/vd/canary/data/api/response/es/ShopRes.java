@@ -25,4 +25,5 @@ public class ShopRes implements Serializable {
     private List<ShopVo> shopVos;
     private List<ShopProductRes> shopProductRes;
     private List<ShopSearchVO> shopSeatchVOS;
+    private int total;
 }

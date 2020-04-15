@@ -35,8 +35,6 @@ public class ProductsController extends BaseController {
     ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq) {
         ResponseBO<ProductsRes> res = productsService.getProductByCategory(threeCategoryReq);
         return null;
-
-
     }
 
     @PostMapping("/products/getProductDetail")

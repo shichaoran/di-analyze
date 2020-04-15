@@ -10,6 +10,7 @@ import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class ShopTest implements Function {
         shopVO.setMediaUrl("www.wa.com");
         shopVO.setName("fffffff");
         shopVO.setStoreTemplateId("sddsfasdf");
-        shopVO.setBoothCode("1123343547");
+        shopVO.setBoothCode(Collections.singletonList("1123343547"));
 //        shopVO.setBoothScheduledTime("124324234");
         ShopProductRes shopProductRes = new ShopProductRes();
         shopProductRes.setUnit("sdfafgasdg");
