@@ -1,27 +1,33 @@
-//package com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer;
-//
-//import com.alibaba.fastjson.JSON;
-//import com.vd.canary.core.bo.ResponseBO;
-//import com.vd.canary.data.api.response.es.vo.ShopVo;
-//import com.vd.canary.data.common.kafka.consumer.impl.Function;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//
-////import java.util.HashMap;
-//import java.util.Map;
-//import java.util.Set;
-//
-///**
-// * @Author shichaoran
-// * @Date 2020/4/9 14:51
-// * @Version
-//*/
-//public class StoreMedia implements Function {
-//    private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
-//   /**
-//    * 多媒体地址->store_template_id->
+package com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer;
+
+import com.alibaba.fastjson.JSON;
+
+import com.vd.canary.data.api.response.es.vo.ShopVo;
+import com.vd.canary.data.common.kafka.consumer.impl.Function;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+//import java.util.HashMap;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * @Author shichaoran
+ * @Date 2020/4/9 14:51
+ * @Version
+*/
+public class StoreMedia implements Function {
+    private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
+
+    @Override
+    public void performES(String msg) {
+
+    }
+    /**
+    * 多媒体地址->store_template_id->
 //     */
 //   @Autowired
 //    private StoreMediaFeignClient storeMediaFeignClient;
@@ -38,5 +44,5 @@
 //       shopVo.setMediaUrl(storeMediaVO.getMediaUrl());
 //       shopVo.setStoreTemplateId(storeMediaVO.getStoreTemplateId());
 //        }
-//   }
-//
+   }
+

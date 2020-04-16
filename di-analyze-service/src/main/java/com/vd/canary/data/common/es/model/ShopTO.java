@@ -32,4 +32,7 @@ public class ShopTO implements Serializable {
     private Date boothScheduledTime; //入驻时间
     private String level; //会员等级
 
+    public ShopTO() {
+
+    }
 }
