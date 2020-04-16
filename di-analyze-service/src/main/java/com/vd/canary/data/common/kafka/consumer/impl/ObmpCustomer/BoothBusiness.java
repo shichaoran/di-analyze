@@ -5,6 +5,9 @@ import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.api.response.es.vo.ShopVo;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.customer.api.feign.booth.BoothBusinessFeignClient;
+import com.vd.canary.obmp.customer.api.request.booth.BoothBusinessReq;
+import com.vd.canary.obmp.customer.api.response.booth.BoothBusinessInfoResp;
+import com.vd.canary.obmp.customer.api.response.booth.BoothBusinessResp;
 import com.vd.canary.obmp.customer.api.response.booth.BoothBusinessVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +32,16 @@ public class BoothBusiness implements Function {
     @Override
     public void performES(String msg) {
         logger.info("BoothBusinessBoothCode.msg"+msg);
-        ResponseBO<BoothBusinessVO> res = boothBusinessFeignClient.get("");
-        BoothBusinessVO boothBusinessVO = (BoothBusinessVO)res.getData();
+        ResponseBO<BoothBusinessInfoResp> res = boothBusinessFeignClient.queryBoothDetail(new BoothBusinessReq());
+        BoothBusinessInfoResp boothBusinessInfoResp = (BoothBusinessInfoResp)res.getData();
 //        boothBusinessVO.getCustomerName();
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
         Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>(Collections.singleton(boothBusinessInfoResp.getBoothCode()));
+
+
         ShopVo shopVo = new ShopVo();
         shopVo.setBoothCode(list);
-        shopVo.setCustomerId(boothBusinessVO.getCustomerId());
-
+        shopVo.setCustomerId(boothBusinessInfoResp.getCustomerId());
     }
 }
