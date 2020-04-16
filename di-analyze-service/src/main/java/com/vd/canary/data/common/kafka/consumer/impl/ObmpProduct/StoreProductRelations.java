@@ -1,4 +1,3 @@
-/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
@@ -10,6 +9,7 @@ import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.obmp.product.api.feign.StoreProductRelationsFeign;
 import com.vd.canary.obmp.product.api.response.store.vo.StoreProductRelationsVO;
+import com.vd.canary.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +50,18 @@ public class StoreProductRelations implements Function {
                     productsTO.setCategoryId(pro.getCategoryId());
 
 
-                    ShopTO shopTO = new ShopTO();
-
-                    productsTO.setStoreName(shopTO.getName());
-                    productsTO.setBoothBusinessBoothCode(shopTO.getBoothCode());
-                    productsTO.setBusinessCategory(shopTO.getBusinessCategory());
-                    productsTO.setBusinessArea(shopTO.getBusinessArea());
-                    productsTO.setMainProducts(shopTO.getMainProducts());
-                    productsTO.setBoothScheduledTime(LocalDateTime.parse(shopTO.getBoothScheduledTime()));
+//                    ShopTO shopTO = new ShopTO();
+//
+//                    productsTO.setStoreName(shopTO.getName());
+//                    productsTO.setBoothBusinessBoothCode(shopTO.getBoothCode());
+//                    productsTO.setBusinessCategory(shopTO.getBusinessCategory());
+//                    productsTO.setBusinessArea(shopTO.getBusinessArea());
+//                    productsTO.setMainProducts(shopTO.getMainProducts());
+//                    try {
+//                        productsTO.setBoothScheduledTime(DateUtil.getDateTime(shopTO.getBoothScheduledTime().toString()));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
 
 
                     ProductESServiceImpl productESService = new ProductESServiceImpl();
@@ -80,4 +84,3 @@ public class StoreProductRelations implements Function {
         }
     }
 }
-*/
