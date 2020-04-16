@@ -2,6 +2,7 @@ package com.vd.canary.data.common.kafka.consumer.impl;
 
 import java.util.HashMap;
 
+import com.vd.canary.data.common.kafka.consumer.impl.ObmpCustomer.StoreInfo;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct.ProductSku;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct.SkuAttributeRelations;
 import com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct.SkuSellingPrice;
@@ -52,7 +53,7 @@ public class FunctionFactory {
         map.put("obmp_product.sku_warehouse_relations", SkuWarehouseRelations.class);
         map.put("obmp_product.store_product_relations", StoreProductRelations.class);
         //map.put("obmp_customer.booth_business", TestTable.class);
-        //map.put("obmp_customer.store_info", TestTable.class);
+        map.put("obmp_customer.store_info", StoreInfo.class);
         //map.put("obmp_customer.store_media", TestTable.class);
         //map.put("obmp_customer.customer_business_info", TestTable.class);
         //map.put("obmp_customer.store_loop_banner", TestTable.class);
