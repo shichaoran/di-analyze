@@ -1,11 +1,16 @@
 package com.vd.canary.data.common.es.service.impl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
+
+import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
 import com.vd.canary.data.api.request.es.ProductsReq;
+import com.vd.canary.data.api.request.es.ThreeCategoryReq;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ProductsTO;
@@ -18,12 +23,18 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -123,6 +134,49 @@ public class ProductESServiceImpl implements ProductESService {
         return ElasticsearchUtil.searchDataById(indexName, id);
     }
 
+    // 通过 skuid 数组列表返回查询结果，不分页
+    public List<Map<String, Object>> findByIds(List<String> skuIdList) {
+        List<Map<String, Object>> result = Lists.newArrayList();
+        if(skuIdList == null || skuIdList.size() == 0){
+            return result;
+        }
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        boolQuery.must(QueryBuilders.termsQuery("skuId", skuIdList));
+        List<Map<String, Object>> list = ElasticsearchUtil.searchByQuery(indexName,boolQuery);
+        return list;
+    }
+
+    //通过一级类目 二级类目 三级类目 分页搜索数据 分页
+    public ESPageRes boolQueryByDiffCategorys(Integer pageNumber, Integer pageSize, @Valid ThreeCategoryReq req) {
+        if (req == null || ( req.getFOneCategoryId()==null && req.getFTwoCategoryId()==null && req.getFThreeCategoryId()== null ) ) {
+            List<Map<String, Object>> recordList = new ArrayList<>();
+            return new ESPageRes(0, 0, 0, recordList);
+        }
+        if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
+            pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;
+        }
+        if (pageSize == null || pageSize <= 0) {
+            pageSize = Constant.ES_PAGE_SIZE;
+        }
+        String fields = null;
+        String sortField = null;
+        String sortTpye = null;
+        String highlightField = null;
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        if( req.getFOneCategoryId() != null){
+            boolQuery.must(QueryBuilders.termQuery("fOneCategoryId", req.getFOneCategoryId() ));
+        }
+        if( req.getFTwoCategoryId() != null){
+            boolQuery.must(QueryBuilders.termQuery("fTwoCategoryId", req.getFTwoCategoryId() ));
+        }
+        if( req.getFThreeCategoryId() != null){
+            boolQuery.must(QueryBuilders.termQuery("fThreeCategoryId", req.getFThreeCategoryId() ));
+        }
+        ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName, pageNumber, pageSize, boolQuery, fields, sortField, sortTpye, highlightField);
+        return esPageRes;
+    }
+
+
     /**
      * 功能：首页顶部商品搜索框通过 关键字分词查询  支持 高亮 排序 并分页
      * 使用QueryBuilders
@@ -163,7 +217,7 @@ public class ProductESServiceImpl implements ProductESService {
             boolQuery.must(QueryBuilders.termsQuery("proSkuBrandId", req.getBBrandId()));
         }
         if (req.getFThreeCategoryName() != null && req.getFThreeCategoryName().size() > 0) {//后台三级分类id
-            boolQuery.must(QueryBuilders.termsQuery("threeCategoryId", req.getFThreeCategoryName()));
+            boolQuery.must(QueryBuilders.termsQuery("fThreeCategoryId", req.getFThreeCategoryName()));
         }
         if (req.getBusinessArea() != null && req.getBusinessArea().size() > 0) { //供货区域id
             boolQuery.must(QueryBuilders.termsQuery("regionalId", req.getBusinessArea()));
@@ -296,7 +350,7 @@ public class ProductESServiceImpl implements ProductESService {
                 {
                     builder.startObject("properties");
                     {
-                        builder.startObject("id"); { builder.field("type", "text"); }
+                        builder.startObject("skuId"); { builder.field("type", "text"); }
                         builder.endObject();
                         builder.startObject("user_name"); { builder.field("type", "text"); }
                         builder.endObject();
@@ -308,6 +362,7 @@ public class ProductESServiceImpl implements ProductESService {
                         builder.endObject();
                         builder.startObject("is_deleted"); { builder.field("type", "integer"); }
                         builder.endObject();
+
                     }
                     builder.endObject();
                 }

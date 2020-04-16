@@ -3,6 +3,7 @@ package com.vd.canary.data.common.es.helper;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +33,9 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -287,6 +290,29 @@ public class ElasticsearchUtil<T> {
         log.info("delete: {}" ,JSON.toJSONString(response));
     }*/
 
+    // 通过查询条件搜索结果，不分页
+    public static List<Map<String, Object>> searchByQuery(String indexName,QueryBuilder query) {
+        List<Map<String, Object>> res = new ArrayList<>();
+        if(query == null ){
+            return res;
+        }
+        SearchRequest searchRequest = new SearchRequest(indexName);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(query);
+        searchRequest.source(searchSourceBuilder);
+        try {
+            SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+            for (SearchHit hit : response.getHits().getHits()) {
+                Map<String, Object> map = hit.getSourceAsMap();
+                map.put("id", hit.getId());
+                res.add(map);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+
+    }
 
     /**
      * 通过id检索
