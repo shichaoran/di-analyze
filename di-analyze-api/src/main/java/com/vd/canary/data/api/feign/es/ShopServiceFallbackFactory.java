@@ -2,6 +2,7 @@ package com.vd.canary.data.api.feign.es;
 
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.bo.ResponsePageBO;
+import com.vd.canary.core.exception.BusinessException;
 import com.vd.canary.data.api.request.es.CustomerReq;
 import com.vd.canary.data.api.request.es.ProductListReq;
 import com.vd.canary.data.api.request.es.ShopPageReq;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
+
+import static com.vd.canary.core.constant.HttpResponseStatus.FEIGN_EXCEPTION;
 
 /**
  * @Author shichaoran
@@ -35,7 +38,7 @@ public class ShopServiceFallbackFactory implements FallbackFactory<ShopServiceFe
              */
             @Override
             public ResponseBO<ShopRes> search(@Valid SearchShopReq shopSearchBO) {
-                return null;
+                throw new BusinessException(FEIGN_EXCEPTION).append(e.getMessage());
             }
 
             /**

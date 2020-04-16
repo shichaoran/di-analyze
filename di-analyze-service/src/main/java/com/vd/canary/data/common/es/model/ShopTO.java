@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,10 @@ public class ShopTO implements Serializable {
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
-    private LocalDateTime boothScheduledTime; //入驻时间
+    private Date boothScheduledTime; //入驻时间
     private String level; //会员等级
 
+    public ShopTO() {
+
+    }
 }

@@ -32,7 +32,19 @@
         <dependency>
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-business-base-parent</artifactId>
-            <version>0.10.1</version>
+            <version>0.10.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vd.canary.obmp</groupId>
+            <artifactId>obmp-order-api</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vd.canary.obmp</groupId>
+            <artifactId>obmp-customer-api</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -47,6 +59,7 @@
             <artifactId>canal.client</artifactId>
             <version>1.1.4</version>
         </dependency>
+
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>

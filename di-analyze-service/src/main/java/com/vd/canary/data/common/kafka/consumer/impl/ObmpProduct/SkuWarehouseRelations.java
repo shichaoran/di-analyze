@@ -1,4 +1,3 @@
-/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import java.io.IOException;
@@ -38,71 +37,70 @@ public class SkuWarehouseRelations implements Function {
     @Override
     public void performES(String msg) {
         logger.info("SkuWarehouseRelations.msg" + msg);
-        String skuId = "";
-        String warehouseID = "";
-        String regionalId = "";
-        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
-        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            if (entry.getKey().equals("sku_id")) {
-                skuId = entry.getValue();
-
-                ResponseBO<SkuWarehouseRelationsVO> res = skuWarehouseRelationsFeign.get(skuId);
-                SkuWarehouseRelationsVO pro = (SkuWarehouseRelationsVO) res.getData();
-                try {
-                    ProductsTO productsTO = productESService.findById(skuId);
-
-                    productsTO.setWarehouseId(pro.WAREHOUSE_ID);
-                    productsTO.setWarehouseName(pro.WAREHOUSE_NAME);
-                    productsTO.setInventory(pro.INVENTORY);
-                    productsTO.setRegionalName(pro.REGIONAL_NAME);
-                    productsTO.setRegionalId(pro.REGIONAL_ID);
-
-                    ProductESServiceImpl productESService = new ProductESServiceImpl();
-                    Gson gson = new Gson();
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map = gson.fromJson(msg, map.getClass());
-                    String type = (String) map.get("type");
-                    if (type.equals("update")) {
-                        try {
-                            productESService.saveOrUpdateProduct(productsTO);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    if (entry.getKey().equals("warehouse_id")) {
-                        warehouseID = entry.getValue();
-                        ResponseBO<WarehouseManagementDetailResp> res1 = warehouseManagementFeign.get(warehouseID);
-
-                        WarehouseManagementDetailResp pro1 = (WarehouseManagementDetailResp) res1.getData();
-                        productsTO.setWarehouseCode(pro1.getWarehouseCode());
-                        productsTO.setWarehouseRegional(pro1.getWarehouseRegional());
-
-
-                    }
-
-                    if (entry.getKey().equals("regional_id")) {
-                        regionalId = entry.getValue();
-                        ResponseBO<RegionalManagementResp> res2 = regionalManagementFeign.getRegionalManagement(regionalId);
-                        RegionalManagementResp pro2 = (RegionalManagementResp) res2.getData();
-                        productsTO.setWarehouseId(pro2.getRegionalCode());
-                        productsTO.setWarehouseName(pro2.getRegionalName());
-                        productsTO.setInventory(pro2.getRegionalScope());
-
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-
-        }
+//        String skuId = "";
+//        String warehouseID = "";
+//        String regionalId = "";
+//        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
+//        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
+//        for (Map.Entry<String, String> entry : entries) {
+//            if (entry.getKey().equals("sku_id")) {
+//                skuId = entry.getValue();
+//
+//                ResponseBO<SkuWarehouseRelationsVO> res = skuWarehouseRelationsFeign.get(skuId);
+//                SkuWarehouseRelationsVO pro = (SkuWarehouseRelationsVO) res.getData();
+//                try {
+//                    ProductsTO productsTO = productESService.findById(skuId);
+//
+//                    productsTO.setWarehouseId(pro.WAREHOUSE_ID);
+//                    productsTO.setWarehouseName(pro.WAREHOUSE_NAME);
+//                    productsTO.setInventory(pro.INVENTORY);
+//                    productsTO.setRegionalName(pro.REGIONAL_NAME);
+//                    productsTO.setRegionalId(pro.REGIONAL_ID);
+//
+//                    ProductESServiceImpl productESService = new ProductESServiceImpl();
+//                    Gson gson = new Gson();
+//                    Map<String, Object> map = new HashMap<String, Object>();
+//                    map = gson.fromJson(msg, map.getClass());
+//                    String type = (String) map.get("type");
+//                    if (type.equals("update")) {
+//                        try {
+//                            productESService.saveOrUpdateProduct(productsTO);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//
+//                    if (entry.getKey().equals("warehouse_id")) {
+//                        warehouseID = entry.getValue();
+//                        ResponseBO<WarehouseManagementDetailResp> res1 = warehouseManagementFeign.get(warehouseID);
+//
+//                        WarehouseManagementDetailResp pro1 = (WarehouseManagementDetailResp) res1.getData();
+//                        productsTO.setWarehouseCode(pro1.getWarehouseCode());
+//                        productsTO.setWarehouseRegional(pro1.getWarehouseRegional());
+//
+//
+//                    }
+//
+//                    if (entry.getKey().equals("regional_id")) {
+//                        regionalId = entry.getValue();
+//                        ResponseBO<RegionalManagementResp> res2 = regionalManagementFeign.getRegionalManagement(regionalId);
+//                        RegionalManagementResp pro2 = (RegionalManagementResp) res2.getData();
+//                        productsTO.setWarehouseId(pro2.getRegionalCode());
+//                        productsTO.setWarehouseName(pro2.getRegionalName());
+//                        productsTO.setInventory(pro2.getRegionalScope());
+//
+//                    }
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//
+//        }
 
     }
 }
 
-*/
