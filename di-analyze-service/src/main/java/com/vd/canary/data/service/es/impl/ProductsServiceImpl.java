@@ -14,6 +14,7 @@ import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.service.es.ProductsService;
+import com.vd.canary.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ProductsServiceImpl implements ProductsService {
     private ProductESServiceImpl productESServiceImpl;
 
     @Override
-    public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) {
+    public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
         ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(), productsReq.getPageSize(), productsReq);
@@ -45,34 +46,34 @@ public class ProductsServiceImpl implements ProductsService {
             for (Map<String, Object> recordMap : recordList) {
                 ProductsDetailRes productsDetailRes = new ProductsDetailRes();
                 productsDetailRes.setSkuId(recordMap.get("skuId").toString());
-                productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
-                productsDetailRes.setProSkuSubTitle(recordMap.get("proSkuSubTitle").toString());
-                productsDetailRes.setProSkuSkuPicJson(recordMap.get("proSkuSkuPic").toString());
-                productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
-                productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
-                productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
-                productsDetailRes.setSkuGmtCreateTime(LocalDateTime.parse(recordMap.get("skuGmtCreateTime").toString()));
-                productsDetailRes.setShopId(recordMap.get("storeId").toString());
-                productsDetailRes.setStoreInfoName(recordMap.get("storeName").toString());
-                productsDetailRes.setBusinessCategory(recordMap.get("businessCategory").toString());
-                productsDetailRes.setMainProducts(recordMap.get("mainProducts").toString());
-                productsDetailRes.setBusinessArea(recordMap.get("businessArea").toString());
-                productsDetailRes.setBoothBusinessBoothCode(recordMap.get("boothBusinessBoothCode").toString());
-                productsDetailRes.setCustomerProfilesLevel(recordMap.get("customerProfilesLevel").toString());
-                productsDetailRes.setApproveState(recordMap.get("approveState").toString());
-                productsDetailRes.setEnterpriseType(recordMap.get("enterpriseType").toString());
-                productsDetailRes.setStoreInfoStoreQrCode(recordMap.get("storeInfoStoreQrCode").toString());
-                productsDetailRes.setGmtCreateTime(LocalDateTime.parse(recordMap.get("gmtCreateTime").toString()));
+                productsDetailRes.setProSkuTitle(recordMap.containsKey("proSkuTitle")?recordMap.get("proSkuTitle").toString():"");
+                productsDetailRes.setProSkuSubTitle(recordMap.containsKey("proSkuSubTitle")?recordMap.get("proSkuSubTitle").toString():"");
+                productsDetailRes.setProSkuSkuPicJson(recordMap.containsKey("proSkuSkuPic")?recordMap.get("proSkuSkuPic").toString():"");
+                productsDetailRes.setAttributeMap(recordMap.containsKey("attributeMap")?recordMap.get("attributeMap").toString():"");
+                productsDetailRes.setSkuSellPriceJson(recordMap.containsKey("skuSellPriceJson")?recordMap.get("skuSellPriceJson").toString():"");
+                productsDetailRes.setSkuSellPriceType(recordMap.containsKey("skuSellPriceType")?Integer.parseInt(recordMap.get("skuSellPriceType").toString()):0);
+//                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():""));
+                productsDetailRes.setShopId(recordMap.containsKey("storeId")?recordMap.get("storeId").toString():"");
+                productsDetailRes.setStoreInfoName(recordMap.containsKey("storeName")?recordMap.get("storeName").toString():"");
+                productsDetailRes.setBusinessCategory(recordMap.containsKey("businessCategory")?recordMap.get("businessCategory").toString():"");
+                productsDetailRes.setMainProducts(recordMap.containsKey("mainProducts")?recordMap.get("mainProducts").toString():"");
+                productsDetailRes.setBusinessArea(recordMap.containsKey("businessArea")?recordMap.get("businessArea").toString():"");
+                productsDetailRes.setBoothBusinessBoothCode(recordMap.containsKey("boothBusinessBoothCode")?recordMap.get("boothBusinessBoothCode").toString():"");
+                productsDetailRes.setCustomerProfilesLevel(recordMap.containsKey("customerProfilesLevel")?recordMap.get("customerProfilesLevel").toString():"");
+                productsDetailRes.setApproveState(recordMap.containsKey("approveState")?recordMap.get("approveState").toString():"");
+                productsDetailRes.setEnterpriseType(recordMap.containsKey("enterpriseType")?recordMap.get("enterpriseType").toString():"");
+                productsDetailRes.setStoreInfoStoreQrCode(recordMap.containsKey("storeInfoStoreQrCode")?recordMap.get("storeInfoStoreQrCode").toString():"");
+//                productsDetailRes.setGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("gmtCreateTime")?recordMap.get("gmtCreateTime").toString():""));
                 productDetailResList.add(productsDetailRes);
-                categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
-                brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
-                if (attributes.containsKey(recordMap.get("attributeName").toString())) {
-                    Map<String, String> mapt = attributes.get(recordMap.get("attributeName").toString());
-                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                categorys.put(recordMap.containsKey("fThreeCategoryCode")?recordMap.get("fThreeCategoryCode").toString():"", recordMap.containsKey("fThreeCategoryName")?recordMap.get("fThreeCategoryName").toString():"");
+                brands.put(recordMap.containsKey("proSkuBrandId")?recordMap.get("proSkuBrandId").toString():"", recordMap.containsKey("bBrandName")?recordMap.get("bBrandName").toString():"");
+                if (attributes.containsKey(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"")) {
+                    Map<String, String> mapt = attributes.get(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"");
+                    mapt.put(recordMap.containsKey("attributeValueId")?recordMap.get("attributeValueId").toString():"", recordMap.containsKey("value_Name")?recordMap.get("value_Name").toString():"");
                 } else {
                     Map<String, String> mapt = new HashMap<>();
-                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
-                    attributes.put(recordMap.get("attributeName").toString(), mapt);
+                    mapt.put(recordMap.containsKey("attributeValueId")?recordMap.get("attributeValueId").toString():"", recordMap.containsKey("value_Name")?recordMap.get("value_Name").toString():"");
+                    attributes.put(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"", mapt);
                 }
             }
             productsRes.setCategorys(categorys);
@@ -86,7 +87,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) {
+    public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
         ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(threeCategoryReq.getPageNum(), threeCategoryReq.getPageSize(), new ProductsReq());
@@ -105,7 +106,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
                 productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
                 productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
-                productsDetailRes.setSkuGmtCreateTime(LocalDateTime.parse(recordMap.get("skuGmtCreateTime").toString()));
+                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():null));
                 productsDetailRes.setShopId(recordMap.get("storeId").toString());
                 productsDetailRes.setStoreInfoName(recordMap.get("storeName").toString());
                 productsDetailRes.setBusinessCategory(recordMap.get("businessCategory").toString());
@@ -116,7 +117,7 @@ public class ProductsServiceImpl implements ProductsService {
                 productsDetailRes.setApproveState(recordMap.get("approveState").toString());
                 productsDetailRes.setEnterpriseType(recordMap.get("enterpriseType").toString());
                 productsDetailRes.setStoreInfoStoreQrCode(recordMap.get("storeInfoStoreQrCode").toString());
-                productsDetailRes.setGmtCreateTime(LocalDateTime.parse(recordMap.get("gmtCreateTime").toString()));
+                productsDetailRes.setGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("gmtCreateTime")?recordMap.get("gmtCreateTime").toString():null));
                 productDetailResList.add(productsDetailRes);
                 categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
                 brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
