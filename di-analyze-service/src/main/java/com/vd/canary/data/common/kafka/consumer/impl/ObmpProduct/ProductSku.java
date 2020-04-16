@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
@@ -158,3 +159,4 @@ public class ProductSku implements Function {
         }
     }
 }
+*/
