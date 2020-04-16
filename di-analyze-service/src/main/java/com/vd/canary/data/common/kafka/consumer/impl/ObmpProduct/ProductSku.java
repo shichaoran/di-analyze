@@ -33,9 +33,9 @@ import java.util.*;
 public class ProductSku implements Function {
     private static final Logger logger = LoggerFactory.getLogger(ProductSku.class);
     @Autowired
-    ProductESServiceImpl productESService;
+    private ProductESServiceImpl productESServiceImpl;
     @Autowired
-    private ProductSpuFeign productspu;
+    private ProductSpuFeign roductSpuFeign;
     @Autowired
     private CategoryRelationsFeign categoryRelationsFeign;
     @Autowired
@@ -66,24 +66,24 @@ public class ProductSku implements Function {
                     brandId = entry.getValue();
                     productsTO.setProSkuBrandId(brandId);
 
-                    ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(brandId);
+                    /*ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(brandId);
                     BrandManagementResp pro = (BrandManagementResp) res.getData();
                     productsTO.setBrandCode(pro.getBrandCode());
                     productsTO.setBBrandName(pro.getBrandName());
                     productsTO.setBrandLoge(pro.getBrandLogo());
                     productsTO.setBrandShorthand(pro.getBrandShorthand());
-                    productsTO.setBrandIntroduction(pro.getBrandIntroduction());
+                    productsTO.setBrandIntroduction(pro.getBrandIntroduction());*/
 
                 }
                 if (entry.getKey().equals("spu_id")) {
-                    spuId = entry.getValue();
+                    /*spuId = entry.getValue();
                     productsTO.setProSkuSpuId(spuId);
                     ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(spuId);
                     ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
                     productsTO.setSpuState(pro.getSpuState());
                     productsTO.setProSpuSpuPic(pro.getSpuPic());
-                    productsTO.setSpuTitle(pro.getSpuTitle());
-
+                    productsTO.setSpuTitle(pro.getSpuTitle());*/
+                    productsTO.setSpuTitle(entry.getValue());
 
 
                 }
@@ -94,7 +94,7 @@ public class ProductSku implements Function {
                 if (entry.getKey().equals("sku_title")) productsTO.setProSkuTitle(entry.getValue());
                 if (entry.getKey().equals("sku_sub_title")) productsTO.setProSkuSubTitle(entry.getValue());
                 if (entry.getKey().equals("three_category_id")) {
-                    threeCategoryId = entry.getValue();
+                    /*threeCategoryId = entry.getValue();
                     productsTO.setThreeCategoryId(threeCategoryId);
                     CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
                     categoryRelationsReq.setBackgroundCategoryId(threeCategoryId);
@@ -114,7 +114,7 @@ public class ProductSku implements Function {
                     String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
                     productsTO.setFOneCategoryId(foreCategoryFullId[0]);
                     productsTO.setFTwoCategoryId(foreCategoryFullId[1]);
-                    productsTO.setFThreeCategoryId(foreCategoryFullId[2]);
+                    productsTO.setFThreeCategoryId(foreCategoryFullId[2]);*/
 
                 }
                 if (entry.getKey().equals("three_category_code")) productsTO.setThreeCategoryCode(entry.getValue());
@@ -123,7 +123,7 @@ public class ProductSku implements Function {
                 if (entry.getKey().equals("sku_supplier_name")) productsTO.setSkuSupplierName(entry.getValue());
                 if (entry.getKey().equals("sku_state")) productsTO.setSkuState(entry.getValue());
                 if (entry.getKey().equals("sku_pic")) {
-                    String skuPicId = entry.getValue();
+                    /*String skuPicId = entry.getValue();
                     ResponseBO<FileManagementVO> res = fileManagementFeign.get(skuPicId);
                     FileManagementVO pro = (FileManagementVO) res.getData();
                     productsTO.setType(pro.getType());
@@ -133,35 +133,39 @@ public class ProductSku implements Function {
                     list.add(pro.getType());
                     list.add(pro.getFileUrl());
                     list.add(pro.getSortNumber());
-                    productsTO.setProSkuSkuPicJson(list.toString());
+                    productsTO.setProSkuSkuPicJson(list.toString());*/
+                    productsTO.setProSkuSkuPicJson(entry.getValue());
                 }
                 if (entry.getKey().equals("sku_valuation_unit")) productsTO.setSkuValuationUnit(entry.getValue());
                 if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
 
 
-                if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
-                if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));
-                if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
-
-                Gson gson = new Gson();
-                Map<String, Object> map = new HashMap<String, Object>();
-                map = gson.fromJson(msg, map.getClass());
-                String type = (String) map.get("type");
-                System.out.println("----------------------productsTO:" + JSONObject.toJSON(productsTO).toString());
-                if (type.equals("insert") || type.equals("update")) {
-                    try {
-                        productESService.saveOrUpdateProduct(productsTO);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                if (entry.getKey().equals("gmt_create_time")) {
+                    //productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
                 }
-
-                if (type.equals("delete")) {
-                    try {
-                        productESService.deletedProductById(productsTO.getSkuId());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                if (entry.getKey().equals("gmt_modify_time")) {
+                    //productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));
+                }
+                if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
+            }
+            Gson gson = new Gson();
+            Map<String, Object> map = new HashMap<String, Object>();
+            map = gson.fromJson(msg, map.getClass());
+            String type = (String) map.get("type");
+            System.out.println("----------------------productsTO:" + JSONObject.toJSON(productsTO).toString());
+            ProductESServiceImpl productESServiceImplTemp = new ProductESServiceImpl();
+            if (type.equals("insert") || type.equals("update")) {
+                try {
+                    productESServiceImplTemp.saveOrUpdateProduct(productsTO);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (type.equals("delete")) {
+                try {
+                    productESServiceImplTemp.deletedProductById(productsTO.getSkuId());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

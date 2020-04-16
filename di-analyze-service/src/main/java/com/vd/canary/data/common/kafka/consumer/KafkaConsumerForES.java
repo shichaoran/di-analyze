@@ -29,6 +29,7 @@ public class KafkaConsumerForES {
      */
     @KafkaListener(topics = "binglog_obmp_product_2r3p", id = "product_es", containerFactory = "batchFactory",concurrency="3" )
     public void listenProduct(List<ConsumerRecord<?, ?>> list) {
+        log.info("<------this is kafka consumer,topic = binglog_obmp_product_2r3p, list = %s",list);
         List<String> messages = new ArrayList<>();
         for(int i=0;i<list.size();i++)  System.out.println("1111111，list:"+list.get(i));
         for (ConsumerRecord<?, ?> record : list) {
