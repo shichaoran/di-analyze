@@ -38,21 +38,21 @@ public class SkuAttributeRelations implements Function {
 
     @Override
     public void performES(String msg) {
-//        logger.info("SkuAttributeRelations.msg" + msg);
-//
-//        String skuId = "";
-//        String attributeId = "";
-//        String attributevalueId = "";
-//        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
-//        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-//        for (Map.Entry<String, String> entry : entries) {
-//            if (entry.getKey().equals("sku_id")) {
-//                skuId = entry.getValue();
-//                SkuAttributeRelationsReq skuAttributeRelationsReq = new SkuAttributeRelationsReq();
-//                skuAttributeRelationsReq.setSkuId(skuId);
-//
-//                ResponseBO<List> res = skuAttributeRelationsFeign.queryBySkuId(skuAttributeRelationsReq);
-//                List pro = res.getData();
+        logger.info("SkuAttributeRelations.msg" + msg);
+
+        String skuId = "";
+        String attributeId = "";
+        String attributevalueId = "";
+        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
+        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            if (entry.getKey().equals("sku_id")) {
+                skuId = entry.getValue();
+                SkuAttributeRelationsReq skuAttributeRelationsReq = new SkuAttributeRelationsReq();
+                skuAttributeRelationsReq.setSkuId(skuId);
+
+                ResponseBO<List> res = skuAttributeRelationsFeign.queryBySkuId(skuAttributeRelationsReq);
+                List pro = res.getData();
 //                try {
 //                    ProductsTO productsTO = productESService.findById(skuId);
 //
@@ -99,8 +99,54 @@ public class SkuAttributeRelations implements Function {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
-//            }
-//        }
+                try {
+                    Map<String, Object> products = productESService.findById(skuId);
+                    ProductsTO productsTO = null;
+                    productsTO.setAttributeId(pro.toString());
+
+                    if (entry.getKey().equals("attribute_id")) {
+                        attributeId = entry.getValue();
+                        ResponseBO<AttributeManagementDetailResp> res1 = attributeManagementFeign.get(attributeId);
+                        AttributeManagementDetailResp pro1 = (AttributeManagementDetailResp) res.getData();
+
+                        productsTO.setAttributeName(pro1.getAttributeName());
+                        productsTO.setAttributeType(pro1.getAttributeType());
+
+
+                        Map<String, List<AttributeValueResp>> attributeMap = null;
+
+                        attributeMap.put(pro1.getAttributeName() + pro1.getAttributeType(), pro1.getAttributeValueList());
+                        productsTO.setAttributeMap(attributeMap.toString());
+
+                    }
+
+                    if (entry.getKey().equals("attribute_value_id")) {
+                        attributevalueId = entry.getValue();
+
+                        ResponseBO<?> res2 = attributeValueFeign.get(attributevalueId);
+                        String pro2 = (String) res2.getData();
+                        productsTO.setValue_Name(pro2);
+
+                    }
+
+
+                    ProductESServiceImpl productESService = new ProductESServiceImpl();
+                    Gson gson = new Gson();
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map = gson.fromJson(msg, map.getClass());
+                    String type = (String) map.get("type");
+                    if (type.equals("update")) {
+                        try {
+                            productESService.saveOrUpdateProduct(productsTO);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 }

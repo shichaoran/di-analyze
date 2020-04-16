@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
+import com.vd.canary.data.api.request.es.CategoryReq;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.api.request.es.ThreeCategoryReq;
 import com.vd.canary.data.common.es.helper.ESPageRes;
@@ -135,16 +136,27 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     // 通过 skuid 数组列表返回查询结果，不分页
-    public List<Map<String, Object>> findByIds(List<String> skuIdList) {
+    public List<Map<String, Object>> findByIds(CategoryReq categoryReq) {
         List<Map<String, Object>> result = Lists.newArrayList();
-        if(skuIdList == null || skuIdList.size() == 0){
+        if(categoryReq == null || categoryReq.getSkuIdList().size() == 0){
             return result;
         }
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        boolQuery.must(QueryBuilders.termsQuery("skuId", skuIdList));
+        boolQuery.must(QueryBuilders.termsQuery("skuId", categoryReq));
         List<Map<String, Object>> list = ElasticsearchUtil.searchByQuery(indexName,boolQuery);
         return list;
     }
+
+//    public List<Map<String, Object>> findByIds(List<String> skuIdList) {
+//        List<Map<String, Object>> result = Lists.newArrayList();
+//        if(skuIdList == null || skuIdList.size() == 0){
+//            return result;
+//        }
+//        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+//        boolQuery.must(QueryBuilders.termsQuery("skuId", skuIdList));
+//        List<Map<String, Object>> list = ElasticsearchUtil.searchByQuery(indexName,boolQuery);
+//        return list;
+//    }
 
     //通过一级类目 二级类目 三级类目 分页搜索数据 分页
     public ESPageRes boolQueryByDiffCategorys(Integer pageNumber, Integer pageSize, @Valid ThreeCategoryReq req) {

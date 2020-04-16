@@ -92,7 +92,7 @@ public class ESEntityWordController extends BaseController {
                 productsDetailRes.setProSkuTitle(recordMap.containsKey("proSkuTitle")?recordMap.get("proSkuTitle").toString():"");
                 productsDetailRes.setProSkuSubTitle(recordMap.containsKey("proSkuSubTitle")?recordMap.get("proSkuSubTitle").toString():"");
                 productsDetailRes.setProSkuSkuPicJson(recordMap.containsKey("proSkuSkuPic")?recordMap.get("proSkuSkuPic").toString():"");
-                productsDetailRes.setAttributeMap(recordMap.containsKey("attributeMap")?recordMap.get("attributeMap").toString():"");
+//                productsDetailRes.setAttributeMap(recordMap.containsKey("attributeMap")?recordMap.get("attributeMap").toString():"");
                 productsDetailRes.setSkuSellPriceJson(recordMap.containsKey("skuSellPriceJson")?recordMap.get("skuSellPriceJson").toString():"");
                 productsDetailRes.setSkuSellPriceType(recordMap.containsKey("skuSellPriceType")?Integer.parseInt(recordMap.get("skuSellPriceType").toString()):0);
 //                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():""));

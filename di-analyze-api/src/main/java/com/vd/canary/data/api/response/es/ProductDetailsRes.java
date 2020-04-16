@@ -20,6 +20,11 @@ import java.util.Map;
 @Accessors(chain = true)
 public class ProductDetailsRes implements Serializable {
 
+
+    //skuid
+    private String skuId;
+    //skuname
+    private String skuName;
     //sku标题
     private String skuTitle;
     //sku副标题
