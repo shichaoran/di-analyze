@@ -11,6 +11,7 @@ import com.vd.canary.data.api.response.es.ProductsRes;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 public interface ProductsService {
 
@@ -18,7 +19,7 @@ public interface ProductsService {
 
     ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq) throws Exception;
 
-    ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
+    ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq) throws IOException;
 
     ResponseBO<CategoryRes> categoryRes(@RequestBody @Valid CategoryReq categoryReq);
 }

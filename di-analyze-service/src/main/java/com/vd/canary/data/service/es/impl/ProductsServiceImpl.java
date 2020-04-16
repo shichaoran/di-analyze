@@ -99,35 +99,35 @@ public class ProductsServiceImpl implements ProductsService {
             List<ProductsDetailRes> productDetailResList = new ArrayList<>(); //商品详细列表
             for (Map<String, Object> recordMap : recordList) {
                 ProductsDetailRes productsDetailRes = new ProductsDetailRes();
-                productsDetailRes.setSkuId(recordMap.get("skuId").toString());
-                productsDetailRes.setProSkuTitle(recordMap.get("proSkuTitle").toString());
-                productsDetailRes.setProSkuSubTitle(recordMap.get("proSkuSubTitle").toString());
-                productsDetailRes.setProSkuSkuPicJson(recordMap.get("proSkuSkuPic").toString());
-                productsDetailRes.setAttributeMap(recordMap.get("attributeMap").toString());
-                productsDetailRes.setSkuSellPriceJson(recordMap.get("skuSellPriceJson").toString());
-                productsDetailRes.setSkuSellPriceType(Integer.parseInt(recordMap.get("skuSellPriceType").toString()));
-                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():null));
-                productsDetailRes.setShopId(recordMap.get("storeId").toString());
-                productsDetailRes.setStoreInfoName(recordMap.get("storeName").toString());
-                productsDetailRes.setBusinessCategory(recordMap.get("businessCategory").toString());
-                productsDetailRes.setMainProducts(recordMap.get("mainProducts").toString());
-                productsDetailRes.setBusinessArea(recordMap.get("businessArea").toString());
-                productsDetailRes.setBoothBusinessBoothCode(recordMap.get("boothBusinessBoothCode").toString());
-                productsDetailRes.setCustomerProfilesLevel(recordMap.get("customerProfilesLevel").toString());
-                productsDetailRes.setApproveState(recordMap.get("approveState").toString());
-                productsDetailRes.setEnterpriseType(recordMap.get("enterpriseType").toString());
-                productsDetailRes.setStoreInfoStoreQrCode(recordMap.get("storeInfoStoreQrCode").toString());
-                productsDetailRes.setGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("gmtCreateTime")?recordMap.get("gmtCreateTime").toString():null));
+                productsDetailRes.setSkuId(recordMap.containsKey("skuId")?recordMap.get("skuId").toString():"");
+                productsDetailRes.setProSkuTitle(recordMap.containsKey("proSkuTitle")?recordMap.get("proSkuTitle").toString():"");
+                productsDetailRes.setProSkuSubTitle(recordMap.containsKey("proSkuSubTitle")?recordMap.get("proSkuSubTitle").toString():"");
+                productsDetailRes.setProSkuSkuPicJson(recordMap.containsKey("proSkuSkuPic")?recordMap.get("proSkuSkuPic").toString():"");
+                productsDetailRes.setAttributeMap(recordMap.containsKey("attributeMap")?recordMap.get("attributeMap").toString():"");
+                productsDetailRes.setSkuSellPriceJson(recordMap.containsKey("skuSellPriceJson")?recordMap.get("skuSellPriceJson").toString():"");
+                productsDetailRes.setSkuSellPriceType(recordMap.containsKey("skuSellPriceType")?Integer.parseInt(recordMap.get("skuSellPriceType").toString()):0);
+//                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():""));
+                productsDetailRes.setShopId(recordMap.containsKey("storeId")?recordMap.get("storeId").toString():"");
+                productsDetailRes.setStoreInfoName(recordMap.containsKey("storeName")?recordMap.get("storeName").toString():"");
+                productsDetailRes.setBusinessCategory(recordMap.containsKey("businessCategory")?recordMap.get("businessCategory").toString():"");
+                productsDetailRes.setMainProducts(recordMap.containsKey("mainProducts")?recordMap.get("mainProducts").toString():"");
+                productsDetailRes.setBusinessArea(recordMap.containsKey("businessArea")?recordMap.get("businessArea").toString():"");
+                productsDetailRes.setBoothBusinessBoothCode(recordMap.containsKey("boothBusinessBoothCode")?recordMap.get("boothBusinessBoothCode").toString():"");
+                productsDetailRes.setCustomerProfilesLevel(recordMap.containsKey("customerProfilesLevel")?recordMap.get("customerProfilesLevel").toString():"");
+                productsDetailRes.setApproveState(recordMap.containsKey("approveState")?recordMap.get("approveState").toString():"");
+                productsDetailRes.setEnterpriseType(recordMap.containsKey("enterpriseType")?recordMap.get("enterpriseType").toString():"");
+                productsDetailRes.setStoreInfoStoreQrCode(recordMap.containsKey("storeInfoStoreQrCode")?recordMap.get("storeInfoStoreQrCode").toString():"");
+//                productsDetailRes.setGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("gmtCreateTime")?recordMap.get("gmtCreateTime").toString():""));
                 productDetailResList.add(productsDetailRes);
-                categorys.put(recordMap.get("fThreeCategoryCode").toString(), recordMap.get("fThreeCategoryName").toString());
-                brands.put(recordMap.get("proSkuBrandId").toString(), recordMap.get("bBrandName").toString());
-                if (attributes.containsKey(recordMap.get("attributeName").toString())) {
-                    Map<String, String> mapt = attributes.get(recordMap.get("attributeName").toString());
-                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
+                categorys.put(recordMap.containsKey("fThreeCategoryCode")?recordMap.get("fThreeCategoryCode").toString():"", recordMap.containsKey("fThreeCategoryName")?recordMap.get("fThreeCategoryName").toString():"");
+                brands.put(recordMap.containsKey("proSkuBrandId")?recordMap.get("proSkuBrandId").toString():"", recordMap.containsKey("bBrandName")?recordMap.get("bBrandName").toString():"");
+                if (attributes.containsKey(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"")) {
+                    Map<String, String> mapt = attributes.get(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"");
+                    mapt.put(recordMap.containsKey("attributeValueId")?recordMap.get("attributeValueId").toString():"", recordMap.containsKey("value_Name")?recordMap.get("value_Name").toString():"");
                 } else {
                     Map<String, String> mapt = new HashMap<>();
-                    mapt.put(recordMap.get("attributeValueId").toString(), recordMap.get("value_Name").toString());
-                    attributes.put(recordMap.get("attributeName").toString(), mapt);
+                    mapt.put(recordMap.containsKey("attributeValueId")?recordMap.get("attributeValueId").toString():"", recordMap.containsKey("value_Name")?recordMap.get("value_Name").toString():"");
+                    attributes.put(recordMap.containsKey("attributeName")?recordMap.get("attributeName").toString():"", mapt);
                 }
             }
             productsRes.setCategorys(categorys);
@@ -135,7 +135,6 @@ public class ProductsServiceImpl implements ProductsService {
             productsRes.setAttributes(attributes);
             productsRes.setProductDetailRes(productDetailResList);
             productsRes.setTotal(esPageRes.getRecordCount());
-
         }
         res.setData(productsRes);
         return res;
@@ -143,32 +142,36 @@ public class ProductsServiceImpl implements ProductsService {
 
 
     @Override
-    public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) {
+    public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) throws IOException {
         ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
         ProductDetailsRes productDetailsRes = new ProductDetailsRes();
+        Map<String, Object> maps = productESServiceImpl.findById(productDetailsReq.getProductId());
+        for(Map.Entry<String, Object> map : maps.entrySet()){
 
-        try {
-                ProductsTO productsTO = productESServiceImpl.findById(productDetailsReq.getProductId());
-                productDetailsRes.setSkuTitle(productsTO.getProSkuTitle());
-                productDetailsRes.setSkuSubTitle(productsTO.getProSkuSubTitle());
-                productDetailsRes.setPriceJson(productsTO.getSkuSellPriceJson());
-                productDetailsRes.setPriceType(productsTO.getSkuSellPriceType());
-                productDetailsRes.setSkuIntroduce(productsTO.getSkuIntroduce());
-                productDetailsRes.setProSkuSkuPicJson(productsTO.getProSkuSkuPicJson());
-                productDetailsRes.setRegionalId(productsTO.getRegionalId());
-                productDetailsRes.setRegionalName(productsTO.getRegionalName());
+            productDetailsRes.setSkuTitle(map.getKey().equals("skuTitle")?map.getValue().toString():"");
+            productDetailsRes.setSkuSubTitle(map.getKey().equals("skuSubTitle")?map.getValue().toString():"");
+            productDetailsRes.setPriceJson(map.getKey().equals("attributeMap")?map.getValue().toString():"");
+            productDetailsRes.setPriceType(map.getKey().equals("priceJson")?Integer.parseInt(map.getValue().toString()):0);
+            productDetailsRes.setSkuIntroduce(map.getKey().equals("skuIntroduce")?map.getValue().toString():"");
+            productDetailsRes.setProSkuSkuPicJson(map.getKey().equals("proSkuSkuPicJson")?map.getValue().toString():"");
+            productDetailsRes.setRegionalId(map.getKey().equals("regionalId")?map.getValue().toString():"");
+            productDetailsRes.setRegionalName(map.getKey().equals("regionalName")?map.getValue().toString():"");
 
-                Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
-                Map<String,String> map = new HashMap<>();
-                map.put(productsTO.getAttributeName(),productsTO.getValue_Name());
-                attributes.put(productsTO.getAttributeId()+productsTO.getAttributeType(),map);
-                productDetailsRes.setAttributeMap(attributes);
-            } catch(IOException e){
-                e.printStackTrace();
-            }
+//            Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
+//            if (attributes.containsKey("attributeName")){
+//                Map<String,String> mapp = attributes.get(productDetailsReq.getAttributeName());
+//                mapp.put(productsTO.getAttributeId()+"_"+productsTO.getAttributeType(),productsTO.getAttributeName());
+//            }else {
+//                Map<String,String> map = new HashMap<>();
+//                map.put(productsTO.getAttributeName(),productsTO.getValue_Name());
+//                attributes.put(productsTO.getAttributeId()+"_"+productsTO.getAttributeType(),map);
+//            }
+//            productDetailsRes.setAttributeMap(attributes);
+
+        }
 
 
-            return res;
+        return res;
     }
 
     @Override
@@ -180,28 +183,28 @@ public class ProductsServiceImpl implements ProductsService {
         CategoryVO categoryVO = new CategoryVO();
         Map map = new HashMap();
 
-        try {
-            ProductsTO productsTO = productESServiceImpl.findById(categoryRes.getSkuId());
-
-            categoryRes.setSkuId(productsTO.getSkuId());
-
-            categoryVO.setFOneCategoryId(productsTO.getFOneCategoryId());
-            categoryVO.setFOneCategoryCode(productsTO.getFOneCategoryCode());
-            categoryVO.setFOneCategoryName(productsTO.getFOneCategoryName());
-            categoryVO.setFTwoCategoryId(productsTO.getFTwoCategoryId());
-            categoryVO.setFTwoCategoryCode(productsTO.getFTwoCategoryCode());
-            categoryVO.setFTwoCategoryName(productsTO.getFTwoCategoryName());
-            categoryVO.setFThreeCategoryId(productsTO.getFThreeCategoryId());
-            categoryVO.setFThreeCategoryCode(productsTO.getFThreeCategoryCode());
-            categoryVO.setFThreeCategoryName(productsTO.getFThreeCategoryName());
-
-            categoryRes.setCategoryVO(categoryVO);
-            map.put(productsTO.getSkuId(),categoryVO);
-            categoryRes.setMaplist(map);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ProductsTO productsTO = productESServiceImpl.findById(categoryRes.getSkuId());
+//
+//            categoryRes.setSkuId(productsTO.getSkuId());
+//
+//            categoryVO.setFOneCategoryId(productsTO.getFOneCategoryId());
+//            categoryVO.setFOneCategoryCode(productsTO.getFOneCategoryCode());
+//            categoryVO.setFOneCategoryName(productsTO.getFOneCategoryName());
+//            categoryVO.setFTwoCategoryId(productsTO.getFTwoCategoryId());
+//            categoryVO.setFTwoCategoryCode(productsTO.getFTwoCategoryCode());
+//            categoryVO.setFTwoCategoryName(productsTO.getFTwoCategoryName());
+//            categoryVO.setFThreeCategoryId(productsTO.getFThreeCategoryId());
+//            categoryVO.setFThreeCategoryCode(productsTO.getFThreeCategoryCode());
+//            categoryVO.setFThreeCategoryName(productsTO.getFThreeCategoryName());
+//
+//            categoryRes.setCategoryVO(categoryVO);
+//            map.put(productsTO.getSkuId(),categoryVO);
+//            categoryRes.setMaplist(map);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         return res;

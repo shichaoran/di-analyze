@@ -5,6 +5,7 @@ import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 /**
@@ -14,6 +15,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ProductsTO implements Serializable {
 
     private String skuId;
@@ -242,8 +244,8 @@ public class ProductsTO implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private LocalDateTime gmtCreateTime;
-    private LocalDateTime boothScheduledTime; //入驻时间
+    private Date gmtCreateTime;
+    private Date boothScheduledTime; //入驻时间
     /**
     * warehouse_management表    仓库管理
     */

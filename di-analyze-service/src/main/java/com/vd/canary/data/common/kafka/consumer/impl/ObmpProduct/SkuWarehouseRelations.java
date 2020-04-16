@@ -1,4 +1,3 @@
-/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import java.io.IOException;
@@ -105,4 +104,3 @@ public class SkuWarehouseRelations implements Function {
     }
 }
 
-*/
