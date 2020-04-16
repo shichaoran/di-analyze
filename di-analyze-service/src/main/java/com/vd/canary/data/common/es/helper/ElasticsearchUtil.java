@@ -65,9 +65,7 @@ public class ElasticsearchUtil<T> {
     /*使用连接池，但是暂时报Connection refused
     @Autowired
     private RestHighLevelClient restHighLevelClient;
-
     private static RestHighLevelClient client;
-
     // spring容器初始化的时候执行该方法
     @PostConstruct
     public void initClient() {
@@ -82,13 +80,10 @@ public class ElasticsearchUtil<T> {
                     new HttpHost("192.168.5.20", 9203, "http")));*/
 
     private static String hostlist;
-
     public static String getHost() {
         return hostlist;
     }
-
     private static RestHighLevelClient client = null;
-
     @Value("${spring.elasticSearch.hostlist}")
     public void setEnv(String hostlist) {
         this.hostlist = hostlist;
@@ -101,8 +96,6 @@ public class ElasticsearchUtil<T> {
         this.client = new RestHighLevelClient( RestClient.builder(httpHostArray) );
 
     }
-
-
 
 
     /**
@@ -131,7 +124,7 @@ public class ElasticsearchUtil<T> {
      * @param: indexName  索引，类似数据库
      * @return: boolean
      */
-    public static boolean createIndex1(String indexName,XContentBuilder mapping) {
+    /*public static boolean createIndex1(String indexName,XContentBuilder mapping) {
         if (!isIndexExist(indexName)) {
             log.info("Index is not exits!");
         }
@@ -144,7 +137,7 @@ public class ElasticsearchUtil<T> {
             e.printStackTrace();
         }
         return createIndexResponse.isAcknowledged();
-    }
+    }*/
     public static boolean createIndex(String indexName,XContentBuilder builder){
         CreateIndexRequest request = new CreateIndexRequest(indexName);
         request.settings(Settings.builder().put("index.number_of_shards", 5)// 分片数量
@@ -283,7 +276,7 @@ public class ElasticsearchUtil<T> {
      *
      * @param indexName
      */
-    public static void clear(String indexName) {
+    /*public static void deleteAll(String indexName) {
         DeleteRequest deleteRequest = new DeleteRequest(indexName);
         DeleteResponse response = null;
         try {
@@ -292,7 +285,7 @@ public class ElasticsearchUtil<T> {
             e.printStackTrace();
         }
         log.info("delete: {}" ,JSON.toJSONString(response));
-    }
+    }*/
 
 
     /**
