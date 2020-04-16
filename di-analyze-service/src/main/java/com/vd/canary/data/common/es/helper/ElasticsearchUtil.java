@@ -301,12 +301,11 @@ public class ElasticsearchUtil<T> {
      * @return
      * @throws IOException
      */
-    public static Object searchDataById(String index, String id) throws IOException {
+    public static Map<String, Object> searchDataById(String index, String id) throws IOException {
         GetRequest getRequest = new GetRequest(index, id);
         GetResponse getResponse = client.get(getRequest,RequestOptions.DEFAULT);
         if (getResponse.isExists()) {
-            String sourceAsString = getResponse.getSourceAsString();
-            return sourceAsString;
+            return getResponse.getSourceAsMap();
         }
         return null;
     }

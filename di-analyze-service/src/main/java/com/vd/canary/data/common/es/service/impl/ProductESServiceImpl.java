@@ -116,8 +116,8 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     // 通过id获取数据
-    public ProductsTO findById(String id) throws IOException {
-        return (ProductsTO) ElasticsearchUtil.searchDataById(indexName, id);
+    public Map<String, Object> findById(String id) throws IOException {
+        return ElasticsearchUtil.searchDataById(indexName, id);
     }
 
     /**
