@@ -2,7 +2,6 @@ package com.vd.canary.data.common.es.service.impl;
 
 import java.io.IOException;
 import java.util.*;
-
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.common.es.helper.ESPageRes;
@@ -19,6 +18,7 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
@@ -32,15 +32,15 @@ import org.springframework.stereotype.Service;
 public class ProductESServiceImpl implements ProductESService {
 
     // 索引
-    private String indexName = "productindex";
+    private String indexName = "productindex1";
 
     //类型
-    private String esType = "producttype";
+    private String esType = "producttype1";
 
     // 创建索引
     public String createIndex() {
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            if (ElasticsearchUtil.createIndex(indexName, createIndexMapping())) {
+            if (ElasticsearchUtil.createIndex(indexName, createIndexMapping(indexName))) {
                 return "Create productindex success.";
             } else {
                 return "Create productindex failure！";
@@ -56,7 +56,7 @@ public class ProductESServiceImpl implements ProductESService {
             return "param is null.";
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
         }
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(product).toString());
         String id = ElasticsearchUtil.addData(jsonObject, indexName, product.getSkuId());
@@ -73,7 +73,7 @@ public class ProductESServiceImpl implements ProductESService {
             return;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
         }
         if (ElasticsearchUtil.existById(indexName, product.getSkuId())) {
             Map content = JSONObject.parseObject(JSONObject.toJSONString(product), Map.class);
@@ -95,7 +95,7 @@ public class ProductESServiceImpl implements ProductESService {
             return;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName, createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
         }
         Map<String, JSONObject> map = new HashMap<>();
         for (ProductsTO product : products) {
@@ -188,7 +188,7 @@ public class ProductESServiceImpl implements ProductESService {
      * 该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
      * 创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
      */
-    private XContentBuilder createIndexMapping() {
+    private XContentBuilder createIndexMapping1(String indexName) {
         XContentBuilder mapping = null;
         try {
             mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
@@ -282,7 +282,64 @@ public class ProductESServiceImpl implements ProductESService {
         }
         return mapping;
     }
+    private XContentBuilder createIndexMapping(String indexName){
+        // 方式三：使用XContentBuilder
+        XContentBuilder builder = null;
+        try {
+            builder = XContentFactory.jsonBuilder();
+            builder.startObject();
+            {
+                builder.startObject(indexName+"_type");
+                {
+                    builder.startObject("properties");
+                    {
+                        builder.startObject("id"); { builder.field("type", "text"); }
+                        builder.endObject();
+                        builder.startObject("user_name"); { builder.field("type", "text"); }
+                        builder.endObject();
+                        builder.startObject("user_password"); { builder.field("type", "text"); }
+                        builder.endObject();
+                        builder.startObject("user_real_name"); { builder.field("type", "text"); }
+                        builder.endObject();
+                        builder.startObject("create_time"); { builder.field("type", "date"); }
+                        builder.endObject();
+                        builder.startObject("is_deleted"); { builder.field("type", "integer"); }
+                        builder.endObject();
+                    }
+                    builder.endObject();
+                }
+                builder.endObject();
+            }
+            builder.endObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder;
+    }
 
+
+
+    public String testInsertOne(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        Map<String,Object> map = new HashMap();
+        map.put("id", "00b6d5612f734414d68088e359e4b008");// 主键id
+        map.put("user_name", "zhangsan");// 用户名
+        map.put("user_password", "123456");// 密码
+        map.put("user_real_name", "张三");// 用户真实姓名
+        //map.put("create_time", new Date());// 创建时间
+        map.put("is_deleted", 0);// 是否删除
+
+        JSONObject jsonObject = JSONObject.parseObject(map.toString());
+
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, "00b6d5612f734414d68088e359e4b008");
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
 
     // 权重复杂相关查询 start
     /*@Override
