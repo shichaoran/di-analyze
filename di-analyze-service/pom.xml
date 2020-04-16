@@ -24,6 +24,7 @@
 
     <dependencies>
         <!--    自定义依赖    -->
+        
         <dependency>
             <groupId>com.vd.canary.data</groupId>
             <artifactId>di-analyze-api</artifactId>
