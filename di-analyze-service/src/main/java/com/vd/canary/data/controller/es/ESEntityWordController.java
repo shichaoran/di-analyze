@@ -54,10 +54,24 @@ public class ESEntityWordController extends BaseController {
         String res1 = productESServiceImpl.createIndex();
         return res1;
     }
-
-    @PostMapping("/getindex")
+    @PostMapping("/insertOne")
     public String insertOne(@NotNull String data) throws Exception {
-        String res1 = productESServiceImpl.testInsertOne(data);
+        String res1 = productESServiceImpl.testAddData(data);
+        return res1;
+    }
+    @PostMapping("/insertBatch")
+    public String insertBatch(@NotNull String data) throws Exception {
+        String res1 = productESServiceImpl.insertBatch(data);
+        return res1;
+    }
+    @PostMapping("/updateOne")
+    public String updateOne(@NotNull String data) throws Exception {
+        String res1 = productESServiceImpl.updateOne(data);
+        return res1;
+    }
+    @PostMapping("/deleteOne")
+    public String deleteOne(@NotNull String data) throws Exception {
+        String res1 = productESServiceImpl.deleteOne(data);
         return res1;
     }
 

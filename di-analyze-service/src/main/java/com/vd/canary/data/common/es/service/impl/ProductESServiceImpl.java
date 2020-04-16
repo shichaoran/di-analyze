@@ -2,6 +2,8 @@ package com.vd.canary.data.common.es.service.impl;
 
 import java.io.IOException;
 import java.util.*;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ProductsReq;
 import com.vd.canary.data.common.es.helper.ESPageRes;
@@ -9,6 +11,7 @@ import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.ProductESService;
 import com.vd.canary.data.constants.Constant;
+import com.vd.canary.data.util.DateUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -301,7 +304,7 @@ public class ProductESServiceImpl implements ProductESService {
                         builder.endObject();
                         builder.startObject("user_real_name"); { builder.field("type", "text"); }
                         builder.endObject();
-                        builder.startObject("create_time"); { builder.field("type", "date"); }
+                        builder.startObject("create_time"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
                         builder.endObject();
                         builder.startObject("is_deleted"); { builder.field("type", "integer"); }
                         builder.endObject();
@@ -318,21 +321,19 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
 
-
-    public String testInsertOne(String c) throws IOException {
+    // start 测试索引productindex1 专用
+    public String testAddData(String c) throws IOException {
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
             ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
         }
         Map<String,Object> map = new HashMap();
-        map.put("id", "00b6d5612f734414d68088e359e4b008");// 主键id
+        map.put("id","00b6d5612f734414d68088e359e4b008");// 主键id
         map.put("user_name", "zhangsan");// 用户名
         map.put("user_password", "123456");// 密码
         map.put("user_real_name", "张三");// 用户真实姓名
-        //map.put("create_time", new Date());// 创建时间
+        //map.put("create_time", DateUtil.getCurrentTimeStr());// 创建时间
         map.put("is_deleted", 0);// 是否删除
-
-        JSONObject jsonObject = JSONObject.parseObject(map.toString());
-
+        JSONObject jsonObject= JSONObject.parseObject(JSON.toJSONString(map));
         String id = ElasticsearchUtil.addData(jsonObject, indexName, "00b6d5612f734414d68088e359e4b008");
         if (StringUtils.isNotBlank(id)) {
             return "SaveProduct success.";
@@ -340,57 +341,56 @@ public class ProductESServiceImpl implements ProductESService {
             return "SaveProduct failure!";
         }
     }
-
-    // 权重复杂相关查询 start
-    /*@Override
-    public List<City> searchCity(Integer pageNumber, Integer pageSize, String searchContent) {
-        // 校验分页参数
-        if (pageSize == null || pageSize <= 0) {
-            pageSize = PAGE_SIZE;
+    public String insertBatch(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
         }
-        if (pageNumber == null || pageNumber < DEFAULT_PAGE_NUMBER) {
-            pageNumber = DEFAULT_PAGE_NUMBER;
-        }
-        LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n ");
-        // 构建搜索查询
-        SearchQuery searchQuery = getCitySearchQuery(pageNumber,pageSize,searchContent);
-        LOGGER.info("\n searchCity: searchContent [" + searchContent + "] \n DSL  = \n " + searchQuery.getQuery().toString());
-        Page<City> cityPage = cityRepository.search(searchQuery);
-        return cityPage.getContent();
+        Map<String ,JSONObject> mapJSON = new HashMap<>();
+        Map<String,Object> map = new HashMap();
+        map.put("id","00b6d5612f734414d68088e359e4b009");// 主键id
+        map.put("user_name", "lisi");// 用户名
+        map.put("user_password", "123457");// 密码
+        map.put("user_real_name", "李四");// 用户真实姓名
+        map.put("create_time", DateUtil.getCurrentTimeStr());// 创建时间
+        map.put("is_deleted", 0);// 是否删除
+        JSONObject jsonObject= JSONObject.parseObject(JSON.toJSONString(map));
+        mapJSON.put("00b6d5612f734414d68088e359e4b009",jsonObject);
+        Map<String,Object> map1 = new HashMap();
+        map1.put("id","00b6d5612f734414d68088e359e4b010");// 主键id
+        map1.put("user_name", "wangwu");// 用户名
+        map1.put("user_password", "123458");// 密码
+        map1.put("user_real_name", "王五");// 用户真实姓名
+        map1.put("create_time", DateUtil.getCurrentTimeStr());// 创建时间
+        map1.put("is_deleted", 1);// 是否删除
+        JSONObject jsonObject1= JSONObject.parseObject(JSON.toJSONString(map1));
+        mapJSON.put("00b6d5612f734414d68088e359e4b010",jsonObject1);
+        ElasticsearchUtil.insertBatch(indexName,mapJSON);
+        return null;
     }
-    /**
-     * 根据搜索词构造搜索查询语句
-     *
-     * 代码流程：
-     *      - 权重分查询
-     *      - 短语匹配
-     *      - 设置权重分最小值
-     *      - 设置分页参数
-     *
-     * @param pageNumber 当前页码
-     * @param pageSize 每页大小
-     * @param searchContent 搜索内容
-     * @return
-     */
-    /*private SearchQuery getCitySearchQuery(Integer pageNumber, Integer pageSize,String searchContent) {
-        // 短语匹配到的搜索词，求和模式累加权重分
-        // 权重分查询 https://www.elastic.co/guide/c ... .html
-        //   - 短语匹配 https://www.elastic.co/guide/c ... .html
-        //   - 字段对应权重分设置，可以优化成 enum
-        //   - 由于无相关性的分值默认为 1 ，设置权重分最小值为 10
-        FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery()
-                                                                           .add(QueryBuilders.matchPhraseQuery("name", searchContent),
-                                                                                ScoreFunctionBuilders.weightFactorFunction(1000))
-                                                                           .add(QueryBuilders.matchPhraseQuery("description", searchContent),
-                                                                                ScoreFunctionBuilders.weightFactorFunction(500))
-                                                                           .scoreMode(SCORE_MODE_SUM).setMinScore(MIN_SCORE);
-        // 分页参数
-        Pageable pageable = new PageRequest(pageNumber, pageSize);
-        return new NativeSearchQueryBuilder()
-                .withPageable(pageable)
-                .withQuery(functionScoreQueryBuilder).build();
-    }*/
-    // 权重复杂相关查询 end
+    public String updateOne(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        Map<String, Object> content = new HashMap();
+        content.put("user_real_name", "张三1");
+        content.put("create_time", DateUtil.getCurrentTimeStr());// 创建时间
+        String id = ElasticsearchUtil.updateData(content, indexName, "00b6d5612f734414d68088e359e4b008");
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
+    public String deleteOne(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        ElasticsearchUtil.deleteById( indexName, "00b6d5612f734414d68088e359e4b008");
+        return  "Succ";
+    }
+
+    // end 测试索引productindex1 专用
+
 
 
 }
