@@ -1,6 +1,7 @@
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.common.es.model.ProductsTO;
@@ -48,115 +49,122 @@ public class ProductSku implements Function {
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
 
         ProductsTO productsTO = new ProductsTO();
+        System.out.println("----------------------productsTO000:" + JSONObject.toJSON(productsTO).toString());
         String spuId = "";
         String threeCategoryId = "";
         String brandId = "";
-        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            if (entry.getKey().equals("id")) productsTO.setSkuId(entry.getValue());
-            if (entry.getKey().equals("brand_id")) {
-                brandId = entry.getValue();
-                productsTO.setProSkuBrandId(brandId);
+        HashMap hashMapSub = null;
+        if(hashMap.containsKey("info")){
+            hashMapSub = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
+        }
+        if(hashMapSub != null){
+            Set<Map.Entry<String, String>> entries = hashMapSub.entrySet();
+            for (Map.Entry<String, String> entry : entries) {
+                System.out.println("----------------------entry:" + JSONObject.toJSON(entry).toString());
+                if (entry.getKey().equals("id")) productsTO.setSkuId(entry.getValue());
+                if (entry.getKey().equals("brand_id")) {
+                    brandId = entry.getValue();
+                    productsTO.setProSkuBrandId(brandId);
 
-                ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(brandId);
-                BrandManagementResp pro = (BrandManagementResp) res.getData();
-                productsTO.setBrandCode(pro.getBrandCode());
-                productsTO.setBBrandName(pro.getBrandName());
-                productsTO.setBrandLoge(pro.getBrandLogo());
-                productsTO.setBrandShorthand(pro.getBrandShorthand());
-                productsTO.setBrandIntroduction(pro.getBrandIntroduction());
+                    ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(brandId);
+                    BrandManagementResp pro = (BrandManagementResp) res.getData();
+                    productsTO.setBrandCode(pro.getBrandCode());
+                    productsTO.setBBrandName(pro.getBrandName());
+                    productsTO.setBrandLoge(pro.getBrandLogo());
+                    productsTO.setBrandShorthand(pro.getBrandShorthand());
+                    productsTO.setBrandIntroduction(pro.getBrandIntroduction());
 
-            }
-            if (entry.getKey().equals("spu_id")) {
-                spuId = entry.getValue();
-                productsTO.setProSkuSpuId(spuId);
-                ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(spuId);
-                ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
-                productsTO.setSpuState(pro.getSpuState());
-                productsTO.setProSpuSpuPic(pro.getSpuPic());
-                productsTO.setSpuTitle(pro.getSpuTitle());
-
-
-
-            }
-            if (entry.getKey().equals("spu_code")) productsTO.setProSkuSpuCode(entry.getValue());
-            if (entry.getKey().equals("spu_name")) productsTO.setProSkuSpuName(entry.getValue());
-            if (entry.getKey().equals("sku_code")) productsTO.setProSkuSkuCode(entry.getValue());
-            if (entry.getKey().equals("sku_name")) productsTO.setProSkuSkuName(entry.getValue());
-            if (entry.getKey().equals("sku_title")) productsTO.setProSkuTitle(entry.getValue());
-            if (entry.getKey().equals("sku_sub_title")) productsTO.setProSkuSubTitle(entry.getValue());
-            if (entry.getKey().equals("three_category_id")) {
-                threeCategoryId = entry.getValue();
-                productsTO.setThreeCategoryId(threeCategoryId);
-                CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
-                categoryRelationsReq.setBackgroundCategoryId(threeCategoryId);
-                ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
-                List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
-                CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
-                String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
-                productsTO.setFOneCategoryCode(foreCategoryFullCode[0]);
-                productsTO.setFTwoCategoryCode(foreCategoryFullCode[1]);
-                productsTO.setFThreeCategoryCode(foreCategoryFullCode[2]);
-
-                String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
-                productsTO.setFOneCategoryName(foreCategoryFullName[0]);
-                productsTO.setFTwoCategoryName(foreCategoryFullName[1]);
-                productsTO.setFThreeCategoryName(foreCategoryFullName[2]);
-
-                String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
-                productsTO.setFOneCategoryId(foreCategoryFullId[0]);
-                productsTO.setFTwoCategoryId(foreCategoryFullId[1]);
-                productsTO.setFThreeCategoryId(foreCategoryFullId[2]);
-
-            }
-            if (entry.getKey().equals("three_category_code")) productsTO.setThreeCategoryCode(entry.getValue());
-            if (entry.getKey().equals("three_category_name")) productsTO.setThreeCategoryName(entry.getValue());
-            if (entry.getKey().equals("sku_supplier_id")) productsTO.setSkuSupplierId(entry.getValue());
-            if (entry.getKey().equals("sku_supplier_name")) productsTO.setSkuSupplierName(entry.getValue());
-            if (entry.getKey().equals("sku_state")) productsTO.setSkuState(entry.getValue());
-            if (entry.getKey().equals("sku_pic")) {
-               String skuPicId = entry.getValue();
-                ResponseBO<FileManagementVO> res = fileManagementFeign.get(skuPicId);
-                FileManagementVO pro = (FileManagementVO) res.getData();
-                productsTO.setType(pro.getType());
-                productsTO.setFileUrl(pro.getFileUrl());
-                productsTO.setFileSortNumber(pro.getSortNumber());
-                List list = new ArrayList();
-                list.add(pro.getType());
-                list.add(pro.getFileUrl());
-                list.add(pro.getSortNumber());
-                productsTO.setProSkuSkuPicJson(list.toString());
-            }
-            if (entry.getKey().equals("sku_valuation_unit")) productsTO.setSkuValuationUnit(entry.getValue());
-            if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
-
-
-            if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
-            if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));
-            if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
-
-            Gson gson = new Gson();
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = gson.fromJson(msg, map.getClass());
-            String type = (String) map.get("type");
-
-            if (type.equals("insert") || type.equals("update")) {
-
-
-                try {
-                    productESService.saveOrUpdateProduct(productsTO);
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
+                if (entry.getKey().equals("spu_id")) {
+                    spuId = entry.getValue();
+                    productsTO.setProSkuSpuId(spuId);
+                    ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(spuId);
+                    ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
+                    productsTO.setSpuState(pro.getSpuState());
+                    productsTO.setProSpuSpuPic(pro.getSpuPic());
+                    productsTO.setSpuTitle(pro.getSpuTitle());
 
-            if (type.equals("delete")) {
-                try {
-                    productESService.deletedProductById(productsTO.getSkuId());
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+
+                }
+                if (entry.getKey().equals("spu_code")) productsTO.setProSkuSpuCode(entry.getValue());
+                if (entry.getKey().equals("spu_name")) productsTO.setProSkuSpuName(entry.getValue());
+                if (entry.getKey().equals("sku_code")) productsTO.setProSkuSkuCode(entry.getValue());
+                if (entry.getKey().equals("sku_name")) productsTO.setProSkuSkuName(entry.getValue());
+                if (entry.getKey().equals("sku_title")) productsTO.setProSkuTitle(entry.getValue());
+                if (entry.getKey().equals("sku_sub_title")) productsTO.setProSkuSubTitle(entry.getValue());
+                if (entry.getKey().equals("three_category_id")) {
+                    threeCategoryId = entry.getValue();
+                    productsTO.setThreeCategoryId(threeCategoryId);
+                    CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
+                    categoryRelationsReq.setBackgroundCategoryId(threeCategoryId);
+                    ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
+                    List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
+                    CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
+                    String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
+                    productsTO.setFOneCategoryCode(foreCategoryFullCode[0]);
+                    productsTO.setFTwoCategoryCode(foreCategoryFullCode[1]);
+                    productsTO.setFThreeCategoryCode(foreCategoryFullCode[2]);
+
+                    String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
+                    productsTO.setFOneCategoryName(foreCategoryFullName[0]);
+                    productsTO.setFTwoCategoryName(foreCategoryFullName[1]);
+                    productsTO.setFThreeCategoryName(foreCategoryFullName[2]);
+
+                    String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
+                    productsTO.setFOneCategoryId(foreCategoryFullId[0]);
+                    productsTO.setFTwoCategoryId(foreCategoryFullId[1]);
+                    productsTO.setFThreeCategoryId(foreCategoryFullId[2]);
+
+                }
+                if (entry.getKey().equals("three_category_code")) productsTO.setThreeCategoryCode(entry.getValue());
+                if (entry.getKey().equals("three_category_name")) productsTO.setThreeCategoryName(entry.getValue());
+                if (entry.getKey().equals("sku_supplier_id")) productsTO.setSkuSupplierId(entry.getValue());
+                if (entry.getKey().equals("sku_supplier_name")) productsTO.setSkuSupplierName(entry.getValue());
+                if (entry.getKey().equals("sku_state")) productsTO.setSkuState(entry.getValue());
+                if (entry.getKey().equals("sku_pic")) {
+                    String skuPicId = entry.getValue();
+                    ResponseBO<FileManagementVO> res = fileManagementFeign.get(skuPicId);
+                    FileManagementVO pro = (FileManagementVO) res.getData();
+                    productsTO.setType(pro.getType());
+                    productsTO.setFileUrl(pro.getFileUrl());
+                    productsTO.setFileSortNumber(pro.getSortNumber());
+                    List list = new ArrayList();
+                    list.add(pro.getType());
+                    list.add(pro.getFileUrl());
+                    list.add(pro.getSortNumber());
+                    productsTO.setProSkuSkuPicJson(list.toString());
+                }
+                if (entry.getKey().equals("sku_valuation_unit")) productsTO.setSkuValuationUnit(entry.getValue());
+                if (entry.getKey().equals("sku_introduce")) productsTO.setSkuIntroduce(entry.getValue());
+
+
+                if (entry.getKey().equals("gmt_create_time")) productsTO.setSkuGmtCreateTime(LocalDateTime.parse(entry.getValue()));
+                if (entry.getKey().equals("gmt_modify_time")) productsTO.setSkuGmtModifyTime(LocalDateTime.parse(entry.getValue()));
+                if (entry.getKey().equals("sku_auxiliary_unit")) productsTO.setSkuAuxiliaryUnit(entry.getValue());
+
+                Gson gson = new Gson();
+                Map<String, Object> map = new HashMap<String, Object>();
+                map = gson.fromJson(msg, map.getClass());
+                String type = (String) map.get("type");
+                System.out.println("----------------------productsTO:" + JSONObject.toJSON(productsTO).toString());
+                if (type.equals("insert") || type.equals("update")) {
+                    try {
+                        productESService.saveOrUpdateProduct(productsTO);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (type.equals("delete")) {
+                    try {
+                        productESService.deletedProductById(productsTO.getSkuId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+
     }
 }
