@@ -21,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShopController extends BaseController {
+    @Autowired
     private final ShopService shopService;
 
 

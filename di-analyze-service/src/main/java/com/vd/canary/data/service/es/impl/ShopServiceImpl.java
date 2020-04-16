@@ -17,11 +17,14 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static org.apache.logging.log4j.ThreadContext.get;
+
 /**
  * @Author shichaoran
  * @Date 2020/4/14 19:53
  * @Version
  */
+
 @Service
 public class ShopServiceImpl implements ShopService {
     @Autowired
@@ -39,41 +42,46 @@ public class ShopServiceImpl implements ShopService {
             Map<String, String> brands = new HashMap<>();
             Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
             List<ShopVo> shopVos = new ArrayList<>();
-            List<ShopProductRes>shopProductRess = new ArrayList<>();
             ShopProductRes shopProductRes = new ShopProductRes();
             ShopVo shopVo = new ShopVo();
             ShopBrand shopBrand = new ShopBrand();
             for (Map<String, Object> recordMap : recordList) {
 
-
-                shopVo.setBusinessArea(recordMap.get("businessArea").toString());
-                shopVo.setMainProducts(recordMap.get("mainProducts").toString());
-                shopVo.setBusinessCategory(recordMap.get("businessCategory").toString());
-                shopVo.setCustomerId(recordMap.get("customerId").toString());
-                shopVo.setStoreTemplateId(recordMap.get("storeTemplateId").toString());
-                shopVo.setMediaUrl(recordMap.get("mediaUrl").toString());
-                shopVo.setBoothCode(Collections.singletonList(recordMap.get("boothCode").toString()));
-                shopVo.setId(recordMap.get("id").toString());
-                shopVo.setImageUrl(recordMap.get("imageUrl").toString());
-                shopVo.setName(recordMap.get("name").toString());
-                shopVo.setBoothScheduledTime(LocalDateTime.parse(recordMap.get("boothScheduledTime").toString()));
-                shopVo.setBusinessBrand(Collections.singletonList(recordMap.get("businessBrand").toString()));
-                shopVo.setLevel(recordMap.get("level").toString());
-                shopVo.setImageOrder(recordMap.get("imageOrder").toString());
-                shopVo.setImageName(recordMap.get("imageName").toString());
-                shopProductRes.setPriceType(recordMap.get("priceType").toString());
-                shopProductRes.setSkuName(recordMap.get("skuName").toString());
-                shopProductRes.setSkuPrice(recordMap.get("skuPrice").toString());
-                shopProductRes.setSkuSubtitle(recordMap.get("skuSubtitle").toString());
-                shopProductRes.setSkuTitle(recordMap.get("skuTitle").toString());
-                shopProductRes.setUnit(recordMap.get("unit").toString());
-                shopProductRes.setSkuId(recordMap.get("skuId").toString());
-                shopProductRes.setSkuPic(recordMap.get("skuPic").toString());
-                shopBrand.setBrandId(recordMap.get("brandId").toString());
-                shopBrand.setBrandName(recordMap.get("brandName").toString());
-                brands.put(recordMap.get("brandId").toString(),recordMap.get("brandName").toString());
-                categories.put(recordMap.get("CategoryId").toString(),recordMap.get("CategoryName").toString());
+                shopVo.setBusinessArea(recordMap.containsKey("businessArea")?recordMap.get("businessArea").toString():"");
+                shopVo.setMainProducts(recordMap.containsKey("mainProducts")?recordMap.get("mainProducts").toString():"");
+                shopVo.setBusinessCategory(recordMap.containsKey("businessCategory")?recordMap.get("businessCategory").toString():"");
+                shopVo.setCustomerId(recordMap.containsKey("customerId")?recordMap.get("customerId").toString():"");
+                shopVo.setStoreTemplateId(recordMap.containsKey("storeTemplateId")?recordMap.get("storeTemplateId").toString():"");
+                shopVo.setMediaUrl(recordMap.containsKey("mediaUrl")?recordMap.get("mediaUrl").toString():"");
+                shopVo.setBoothCode(Collections.singletonList(recordMap.containsKey("boothCode")?recordMap.get("boothCode").toString():""));
+                shopVo.setId(recordMap.containsKey("id")?recordMap.get("id").toString():"");
+                shopVo.setImageUrl(recordMap.containsKey("imageUrl")?recordMap.get("imageUrl").toString():"");
+                shopVo.setName(recordMap.containsKey("name")?recordMap.get("name").toString():"");
+                if (recordMap.containsKey("boothScheduledTime")) {
+                    shopVo.setBoothScheduledTime(LocalDateTime.parse(recordMap.get("boothScheduledTime").toString()));
+                }
+                shopVo.setBusinessBrand(Collections.singletonList(recordMap.containsKey("businessBrand")?recordMap.get("businessBrand").toString():""));
+                shopVo.setLevel(recordMap.containsKey("level")?recordMap.get("level").toString():"");
+                shopVo.setImageOrder(recordMap.containsKey("imageOrder")?recordMap.get("imageOrder").toString():"");
+                shopVo.setImageName(recordMap.containsKey("imageName")?recordMap.get("imageName").toString():"");
+                shopProductRes.setPriceType(recordMap.containsKey("priceType")?recordMap.get("priceType").toString():"");
+                shopProductRes.setSkuName(recordMap.containsKey("skuName")?recordMap.get("skuName").toString():"");
+                shopProductRes.setSkuPrice(recordMap.containsKey("skuPrice")?recordMap.get("skuPrice").toString():"");
+                shopProductRes.setSkuSubtitle(recordMap.containsKey("skuSubtitle")?recordMap.get("skuSubtitle").toString():"");
+                shopProductRes.setSkuTitle(recordMap.containsKey("skuTitle")?recordMap.get("skuTitle").toString():"");
+                shopProductRes.setUnit(recordMap.containsKey("unit")?recordMap.get("unit").toString():"");
+                shopProductRes.setSkuId(recordMap.containsKey("skuId")?recordMap.get("skuId").toString():"");
+                shopProductRes.setSkuPic(recordMap.containsKey("skuPic")?recordMap.get("skuPic").toString():"");
+                shopBrand.setBrandId(recordMap.containsKey("brandId")?recordMap.get("brandId").toString():"");
+                shopBrand.setBrandName(recordMap.containsKey("brandName")?recordMap.get("brandName").toString():"");
+                brands.put(recordMap.containsKey("brandId")?recordMap.get("brandId").toString():"",recordMap.containsKey("brandName")?recordMap.get("brandName").toString():"");
+                categories.put(recordMap.containsKey("CategoryId")?recordMap.get("CategoryId").toString():"",recordMap.containsKey("CategoryName")?recordMap.get("CategoryName").toString():"");
+                List<ShopProductRes>shopProductRess = new ArrayList<>();
                 shopProductRess.add(shopProductRes);
+
+                shopVo.setShopProductRes(shopProductRess);
+                shopVos.add(shopVo);
+
             }
             shopRes.setTotal(esPageRes.getRecordCount());
             shopRes.setBrands(brands);
