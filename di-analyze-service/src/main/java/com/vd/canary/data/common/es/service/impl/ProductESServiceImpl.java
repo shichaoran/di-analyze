@@ -46,10 +46,10 @@ import org.springframework.stereotype.Service;
 public class ProductESServiceImpl implements ProductESService {
 
     // 索引
-    private String indexName = "productindex1";
+    private String indexName = "productindex";
 
     //类型
-    private String esType = "producttype1";
+    private String esType = "producttype";
 
     // 创建索引
     public String createIndex() {
@@ -245,100 +245,6 @@ public class ProductESServiceImpl implements ProductESService {
      * 该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
      * 创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
      */
-    private XContentBuilder createIndexMapping1(String indexName) {
-        XContentBuilder mapping = null;
-        try {
-            mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
-                    //.startObject("m_id").field("type","keyword").endObject()  //m_id:字段名,type:文本类型,analyzer 分词器类型
-                    .startObject("skuId").field("type", "keyword").endObject()
-                    .startObject("proSkuBrandId").field("type", "keyword").endObject()
-                    .startObject("proSkuSpuId").field("type", "keyword").endObject()
-                    .startObject("proSkuSpuCode").field("type", "keyword").endObject()
-                    .startObject("proSkuSpuName").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
-                    .startObject("proSkuSkuCode").field("type", "keyword").endObject()
-                    .startObject("proSkuSkuName").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
-                    .startObject("proSkuTitle").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
-                    .startObject("proSkuSubTitle").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
-                    .startObject("threeCategoryId").field("type", "keyword").endObject()
-                    .startObject("threeCategoryCode").field("type", "keyword").endObject()
-                    .startObject("threeCategoryName").field("type", "keyword").endObject()
-                    .startObject("skuSupplierId").field("type", "keyword").endObject()
-                    .startObject("skuSupplierName").field("type", "keyword").endObject()
-                    .startObject("skuState").field("type", "keyword").endObject()
-                    .startObject("proSkuSkuPic").field("type", "keyword").endObject()
-                    .startObject("skuValuationUnit").field("type", "keyword").endObject()
-                    .startObject("skuIntroduce").field("type", "keyword").endObject()
-                    .startObject("skuGmtCreateTime").field("type", "keyword").endObject()
-                    .startObject("skuGmtModifyTime").field("type", "keyword").endObject()
-                    .startObject("spuState").field("type", "keyword").endObject()
-                    .startObject("proSpuSpuPic").field("type", "keyword").endObject()
-                    .startObject("spuTitle").field("type", "keyword").endObject()
-                    .startObject("attributeCode").field("type", "keyword").endObject()
-                    .startObject("attributeName").field("type", "keyword").endObject()
-                    .startObject("value_Name").field("type", "keyword").endObject()
-                    .startObject("attributeId").field("type", "keyword").endObject()
-                    .startObject("attributeValueId").field("type", "keyword").endObject()
-                    .startObject("attributeMap").field("type", "keyword").endObject()
-                    .startObject("attriType").field("type", "keyword").endObject()
-                    .startObject("oneCategoryId").field("type", "keyword").endObject()
-                    .startObject("oneCategoryCode").field("type", "keyword").endObject()
-                    .startObject("oneCategoryName").field("type", "keyword").endObject()
-                    .startObject("twoCategoryId").field("type", "keyword").endObject()
-                    .startObject("twoCategoryCode").field("type", "keyword").endObject()
-                    .startObject("twoCategoryName").field("type", "keyword").endObject()
-                    .startObject("brandCode").field("type", "keyword").endObject()
-                    .startObject("bBrandName").field("type", "keyword").endObject()
-                    .startObject("brandLoge").field("type", "keyword").endObject()
-                    .startObject("brandShorthand").field("type", "keyword").endObject()
-                    .startObject("brandIntroduction").field("type", "keyword").endObject()
-                    .startObject("fOneCategoryId").field("type", "keyword").endObject()
-                    .startObject("fOneCategoryCode").field("type", "keyword").endObject()
-                    .startObject("fOneCategoryName").field("type", "keyword").endObject()
-                    .startObject("fTwoCategoryId").field("type", "keyword").endObject()
-                    .startObject("fTwoCategoryCode").field("type", "keyword").endObject()
-                    .startObject("fTwoCategoryName").field("type", "keyword").endObject()
-                    .startObject("fThreeCategoryId").field("type", "keyword").endObject()
-                    .startObject("fThreeCategoryCode").field("type", "keyword").endObject()
-                    .startObject("fThreeCategoryName").field("type", "keyword").endObject()
-                    .startObject("type").field("type", "keyword").endObject()
-                    .startObject("fileUrl").field("type", "keyword").endObject()
-                    .startObject("fileSortNumber").field("type", "keyword").endObject()
-                    .startObject("regionalCode").field("type", "keyword").endObject()
-                    .startObject("regionalName").field("type", "keyword").endObject()
-                    .startObject("regionalScope").field("type", "keyword").endObject()
-                    .startObject("skuSellPriceJson").field("type", "keyword").endObject()
-                    .startObject("skuSellPriceType").field("type", "keyword").endObject()
-                    .startObject("warehouseId").field("type", "keyword").endObject()
-                    .startObject("warehouseName").field("type", "keyword").endObject()
-                    .startObject("inventory").field("type", "keyword").endObject()
-                    .startObject("regionalId").field("type", "keyword").endObject()
-                    .startObject("skuRegionalName").field("type", "keyword").endObject()
-                    .startObject("storeId").field("type", "keyword").endObject()
-                    .startObject("categoryId").field("type", "keyword").endObject()
-                    .startObject("storeName").field("type", "keyword").endObject()
-                    .startObject("businessCategory").field("type", "keyword").endObject()
-                    .startObject("mainProducts").field("type", "keyword").endObject()
-                    .startObject("businessArea").field("type", "keyword").endObject()
-                    .startObject("boothBusinessBoothCode").field("type", "keyword").endObject()
-                    .startObject("customerProfilesLevel").field("type", "keyword").endObject()
-                    .startObject("approveState").field("type", "keyword").endObject()
-                    .startObject("enterpriseType").field("type", "keyword").endObject()
-                    .startObject("storeInfoStoreQrCode").field("type", "keyword").endObject()
-                    .startObject("gmtCreateTime").field("type", "keyword").endObject()
-                    .startObject("warehouseCode").field("type", "keyword").endObject()
-                    .startObject("warehouseType").field("type", "keyword").endObject()
-                    .startObject("warehouseRegional").field("type", "keyword").endObject()
-                    .startObject("detailedAddress").field("type", "keyword").endObject()
-                    .startObject("skuAuxiliaryUnit").field("type", "keyword").endObject()
-                    .startObject("boothScheduledTime").field("type", "keyword").endObject()
-                    .startObject("proSkuSkuPicJson").field("type", "keyword").endObject()
-                    .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
-                    .endObject().endObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return mapping;
-    }
     private XContentBuilder createIndexMapping(String indexName){
         // 方式三：使用XContentBuilder
         XContentBuilder builder = null;
@@ -350,19 +256,168 @@ public class ProductESServiceImpl implements ProductESService {
                 {
                     builder.startObject("properties");
                     {
-                        builder.startObject("skuId"); { builder.field("type", "text"); }
+                        builder.startObject("skuId"); { builder.field("type", "keyword"); }
                         builder.endObject();
-                        builder.startObject("user_name"); { builder.field("type", "text"); }
+                        builder.startObject("proSkuBrandId"); { builder.field("type", "keyword"); }
                         builder.endObject();
-                        builder.startObject("user_password"); { builder.field("type", "text"); }
+                        builder.startObject("proSkuSpuId"); { builder.field("type", "keyword"); }
                         builder.endObject();
-                        builder.startObject("user_real_name"); { builder.field("type", "text"); }
+                        builder.startObject("proSkuSpuCode"); { builder.field("type", "keyword"); }
                         builder.endObject();
-                        builder.startObject("create_time"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.startObject("proSkuSpuName"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
                         builder.endObject();
-                        builder.startObject("is_deleted"); { builder.field("type", "integer"); }
+                        builder.startObject("proSkuSkuCode"); { builder.field("type", "keyword"); }
                         builder.endObject();
-
+                        builder.startObject("proSkuSkuName"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("proSkuTitle"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("proSkuSubTitle"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("threeCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("threeCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("threeCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuSupplierId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuSupplierName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuState"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("proSkuSkuPicJson"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuValuationUnit"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuIntroduce"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuAuxiliaryUnit"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuGmtCreateTime"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.endObject();
+                        builder.startObject("skuGmtModifyTime"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.endObject();
+                        builder.startObject("spuState"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("proSpuSpuPic"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("spuTitle"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("attributeCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("attributeName"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("value_Name"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("attributeId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("attributeValueId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("attributeMap"); { builder.field("type", "object"); }
+                        builder.endObject();
+                        builder.startObject("attributeType"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("oneCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("oneCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("oneCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("twoCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("twoCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("twoCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("brandCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("bBrandName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("brandLoge"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("brandShorthand"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("brandIntroduction"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fOneCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fOneCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fOneCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fTwoCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fTwoCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fTwoCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fThreeCategoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fThreeCategoryCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fThreeCategoryName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("type"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fileUrl"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("fileSortNumber"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("regionalCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("regionalName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("regionalScope"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuSellPriceJson"); { builder.field("type", "nested"); }
+                        builder.endObject();
+                        builder.startObject("skuSellPriceType"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("warehouseId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("warehouseName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("inventory"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("regionalId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("skuRegionalName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("storeId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("categoryId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("storeName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("businessCategory"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("mainProducts"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("businessArea"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("boothBusinessBoothCode"); { builder.field("type", "nested"); }
+                        builder.endObject();
+                        builder.startObject("customerProfilesLevel"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("approveState"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("enterpriseType"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("storeInfoStoreQrCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("gmtCreateTime"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.endObject();
+                        builder.startObject("boothScheduledTime"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.endObject();
+                        builder.startObject("warehouseCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("warehouseType"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("warehouseRegional"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("detailedAddress"); { builder.field("type", "keyword"); }
+                        builder.endObject();
                     }
                     builder.endObject();
                 }
