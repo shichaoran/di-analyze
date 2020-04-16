@@ -19,8 +19,7 @@ public class KafkaConsumerForES {
     //@KafkaListener(topics = {"test"})
     @KafkaListener(topics = "test", id = "test_es", containerFactory = "batchFactory",concurrency="3" )
     public void receive(String message){
-        log.info("------this is kafka consumer,topic = test, receive:"+message);
-        System.out.println("------this is kafka consumer,topic : test,receive:"+System.currentTimeMillis()+"ms");
+        log.info("<------this is kafka consumer,topic = test, receive:"+message);
         log.debug(message);
     }
 
@@ -31,8 +30,8 @@ public class KafkaConsumerForES {
     @KafkaListener(topics = "binglog_obmp_product_2r3p", id = "product_es", containerFactory = "batchFactory",concurrency="3" )
     public void listenProduct(List<ConsumerRecord<?, ?>> list) {
         List<String> messages = new ArrayList<>();
+        for(int i=0;i<list.size();i++)  System.out.println("1111111，list:"+list.get(i));
         for (ConsumerRecord<?, ?> record : list) {
-            log.info("------this is kafka consumer,topic = %s, offset = %d, receive = %s",record.topic(), record.offset(), record.value());
             Optional<?> kafkaMessage = Optional.ofNullable(record.value());
             // 获取消息
             kafkaMessage.ifPresent(o -> messages.add(o.toString()));
@@ -41,6 +40,7 @@ public class KafkaConsumerForES {
             // 通过表名不同分别处理每一条数据，更新索引
             try {
                 for(String msg : messages) {
+                    log.info("<------this is kafka consumer,topic = binglog_obmp_product_2r3p, msg = %s",msg);
                     JSONObject jsonMap = JSONObject.parseObject(msg);
                     String database = jsonMap.getString("database");
                     String table = jsonMap.getString("table");
@@ -62,8 +62,8 @@ public class KafkaConsumerForES {
     @KafkaListener(topics = "binglog_obmp_customer_2r3p", id = "customer_es", containerFactory = "batchFactory",concurrency="3" )
     public void listenCustomer(List<ConsumerRecord<?, ?>> list) {
         List<String> messages = new ArrayList<>();
+        for(int i=0;i<list.size();i++)  System.out.println("2222222，list:"+list.get(i));
         for (ConsumerRecord<?, ?> record : list) {
-            log.info("------this is kafka consumer,topic = %s, offset = %d, receive = %s",record.topic(), record.offset(), record.value());
             Optional<?> kafkaMessage = Optional.ofNullable(record.value());
             kafkaMessage.ifPresent(o -> messages.add(o.toString()));// 获取消息
         }
@@ -71,6 +71,7 @@ public class KafkaConsumerForES {
             // 通过表名不同分别处理每一条数据，更新索引
             try {
                 for(String msg : messages) {
+                    log.info("<------this is kafka consumer,topic = binglog_obmp_customer_2r3p, msg = %s",msg);
                     JSONObject jsonMap = JSONObject.parseObject(msg);
                     String database = jsonMap.getString("database");
                     String table = jsonMap.getString("table");

@@ -37,7 +37,7 @@ public class ProductsDetailRes implements Serializable {
     //定价类型
     private Integer skuSellPriceType;
     //sku创建时间
-    private LocalDateTime skuGmtCreateTime;
+    private  Date skuGmtCreateTime;
     //辅助单位
     private String skuAuxiliaryUnit;
     //三级类目名称
@@ -64,9 +64,9 @@ public class ProductsDetailRes implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private LocalDateTime gmtCreateTime;
+    private Date gmtCreateTime;
 
-    private LocalDateTime boothScheduledTime; //入驻时间
+    private Date boothScheduledTime; //入驻时间
 
 
 }

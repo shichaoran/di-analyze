@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
+import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -25,9 +26,11 @@ import org.elasticsearch.client.*;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
@@ -128,7 +131,7 @@ public class ElasticsearchUtil<T> {
      * @param: indexName  索引，类似数据库
      * @return: boolean
      */
-    public static boolean createIndex(String indexName,XContentBuilder mapping) {
+    public static boolean createIndex1(String indexName,XContentBuilder mapping) {
         if (!isIndexExist(indexName)) {
             log.info("Index is not exits!");
         }
@@ -142,6 +145,29 @@ public class ElasticsearchUtil<T> {
         }
         return createIndexResponse.isAcknowledged();
     }
+    public static boolean createIndex(String indexName,XContentBuilder builder){
+        CreateIndexRequest request = new CreateIndexRequest(indexName);
+        request.settings(Settings.builder().put("index.number_of_shards", 5)// 分片数量
+                                 .put("index.number_of_replicas", 2)// 副本数量
+                                 .put("analysis.analyzer.default.tokenizer", "standard"));
+        try {
+            //request.mapping(indexName, builder);
+            request.source(builder);
+            //request.alias(new Alias("java_index_test_alias"));
+            @SuppressWarnings("deprecation")
+            CreateIndexResponse response = client.indices().create(request,RequestOptions.DEFAULT);
+            boolean acknowledged = response.isAcknowledged();
+            boolean shardsAcknowledged = response.isShardsAcknowledged();
+            System.out.println("请求结果------->>");
+            System.out.println("acknowledged:" + acknowledged);
+            System.out.println("shardsAcknowledged:" + shardsAcknowledged);
+            return acknowledged;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
     /**
      * 通过id索引查找是否存在数据
@@ -275,12 +301,11 @@ public class ElasticsearchUtil<T> {
      * @return
      * @throws IOException
      */
-    public static Object searchDataById(String index, String id) throws IOException {
+    public static Map<String, Object> searchDataById(String index, String id) throws IOException {
         GetRequest getRequest = new GetRequest(index, id);
         GetResponse getResponse = client.get(getRequest,RequestOptions.DEFAULT);
         if (getResponse.isExists()) {
-            String sourceAsString = getResponse.getSourceAsString();
-            return sourceAsString;
+            return getResponse.getSourceAsMap();
         }
         return null;
     }

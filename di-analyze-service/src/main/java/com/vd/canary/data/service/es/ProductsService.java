@@ -14,9 +14,9 @@ import javax.validation.Valid;
 
 public interface ProductsService {
 
-    ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
+    ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq) throws Exception;
 
-    ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
+    ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq) throws Exception;
 
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 

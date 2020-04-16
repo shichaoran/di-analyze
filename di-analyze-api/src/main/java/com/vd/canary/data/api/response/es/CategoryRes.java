@@ -20,4 +20,6 @@ public class CategoryRes implements Serializable {
     private Map<String, CategoryVO> maplist;
 
 
+    public void setMaplist(String s, CategoryVO categoryVO) {
+    }
 }
