@@ -1,4 +1,3 @@
-/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
@@ -36,53 +35,52 @@ public class StoreProductRelations implements Function {
 
         logger.info("StoreProductRelations.msg" + msg);
 
-        String skuId = "";
-        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
-        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            if (entry.getKey().equals("sku_id")) {
-                skuId = entry.getValue();
-
-                ResponseBO<StoreProductRelationsVO> res = storeProductRelationsFeign.get(skuId);
-                StoreProductRelationsVO pro = (StoreProductRelationsVO) res.getData();
-                try {
-//                    ProductsTO productsTO = productESService.findById(skuId);
-//                    productsTO.setStoreId(pro.getStoreId());
-//                    productsTO.setCategoryId(pro.getCategoryId());
-
-
-//                    ShopTO shopTO = new ShopTO();
+//        String skuId = "";
+//        HashMap hashMap = JSON.parseObject(msg, HashMap.class);
+//        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
+//        for (Map.Entry<String, String> entry : entries) {
+//            if (entry.getKey().equals("sku_id")) {
+//                skuId = entry.getValue();
 //
-//                    productsTO.setStoreName(shopTO.getName());
-//                    productsTO.setBoothBusinessBoothCode(shopTO.getBoothCode());
-//                    productsTO.setBusinessCategory(shopTO.getBusinessCategory());
-//                    productsTO.setBusinessArea(shopTO.getBusinessArea());
-//                    productsTO.setMainProducts(shopTO.getMainProducts());
-//                    try {
-//                        productsTO.setBoothScheduledTime(DateUtil.getDateTime(shopTO.getBoothScheduledTime().toString()));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
+//                ResponseBO<StoreProductRelationsVO> res = storeProductRelationsFeign.get(skuId);
+//                StoreProductRelationsVO pro = (StoreProductRelationsVO) res.getData();
+//                try {
+////                    ProductsTO productsTO = productESService.findById(skuId);
+////                    productsTO.setStoreId(pro.getStoreId());
+////                    productsTO.setCategoryId(pro.getCategoryId());
+//
+//
+////                    ShopTO shopTO = new ShopTO();
+////
+////                    productsTO.setStoreName(shopTO.getName());
+////                    productsTO.setBoothBusinessBoothCode(shopTO.getBoothCode());
+////                    productsTO.setBusinessCategory(shopTO.getBusinessCategory());
+////                    productsTO.setBusinessArea(shopTO.getBusinessArea());
+////                    productsTO.setMainProducts(shopTO.getMainProducts());
+////                    try {
+////                        productsTO.setBoothScheduledTime(DateUtil.getDateTime(shopTO.getBoothScheduledTime().toString()));
+////                    } catch (Exception e) {
+////                        e.printStackTrace();
+////                    }
+//
+//
+//                    ProductESServiceImpl productESService = new ProductESServiceImpl();
+//                    Gson gson = new Gson();
+//                    Map<String, Object> map = new HashMap<String, Object>();
+//                    map = gson.fromJson(msg, map.getClass());
+//                    String type = (String) map.get("type");
+//                    if (type.equals("update")) {
+//                        try {
+//                            productESService.saveOrUpdateProduct(productsTO);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
 //                    }
-
-
-                    ProductESServiceImpl productESService = new ProductESServiceImpl();
-                    Gson gson = new Gson();
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map = gson.fromJson(msg, map.getClass());
-                    String type = (String) map.get("type");
-                    if (type.equals("update")) {
-                        try {
-                            productESService.saveOrUpdateProduct(productsTO);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 }
-*/

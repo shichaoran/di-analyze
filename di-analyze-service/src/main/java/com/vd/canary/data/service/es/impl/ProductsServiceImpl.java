@@ -146,31 +146,25 @@ public class ProductsServiceImpl implements ProductsService {
         ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
         ProductDetailsRes productDetailsRes = new ProductDetailsRes();
         Map<String, Object> maps = productESServiceImpl.findById(productDetailsReq.getProductId());
-        for(Map.Entry<String, Object> map : maps.entrySet()){
+        if (maps != null && maps.size() > 0) {
+            for (Map.Entry<String, Object> map : maps.entrySet()) {
 
-            productDetailsRes.setSkuTitle(map.getKey().equals("skuTitle")?map.getValue().toString():"");
-            productDetailsRes.setSkuSubTitle(map.getKey().equals("skuSubTitle")?map.getValue().toString():"");
-            productDetailsRes.setPriceJson(map.getKey().equals("attributeMap")?map.getValue().toString():"");
-            productDetailsRes.setPriceType(map.getKey().equals("priceJson")?Integer.parseInt(map.getValue().toString()):0);
-            productDetailsRes.setSkuIntroduce(map.getKey().equals("skuIntroduce")?map.getValue().toString():"");
-            productDetailsRes.setProSkuSkuPicJson(map.getKey().equals("proSkuSkuPicJson")?map.getValue().toString():"");
-            productDetailsRes.setRegionalId(map.getKey().equals("regionalId")?map.getValue().toString():"");
-            productDetailsRes.setRegionalName(map.getKey().equals("regionalName")?map.getValue().toString():"");
+                productDetailsRes.setSkuTitle(map.getKey().equals("skuTitle") ? map.getValue().toString() : "");
+                productDetailsRes.setSkuSubTitle(map.getKey().equals("skuSubTitle") ? map.getValue().toString() : "");
+                productDetailsRes.setPriceJson(map.getKey().equals("attributeMap") ? map.getValue().toString() : "");
+                productDetailsRes.setPriceType(map.getKey().equals("priceJson") ? Integer.parseInt(map.getValue().toString()) : 0);
+                productDetailsRes.setSkuIntroduce(map.getKey().equals("skuIntroduce") ? map.getValue().toString() : "");
+                productDetailsRes.setProSkuSkuPicJson(map.getKey().equals("proSkuSkuPicJson") ? map.getValue().toString() : "");
+                productDetailsRes.setRegionalId(map.getKey().equals("regionalId") ? map.getValue().toString() : "");
+                productDetailsRes.setRegionalName(map.getKey().equals("regionalName") ? map.getValue().toString() : "");
 
-//            Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
-//            if (attributes.containsKey("attributeName")){
-//                Map<String,String> mapp = attributes.get(productDetailsReq.getAttributeName());
-//                mapp.put(productsTO.getAttributeId()+"_"+productsTO.getAttributeType(),productsTO.getAttributeName());
-//            }else {
-//                Map<String,String> map = new HashMap<>();
-//                map.put(productsTO.getAttributeName(),productsTO.getValue_Name());
-//                attributes.put(productsTO.getAttributeId()+"_"+productsTO.getAttributeType(),map);
-//            }
-//            productDetailsRes.setAttributeMap(attributes);
+                Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
 
+                productDetailsRes.setAttributeMap(attributes);
+
+            }
         }
-
-
+        res.setData(productDetailsRes);
         return res;
     }
 
@@ -182,6 +176,8 @@ public class ProductsServiceImpl implements ProductsService {
         CategoryRes categoryRes = new CategoryRes();
         CategoryVO categoryVO = new CategoryVO();
         Map map = new HashMap();
+
+        List<Map<String, Object>> list = null ; //productESServiceImpl.xxx(categoryRes.getSkuId());
 
 //        try {
 //            ProductsTO productsTO = productESServiceImpl.findById(categoryRes.getSkuId());
