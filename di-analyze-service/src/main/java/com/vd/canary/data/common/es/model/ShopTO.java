@@ -29,7 +29,7 @@ public class ShopTO implements Serializable {
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
-    private Date boothScheduledTime; //入驻时间
+    private LocalDateTime boothScheduledTime; //入驻时间
     private String level; //会员等级
 
     public ShopTO() {
