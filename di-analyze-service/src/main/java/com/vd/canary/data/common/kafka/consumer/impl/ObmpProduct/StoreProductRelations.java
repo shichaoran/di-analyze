@@ -1,3 +1,4 @@
+/*
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
@@ -45,9 +46,9 @@ public class StoreProductRelations implements Function {
                 ResponseBO<StoreProductRelationsVO> res = storeProductRelationsFeign.get(skuId);
                 StoreProductRelationsVO pro = (StoreProductRelationsVO) res.getData();
                 try {
-                    ProductsTO productsTO = productESService.findById(skuId);
-                    productsTO.setStoreId(pro.getStoreId());
-                    productsTO.setCategoryId(pro.getCategoryId());
+//                    ProductsTO productsTO = productESService.findById(skuId);
+//                    productsTO.setStoreId(pro.getStoreId());
+//                    productsTO.setCategoryId(pro.getCategoryId());
 
 
 //                    ShopTO shopTO = new ShopTO();
@@ -84,3 +85,4 @@ public class StoreProductRelations implements Function {
         }
     }
 }
+*/
