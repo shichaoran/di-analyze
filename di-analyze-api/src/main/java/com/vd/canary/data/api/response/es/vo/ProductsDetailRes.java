@@ -31,13 +31,13 @@ public class ProductsDetailRes implements Serializable {
     //sku图片地址
     private String proSkuSkuPicJson;
     //商品属性 key为属性id+属性类型，value为属性值
-    private String attributeMap ;//Map<String, HashSet<String>> attributeMap;
+    private Map<String, Map<String,String>> attributeMap ;//Map<String, HashSet<String>> attributeMap;
     //商品定价
     private String skuSellPriceJson;
     //定价类型
     private Integer skuSellPriceType;
     //sku创建时间
-    private  Date skuGmtCreateTime;
+    private  LocalDateTime skuGmtCreateTime;
     //辅助单位
     private String skuAuxiliaryUnit;
     //三级类目名称
@@ -64,9 +64,9 @@ public class ProductsDetailRes implements Serializable {
     //店铺二维码
     private String storeInfoStoreQrCode;
     //创建时间
-    private Date gmtCreateTime;
+    private LocalDateTime gmtCreateTime;
 
-    private Date boothScheduledTime; //入驻时间
+    private LocalDateTime boothScheduledTime; //入驻时间
 
 
 }

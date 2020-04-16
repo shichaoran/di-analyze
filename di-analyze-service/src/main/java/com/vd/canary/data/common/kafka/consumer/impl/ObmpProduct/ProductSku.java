@@ -141,6 +141,8 @@ public class ProductSku implements Function {
             String type = (String) map.get("type");
 
             if (type.equals("insert") || type.equals("update")) {
+
+
                 try {
                     productESService.saveOrUpdateProduct(productsTO);
                 } catch (IOException e) {

@@ -50,7 +50,7 @@ public class ProductTest implements Function {
             productsDetailRes.setProSkuTitle("");
             productsDetailRes.setProSkuSubTitle("11");
             productsDetailRes.setProSkuSkuPicJson("dasf");
-            productsDetailRes.setAttributeMap("sdfa");
+//            productsDetailRes.setAttributeMap("sdfa");
             productsDetailRes.setSkuSellPriceJson("dsaf");
             productsDetailRes.setSkuSellPriceType(0);
             productsDetailRes.setSkuGmtCreateTime(null);
