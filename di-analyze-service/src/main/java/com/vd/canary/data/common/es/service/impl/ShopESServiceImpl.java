@@ -121,10 +121,16 @@ public class ShopESServiceImpl {
         saveOrUpdateShop(shop);
     }
 
+
     //通过id获取数据
-    public ShopTO findById(String id) throws IOException{
-        return (ShopTO)ElasticsearchUtil.searchDataById(indexName,id);
+//    public ShopTO findById(String id) throws IOException{
+//        return (ShopTO)ElasticsearchUtil.searchDataById(indexName,id);
+//    }
+
+    public Map<String, Object> findById(String id) throws IOException {
+        return ElasticsearchUtil.searchDataById(indexName, id);
     }
+
 
     /**
      * 功能：首页顶部店铺搜索框通过 关键字分词查询  支持 高亮 排序 并分页
@@ -196,7 +202,7 @@ public class ShopESServiceImpl {
         if(req.getCategoryIds() != null && req.getCategoryIds().size() > 0 ){//后台三级分类id
             boolQuery.must(QueryBuilders.termsQuery("businessCategory",req.getCategoryIds()));
         }
-        if( req.isExhibitionJoined() ){//是否入驻展厅
+        if( req.getExhibitionJoined().equals("1") || req.getExhibitionJoined().equals("0") ){//是否入驻展厅
             //boolQuery.must();
         }
         ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);

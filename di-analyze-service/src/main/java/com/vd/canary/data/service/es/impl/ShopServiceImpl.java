@@ -61,7 +61,7 @@ public class ShopServiceImpl implements ShopService {
         ShopProductRes shopProductRes = new ShopProductRes();
         shopProductRes.setSkuId("1");
         shopProductRes.setSkuName("铁");
-        shopProductRes.setSkuPic("3");
+        shopProductRes.setSkuPic("https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=false&word=%E5%9B%BE%E7%89%87%20%E5%A3%81%E7%BA%B8&step_word=&hs=2&pn=0&spn=0&di=330&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=111713540%2C615806613&os=3275214250%2C2157200754&simid=3304861670%2C4081601877&adpicid=0&lpn=0&ln=3178&fr=&fmq=1389861203899_R&fm=&ic=0&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=wallpaper&bdtype=0&oriquery=%E5%9B%BE%E7%89%87&objurl=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1212%2F10%2Fc1%2F16491670_1355126816487.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3F2_z%26e3Brv5gstgj_z%26e3Bv54_z%26e3BvgAzdH3FkkfAzdH3Fp5rtv-cambb8bc_z%26e3Bip4s&gsm=1&rpstart=0&rpnum=0&islist=&querylist=&force=undefined\n");
         shopProductRes.setSkuPrice("2234");
         shopProductRes.setSkuTitle("标题");
         shopProductRes.setSkuSubtitle("副标题");

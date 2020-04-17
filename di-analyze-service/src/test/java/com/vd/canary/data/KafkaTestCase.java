@@ -17,18 +17,18 @@ import java.util.UUID;
 @SpringBootTest(classes = DataAnalyzeApplication.class)
 public class KafkaTestCase {
 
-    @Autowired
-    private KafkaProducer kafka;
-
-    @Test
-    public void sendSyncTest() {
-        for (int i = 0; i < 1; i++) {
-            String message = UUID.randomUUID().toString();
-            System.out.println("发送消息:"+i);
-            kafka.send("app_log", message);
-            System.out.println("发送完成"+System.currentTimeMillis()+"ms");
-        }
-    }
+//    @Autowired
+//    private KafkaProducer kafka;
+//
+//    @Test
+//    public void sendSyncTest() {
+//        for (int i = 0; i < 1; i++) {
+//            String message = UUID.randomUUID().toString();
+//            System.out.println("发送消息:"+i);
+//            kafka.send("app_log", message);
+//            System.out.println("发送完成"+System.currentTimeMillis()+"ms");
+//        }
+//    }
 
 
 }
