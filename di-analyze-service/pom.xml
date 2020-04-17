@@ -25,11 +25,11 @@
     <dependencies>
         <!--    自定义依赖    -->
         
-<!--        <dependency>-->
-<!--            <groupId>com.vd.canary.data</groupId>-->
-<!--            <artifactId>di-analyze-api</artifactId>-->
-<!--            <version>1.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.vd.canary.data</groupId>
+            <artifactId>di-analyze-api</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.vd.canary</groupId>
