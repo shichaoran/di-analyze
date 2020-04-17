@@ -57,25 +57,25 @@ public class ProductsServiceImpl implements ProductsService {
         List<ProductsDetailRes> list = new ArrayList<ProductsDetailRes>();
         ProductsDetailRes productsDetailRes = new ProductsDetailRes();
         productsDetailRes.setSkuId("1");
-        productsDetailRes.setSkuName("铁2");
-        productsDetailRes.setProSkuTitle("");
-        productsDetailRes.setProSkuSubTitle("11");
+        productsDetailRes.setSkuName("建筑钢材");
+        productsDetailRes.setProSkuTitle("建筑钢");
+        productsDetailRes.setProSkuSubTitle("建筑钢特殊钢");
         productsDetailRes.setProSkuSkuPicJson("[{\"fileSortNumber\":\"1\",\"fileUrl\":\"www.baidu.com\"}]");
         productsDetailRes.setSkuSellPriceJson("[\"100\"]");
         productsDetailRes.setSkuSellPriceType(0);
         productsDetailRes.setSkuGmtCreateTime(null);
-        productsDetailRes.setSkuAuxiliaryUnit("afea");
-        productsDetailRes.setFThreeCategoryName("aefae");
-        productsDetailRes.setShopId("aefa");
-        productsDetailRes.setStoreInfoName("aae");
-        productsDetailRes.setBusinessCategory("adfa");
-        productsDetailRes.setMainProducts("aega");
-        productsDetailRes.setBusinessArea("egrg");
+        productsDetailRes.setSkuAuxiliaryUnit("顿");
+        productsDetailRes.setFThreeCategoryName("建筑钢");
+        productsDetailRes.setShopId("1250735825574989826");
+        productsDetailRes.setStoreInfoName("安徽商和融资担保有限公司");
+        productsDetailRes.setBusinessCategory("100");
+        productsDetailRes.setMainProducts("建筑钢 钢材");
+        productsDetailRes.setBusinessArea("安徽");
         productsDetailRes.setBoothBusinessBoothCode("[\"100#\"]");
-        productsDetailRes.setCustomerProfilesLevel("afdsga");
-        productsDetailRes.setApproveState("atae");
-        productsDetailRes.setEnterpriseType("adag");
-        productsDetailRes.setStoreInfoStoreQrCode("adgER");
+        productsDetailRes.setCustomerProfilesLevel("1");
+        productsDetailRes.setApproveState("1");
+        productsDetailRes.setEnterpriseType("2");
+        productsDetailRes.setStoreInfoStoreQrCode("=97dhkrnjdkwndk83dd9da72lj3 ");
         productsDetailRes.setGmtCreateTime(null);
         productsDetailRes.setBoothScheduledTime(null);
         list.add(productsDetailRes);
@@ -156,6 +156,11 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
+        ProductsReq productsReq = new ProductsReq();
+        return getProductsByKey(productsReq);
+    }
+    //@Override
+    public ResponseBO<ProductsRes> getProductByCategory1(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
         ESPageRes esPageRes = productESServiceImpl.boolQueryByDiffCategorys(threeCategoryReq.getPageNum(), threeCategoryReq.getPageSize(), new ThreeCategoryReq());
@@ -218,9 +223,33 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-
     @Override
     public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) throws IOException {
+        ResponseBO<ProductDetailsRes> res = new ResponseBO();
+        ProductDetailsRes detail = new ProductDetailsRes();
+        Map<String, Map<String, String>> s = new HashMap<>();
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("1","红色");
+        map.put("2","黄色");
+        s.put("颜色",map);
+        detail.setAttributeMap(s);
+        detail.setPriceJson("[\"100\"]");
+        detail.setPriceType(1);
+        detail.setProSkuSkuPicJson("[\"100\"]");
+        detail.setRegionalId("100");
+        detail.setRegionalName("浙江");
+        detail.setSkuId("1");
+        detail.setSkuIntroduce("建筑钢 特殊钢 高韧性复合钢");
+        detail.setSkuName("建筑钢");
+        detail.setSkuSubTitle("建筑钢 特殊钢");
+        detail.setSkuTitle("建筑钢材");
+        res.setData(detail);
+        res.setCode(200);
+        res.setMessage("success");
+        return res;
+    }
+    //@Override
+    public ResponseBO<ProductDetailsRes> getProductsDetail1(@Valid ProductDetailsReq productDetailsReq) throws IOException {
         ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
         ProductDetailsRes productDetailsRes = new ProductDetailsRes();
         Map<String, Object> maps = productESServiceImpl.findById(productDetailsReq.getProductId());
@@ -247,11 +276,31 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-    @Override
     public ResponseBO<CategoryRes> categoryRes(@Valid CategoryReq categoryReq) {
-
-
-//        ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
+        ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
+        CategoryRes data = new CategoryRes();
+        CategoryVO categoryVO = new CategoryVO();
+        categoryVO.setFOneCategoryId("120");
+        categoryVO.setFOneCategoryCode("120478");
+        categoryVO.setFOneCategoryName("建筑钢");
+        categoryVO.setFTwoCategoryId("248");
+        categoryVO.setFTwoCategoryCode("248468");
+        categoryVO.setFTwoCategoryName("钢管");
+        categoryVO.setFThreeCategoryId("579");
+        categoryVO.setFThreeCategoryCode("579303");
+        categoryVO.setFThreeCategoryName("薄钢片");
+        data.setCategoryVO(categoryVO);
+        Map<String, CategoryVO> map = new HashMap<>();
+        map.put("1000",categoryVO);
+        data.setMaplist(map);
+        data.setSkuId("1");
+        res.setData(data);
+        res.setMessage("success");
+        res.setCode(200);
+        return res;
+    }
+    //@Override
+    public ResponseBO<CategoryRes> categoryRes1(@Valid CategoryReq categoryReq) {
         CategoryRes categoryRes = new CategoryRes();
         CategoryVO categoryVO = new CategoryVO();
         List<Map<String, Object>> result = productESServiceImpl.findByIds(categoryReq);
