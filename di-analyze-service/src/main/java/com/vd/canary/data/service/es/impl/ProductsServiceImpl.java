@@ -242,7 +242,7 @@ public class ProductsServiceImpl implements ProductsService {
         detail.setAttributeMap(s);
         detail.setPriceJson("[\"100\"]");
         detail.setPriceType(1);
-        detail.setProSkuSkuPicJson("[\"100\"]");
+        detail.setProSkuSkuPicJson("[{\"fileSortNumber\":\"1\",\"fileUrl\":\"www.baidu.com\"}]");
         detail.setRegionalId("100");
         detail.setRegionalName("浙江");
         detail.setSkuId("1");
