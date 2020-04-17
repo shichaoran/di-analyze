@@ -1,6 +1,7 @@
 package com.vd.canary.data.service.es.impl;
 
 import com.vd.canary.core.bo.ResponseBO;
+import com.vd.canary.core.util.ResponseUtil;
 import com.vd.canary.data.api.request.es.CategoryReq;
 import com.vd.canary.data.api.request.es.ProductDetailsReq;
 import com.vd.canary.data.api.request.es.ProductsReq;
@@ -14,6 +15,7 @@ import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.service.es.ProductsService;
+import com.vd.canary.utils.CollectionUtil;
 import com.vd.canary.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,12 +196,12 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<CategoryRes> categoryRes(@Valid CategoryReq categoryReq) {
 
 
-        ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
+//        ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
         CategoryRes categoryRes = new CategoryRes();
         CategoryVO categoryVO = new CategoryVO();
         List<Map<String, Object>> result = productESServiceImpl.findByIds(categoryReq);
-        Map<String, Object> maps = new HashMap<String, Object>();
-        if (res != null && result.size() > 0) {
+        Map<String, Object> maps = new HashMap<>();
+        if (CollectionUtil.isNotEmpty(result)) {
             for (int i = 0; i <= result.size() - 1; i++) {
 
                 for (Map.Entry<String, Object> map : maps.entrySet()) {
@@ -220,6 +222,6 @@ public class ProductsServiceImpl implements ProductsService {
             }
         }
 
-        return res;
+        return ResponseUtil.ok(categoryRes);
     }
 }

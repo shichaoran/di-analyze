@@ -142,7 +142,7 @@ public class ProductESServiceImpl implements ProductESService {
             return result;
         }
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-        boolQuery.must(QueryBuilders.termsQuery("skuId", categoryReq));
+        boolQuery.must(QueryBuilders.termsQuery("skuId", categoryReq.getSkuIdList()));
         List<Map<String, Object>> list = ElasticsearchUtil.searchByQuery(indexName,boolQuery);
         return list;
     }
