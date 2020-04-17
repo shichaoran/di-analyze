@@ -58,6 +58,12 @@ public class ProductsServiceImpl implements ProductsService {
         List<ProductsDetailRes> list = new ArrayList<ProductsDetailRes>();
         ProductsDetailRes productsDetailRes = new ProductsDetailRes();
         productsDetailRes.setSkuId("1");
+        Map<String, Map<String, String>> s1 = new HashMap<>();
+        Map<String,String> mapsub = new HashMap<String,String>();
+        map.put("1","黑色");
+        map.put("2","白色");
+        s1.put("颜色",mapsub);
+        productsDetailRes.setAttributeMap(s1);
         productsDetailRes.setSkuName("建筑钢材");
         productsDetailRes.setProSkuTitle("建筑钢");
         productsDetailRes.setProSkuSubTitle("建筑钢特殊钢");
