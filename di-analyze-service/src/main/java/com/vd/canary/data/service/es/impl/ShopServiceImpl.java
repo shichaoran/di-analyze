@@ -11,11 +11,13 @@ import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.index.ShopTO;
 import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.service.es.ShopService;
+import com.vd.canary.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 import static org.apache.logging.log4j.ThreadContext.get;
@@ -73,7 +75,7 @@ public class ShopServiceImpl implements ShopService {
         shopVO.setCustomerId("2");
         shopVO.setStoreTemplateId("1");
         shopVO.setMainProducts("钢铁");
-        shopVO.setBoothScheduledTime(null);
+        shopVO.setBoothScheduledTime(LocalDateTime.ofInstant(DateUtil.currentDate().toInstant(), ZoneId.systemDefault()));
         shopVO.setLevel("1");
         list.add(shopVO);
         shopRes.setShopVos(list);
