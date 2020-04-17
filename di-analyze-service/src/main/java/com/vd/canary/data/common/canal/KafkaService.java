@@ -101,7 +101,7 @@ public class KafkaService {
                 }
                 map.put("info",map_info);
                 System.out.println(map);
-                log.info("================>binlog send to kafka,topic:"+"binglog_" + schemaName + "_2r3p,msg:" + map);
+                log.info("================>binlog send to kafka,topic:"+"binglog_" + schemaName + "_2r3p,msg:" + JSON.toJSONString(map));
                 kafkaProducer.send( "binglog_" + schemaName + "_2r3p", JSON.toJSONString(map)); // binglog_{database}_2r3p
             }
         }

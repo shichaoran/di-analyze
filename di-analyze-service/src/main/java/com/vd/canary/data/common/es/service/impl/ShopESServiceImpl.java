@@ -1,11 +1,13 @@
 package com.vd.canary.data.common.es.service.impl;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.SearchShopReq;
+import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ShopTO;
@@ -41,7 +43,7 @@ public class ShopESServiceImpl {
     // 创建索引
     public String createIndex() {
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            if (ElasticsearchUtil.createIndex(indexName,createIndexMapping() )) {//index json file!!!!
+            if (ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName) )) {//index json file!!!!
                 return "create shopindex success.";
             } else {
                 return "create shopindex failure！";
@@ -57,7 +59,7 @@ public class ShopESServiceImpl {
             return "param is null.";
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName,createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName));
         }
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(shop).toString());
         String id = ElasticsearchUtil.addData(jsonObject,indexName,shop.getId());
@@ -75,7 +77,7 @@ public class ShopESServiceImpl {
             return ;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName,createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName));
         }
         if(ElasticsearchUtil.existById(indexName,shop.getId())){
             Map content = JSONObject.parseObject(JSONObject.toJSONString(shop), Map.class);
@@ -97,7 +99,7 @@ public class ShopESServiceImpl {
             return ;
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
-            ElasticsearchUtil.createIndex(indexName,createIndexMapping());
+            ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName));
         }
         Map<String ,JSONObject> map = new HashMap<>();
         for(ShopTO shop :shops) {
@@ -206,33 +208,62 @@ public class ShopESServiceImpl {
      *      该字段添加的内容，查询时将会使用ik_max_word 分词 //ik_smart  ik_max_word  standard
      *      创建索引有三种方式：1、HTTP的方式创建的列子；2、Map创建的方式；3、使用Builder的方式；
      */
-    private XContentBuilder createIndexMapping(){
-        XContentBuilder mapping = null;
+    private XContentBuilder createIndexMapping(String indexName){
+        // 方式三：使用XContentBuilder
+        XContentBuilder builder = null;
         try {
-            mapping = XContentFactory.jsonBuilder().startObject().startObject("properties")
-                    .startObject("id").field("type", "keyword").endObject()
-                    .startObject("name").field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart").endObject()
-                    .startObject("boothCode").field("type", "keyword").endObject()
-                    .startObject("mediaUrl").field("type", "keyword").endObject()
-                    .startObject("businessCategory").field("type", "keyword").endObject()
-                    .startObject("businessBrand").field("type", "keyword").endObject()
-                    .startObject("businessArea").field("type", "keyword").endObject()
-                    .startObject("imageOrder").field("type", "keyword").endObject()
-                    .startObject("imageName").field("type", "keyword").endObject()
-                    .startObject("imageUrl").field("type", "keyword").endObject()
-                    .startObject("shopProductRes").field("type", "keyword").endObject()
-                    .startObject("classify").field("type", "keyword").endObject()
-                    .startObject("customerId").field("type", "keyword").endObject()
-                    .startObject("storeTemplateId").field("type", "keyword").endObject()
-                    .startObject("mainProducts").field("type", "keyword").endObject()
-                    .startObject("boothScheduledTime").field("type", "date").field("format", "yyyy-MM-DD").endObject()
-                    .startObject("level").field("type", "keyword").endObject()
-                    .endObject().startObject("settings").field("number_of_shards", 3).field("number_of_replicas", 1)
-                    .endObject().endObject();
+            builder = XContentFactory.jsonBuilder();
+            builder.startObject();
+            {
+                builder.startObject(indexName+"_type");
+                {
+                    builder.startObject("properties");
+                    {
+                        builder.startObject("id"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("name"); { builder.field("type", "text").field("analyzer", "ik_max_word").field("search_analyzer", "ik_smart"); }
+                        builder.endObject();
+                        builder.startObject("boothCode"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("mediaUrl"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("businessCategory"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("businessBrand"); { builder.field("type", "nested"); }
+                        builder.endObject();
+                        builder.startObject("businessArea"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("imageOrder"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("imageName"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("imageUrl"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("shopProductRes"); { builder.field("type", "nested"); }
+                        builder.endObject();
+                        builder.startObject("classify"); { builder.field("type", "object"); }
+                        builder.endObject();
+                        builder.startObject("customerId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("storeTemplateId"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("mainProducts"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+                        builder.startObject("boothScheduledTime"); { builder.field("type", "date").field("format", "yyyy-MM-dd HH:mm:ss"); }
+                        builder.endObject();
+                        builder.startObject("level"); { builder.field("type", "keyword"); }
+                        builder.endObject();
+
+                    }
+                    builder.endObject();
+                }
+                builder.endObject();
+            }
+            builder.endObject();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return mapping;
+        return builder;
     }
 
 

@@ -17,6 +17,7 @@ import com.vd.canary.data.api.response.es.ProductsRes;
 import com.vd.canary.data.api.response.es.vo.ProductsDetailRes;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
+import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.service.es.ESEntityWordService;
 import com.vd.canary.service.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,17 @@ public class ESEntityWordController extends BaseController {
         esEntityWordRes.setValue("测试");
          return ResponseUtil.ok(esEntityWordRes);
     }
+
+    @Autowired
+    private ShopESServiceImpl shopESServiceImpl;
+
+    @PostMapping("/getshopindex")
+    public String getshopindex(@NotNull String id) throws Exception {
+        String res1 = shopESServiceImpl.createIndex();
+        return res1;
+    }
+
+
 
 
     @Autowired

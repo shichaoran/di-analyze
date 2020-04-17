@@ -4,10 +4,21 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 
 import com.vd.canary.data.common.es.model.ShopTO;
+import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
+import com.vd.canary.obmp.customer.api.feign.agreement.AgreementFeignClient;
+import com.vd.canary.obmp.customer.api.feign.booth.BoothBusinessFeignClient;
+import com.vd.canary.obmp.customer.api.feign.customer.CustomerClient;
+import com.vd.canary.obmp.customer.api.feign.store.StoreLoopBannerFeignClient;
+import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
+import com.vd.canary.obmp.product.api.feign.BrandManagementFeign;
+import com.vd.canary.obmp.product.api.feign.CategoryRelationsFeign;
+import com.vd.canary.obmp.product.api.feign.FileManagementFeign;
+import com.vd.canary.obmp.product.api.feign.ProductSpuFeign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,6 +38,19 @@ public class StoreInfo implements Function {
     /**
      * 通过店铺->coustemer->展位编号
      */
+
+    @Autowired
+    private BoothBusinessFeignClient boothBusinessFeignClient;
+    @Autowired
+    private CustomerClient customerClient;
+    @Autowired
+    private StoreLoopBannerFeignClient storeLoopBannerFeignClient;
+    @Autowired
+    private AgreementFeignClient agreementFeignClient;
+    @Autowired
+    private StoreMediaFeignClient storeMediaFeignClient;
+
+
     @Override
     public void performES(String msg) {
         logger.info("StoreInfo.msg" + msg);
