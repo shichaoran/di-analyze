@@ -76,14 +76,14 @@ public class ProductSku implements Function {
 
                 }
                 if (entry.getKey().equals("spu_id")) {
-                    /*spuId = entry.getValue();
+                    spuId = entry.getValue();
                     productsTO.setProSkuSpuId(spuId);
-                    ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(spuId);
+               /*     ResponseBO<ProductSpuDetailResp> res = productspu.spuDetail(spuId);
                     ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
                     productsTO.setSpuState(pro.getSpuState());
                     productsTO.setProSpuSpuPic(pro.getSpuPic());
-                    productsTO.setSpuTitle(pro.getSpuTitle());*/
-                    productsTO.setSpuTitle(entry.getValue());
+                    productsTO.setSpuTitle(pro.getSpuTitle());
+                    productsTO.setSpuTitle(entry.getValue());*/
 
 
                 }

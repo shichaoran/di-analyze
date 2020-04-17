@@ -38,6 +38,61 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
+        Map<String,String> categorys = new HashMap<String,String>();
+        categorys.put("0","装配式建筑");
+        categorys.put("1","金属矿");
+        categorys.put("2","铜矿");
+        productsRes.setCategorys(categorys);
+        Map<String,String> brands = new HashMap<String,String>();
+        brands.put("0","抚顺特钢");
+        brands.put("1","不锈钢");
+        brands.put("2","不锈钢铁");
+        productsRes.setBrands(brands);
+        Map<String,Map<String,String>> s= new HashMap<String,Map<String,String>>();
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("1","红色");
+        map.put("2","黄色");
+        s.put("颜色",map);
+        productsRes.setAttributes(s);
+        List<ProductsDetailRes> list = new ArrayList<ProductsDetailRes>();
+        ProductsDetailRes productsDetailRes = new ProductsDetailRes();
+        productsDetailRes.setSkuId("1");
+        productsDetailRes.setSkuName("铁2");
+        productsDetailRes.setProSkuTitle("");
+        productsDetailRes.setProSkuSubTitle("11");
+        productsDetailRes.setProSkuSkuPicJson("[{\"fileSortNumber\":\"1\",\"fileUrl\":\"www.baidu.com\"}]");
+        productsDetailRes.setSkuSellPriceJson("[\"100\"]");
+        productsDetailRes.setSkuSellPriceType(0);
+        productsDetailRes.setSkuGmtCreateTime(null);
+        productsDetailRes.setSkuAuxiliaryUnit("afea");
+        productsDetailRes.setFThreeCategoryName("aefae");
+        productsDetailRes.setShopId("aefa");
+        productsDetailRes.setStoreInfoName("aae");
+        productsDetailRes.setBusinessCategory("adfa");
+        productsDetailRes.setMainProducts("aega");
+        productsDetailRes.setBusinessArea("egrg");
+        productsDetailRes.setBoothBusinessBoothCode("[\"100#\"]");
+        productsDetailRes.setCustomerProfilesLevel("afdsga");
+        productsDetailRes.setApproveState("atae");
+        productsDetailRes.setEnterpriseType("adag");
+        productsDetailRes.setStoreInfoStoreQrCode("adgER");
+        productsDetailRes.setGmtCreateTime(null);
+        productsDetailRes.setBoothScheduledTime(null);
+        list.add(productsDetailRes);
+        productsRes.setProductDetailRes(list);
+
+        productsRes.setTotal(100);
+        res.setData(productsRes);
+        res.setCode(200);
+        res.setSuccess(true);
+        res.setMessage("success");
+        return res;
+    }
+
+    //@Override
+    public ResponseBO<ProductsRes> getProductsByKey1(@Valid ProductsReq productsReq) throws Exception {
+        ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
+        ProductsRes productsRes = new ProductsRes();
 
         ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(), productsReq.getPageSize(), productsReq);
         if (esPageRes!=null) {

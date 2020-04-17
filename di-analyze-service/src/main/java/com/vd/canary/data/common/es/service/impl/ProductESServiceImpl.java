@@ -512,7 +512,102 @@ public class ProductESServiceImpl implements ProductESService {
     }
 
     // end 测试索引productindex1 专用
+    public String testAddProData(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        Map<String,Object> map = new HashMap();
+        map.put("skuId","1");// 主键id
+        map.put("proSkuBrandId", "1");
+        map.put("proSkuSpuId", "10");
+        map.put("proSkuSpuCode", "123");
+        map.put("proSkuSpuName", "钢");
+        map.put("proSkuSkuCode", "12fdfv3");
+        map.put("proSkuSkuName", "钢贸");
+        map.put("proSkuTitle", "标题");
+        map.put("proSkuSubTitle", "副标题");
+        map.put("threeCategoryId", "123");
+        map.put("threeCategoryCode", "123");
+        map.put("threeCategoryName", "铜矿");
+        map.put("skuSupplierId", "123");
+        map.put("skuSupplierName", "123");
+        map.put("skuState", "123");
+        map.put("proSkuSkuPicJson", "123");
+        map.put("skuValuationUnit", "123");
+        map.put("skuIntroduce", "123");
+        map.put("skuAuxiliaryUnit", "123");
+        map.put("skuGmtCreateTime", "123");
+        map.put("skuGmtModifyTime", "123");
+        map.put("spuState", "123");
+        map.put("proSpuSpuPic", "123");
+        map.put("spuTitle", "123");
+        map.put("attributeCode", "123");
+        map.put("attributeName", "123");
+        map.put("value_Name", "123");
+        map.put("attributeId", "123");
+        map.put("attributeValueId", "123");
+        map.put("attributeMap", "123");
+        map.put("attributeType", "123");
+        map.put("oneCategoryId", "123");
+        map.put("oneCategoryCode", "123");
+        map.put("oneCategoryName", "123");
+        map.put("twoCategoryId", "123");
+        map.put("twoCategoryCode", "123");
+        map.put("twoCategoryName", "123");
+        map.put("brandCode", "123");
+        map.put("bBrandName", "123");
+        map.put("brandLoge", "123");
+        map.put("brandShorthand", "123");
+        map.put("brandIntroduction", "123");
+        map.put("fOneCategoryId", "123");
+        map.put("fOneCategoryCode", "123");
+        map.put("fOneCategoryName", "装配式建筑");
+        map.put("fTwoCategoryId", "123");
+        map.put("fTwoCategoryCode", "123");
+        map.put("fTwoCategoryName", "金属矿");
+        map.put("fThreeCategoryId", "123");
+        map.put("fThreeCategoryCode", "123");
+        map.put("fThreeCategoryName", "123");
+        map.put("type", "123");
+        map.put("fileUrl", "123");
+        map.put("fileSortNumber", "123");
+        map.put("regionalCode", "123");
+        map.put("regionalName", "123");
+        map.put("regionalScope", "123");
+        map.put("skuSellPriceJson", "123");
+        map.put("skuSellPriceType", "123");
+        map.put("warehouseId", "123");
+        map.put("warehouseName", "123");
+        map.put("inventory", "123");
+        map.put("regionalId", "123");
+        map.put("skuRegionalName", "123");
+        map.put("storeId", "123");
+        map.put("categoryId", "123");
+        map.put("storeName", "123");
+        map.put("businessCategory", "123");
+        map.put("mainProducts", "123");
+        map.put("businessArea", "123");
+        map.put("boothBusinessBoothCode", "123");
+        map.put("customerProfilesLevel", "123");
+        map.put("approveState", "123");
+        map.put("enterpriseType", "123");
+        map.put("storeInfoStoreQrCode", "123");
+        map.put("gmtCreateTime", "123");
+        map.put("boothScheduledTime", "123");
+        map.put("warehouseCode", "123");
+        map.put("warehouseType", "123");
+        map.put("warehouseRegional", "123");
+        map.put("detailedAddress", "123");
 
+
+        JSONObject jsonObject= JSONObject.parseObject(JSON.toJSONString(map));
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, "1234");
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
 
 
 }
