@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.SearchShopReq;
@@ -12,6 +13,7 @@ import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
 import com.vd.canary.data.common.es.model.ShopTO;
 import com.vd.canary.data.constants.Constant;
+import com.vd.canary.data.util.DateUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -266,5 +268,39 @@ public class ShopESServiceImpl {
         return builder;
     }
 
+    // start 测试索引 shopindex 专用
+    public String testAddShopData(String c) throws IOException {
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+
+        Map<String,Object> map = new HashMap();
+        map.put("id","1250735825574989826");// 主键id
+        map.put("name", "安徽商和融资担保有限公司");// 用户名
+        map.put("boothCode", "1#-234");
+        map.put("mediaUrl", "http://www.baidu.com");
+        map.put("businessCategory", "建筑钢材");
+        map.put("businessBrand", "2367");
+        map.put("businessArea", "安徽");
+        map.put("imageOrder", "34");
+        map.put("imageName", "建筑钢放大图");
+        map.put("imageUrl", "www.baidu.com");
+        map.put("shopProductRes", "ceshi");
+        map.put("classify", "classify");
+        map.put("customerId", "1247147318331834369");
+        map.put("storeTemplateId", "3509721");
+        map.put("mainProducts", "建筑钢 钢铁");
+        map.put("boothScheduledTime", DateUtil.getCurrentTimeStr());
+        map.put("level", "1");
+
+        JSONObject jsonObject= JSONObject.parseObject(JSON.toJSONString(map));
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, "1250735825574989826");
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
+    // end 测试索引 shopindex 专用
 
 }
