@@ -32,10 +32,24 @@ public class ProtocolAgreement implements Function {
     @Override
     public void performES(String msg) {
 
-        logger.info("ProtocolAgreement.msg" + msg);
-
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
 
+        ShopTO shopTO = new ShopTO();
+        System.out.println("----------------------shopsTO000:" + JSONObject.toJSON(shopTO).toString());
+        HashMap hashMapSub = null;
+        if(hashMap.containsKey("info")){
+            hashMapSub = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
+        }
+        if(hashMapSub != null){
+            Set<Map.Entry<String, String>> entries = hashMapSub.entrySet();
+            for (Map.Entry<String, String> entry : entries) {
+                System.out.println("----------------------entry:" + JSONObject.toJSON(entry).toString());
+
+                if (entry.getKey().equals("id")) shopTO.setId(entry.getValue());
+                if (entry.getKey().equals("name")) shopTO.setName(entry.getValue());
+                if (entry.getKey().equals("customer_id")) shopTO.setCustomerId(entry.getValue());
+            }
+        }
 
 //        ShopTO shopTO = new ShopTO();
 //        System.out.println("----------------------shopsTO000:" + JSONObject.toJSON(shopTO).toString());

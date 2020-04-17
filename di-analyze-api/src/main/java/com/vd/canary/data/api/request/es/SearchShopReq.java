@@ -24,6 +24,6 @@ import java.util.List;
 public class SearchShopReq extends RequestPageBO {
     private List<String> categoryIds;
     private List<String> brandIds;
-    private boolean exhibitionJoined;
+    private String exhibitionJoined;
     private String key;
 }

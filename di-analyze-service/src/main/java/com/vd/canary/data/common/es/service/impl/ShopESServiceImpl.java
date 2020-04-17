@@ -202,7 +202,7 @@ public class ShopESServiceImpl {
         if(req.getCategoryIds() != null && req.getCategoryIds().size() > 0 ){//后台三级分类id
             boolQuery.must(QueryBuilders.termsQuery("businessCategory",req.getCategoryIds()));
         }
-        if( req.isExhibitionJoined() ){//是否入驻展厅
+        if( req.getExhibitionJoined().equals("1") || req.getExhibitionJoined().equals("0") ){//是否入驻展厅
             //boolQuery.must();
         }
         ESPageRes esPageRes = ElasticsearchUtil.searchDataPage(indexName,pageNumber,pageSize,boolQuery,fields,sortField,sortTpye,highlightField);
