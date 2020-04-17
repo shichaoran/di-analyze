@@ -26,25 +26,25 @@ public interface ProductsServiceFeign extends Feign {
     /**
      * 通过首页搜索框输入商品名称
      */
-    @PostMapping("/products/getProductsByKey")
+    @PostMapping("/data/products/getProductsByKey")
     ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq);
 
     /**
      * 一组skuid  返回对应的类目
      */
-    @PostMapping("/products/category")
+    @PostMapping("/data/products/category")
     ResponseBO<CategoryRes> categoryres(@RequestBody @Valid CategoryReq categoryReq);
 
     /**
      * 商品详情页
      */
-    @PostMapping("/products/getProductDetail")
+    @PostMapping("/data/products/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq);
 
     /**
      * 根据一级目录、二级目录和三级目录名称返回商品列表
      */
-    @PostMapping("/products/getProductByCategory")
+    @PostMapping("/data/products/getProductByCategory")
     ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq);
 
 }

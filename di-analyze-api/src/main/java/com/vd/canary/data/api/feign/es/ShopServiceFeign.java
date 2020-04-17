@@ -29,27 +29,27 @@ public interface ShopServiceFeign extends Feign {
     /**
      * 商铺搜索
      */
-    @PostMapping("/shop/search")
+    @PostMapping("/data/shop/search")
     ResponseBO<ShopRes> search(@RequestBody @Valid SearchShopReq shopSearchBO);
 
     /**
      * 商铺详情
      * 给shopid
      */
-    @GetMapping("/shop/product")
+    @GetMapping("/data/shop/product")
     ResponsePageBO<ShopPageReq> getByID(@RequestBody @Valid ShopPageReq shopPageBO);
 
     /**
      * costemer id
      */
 
-    @GetMapping("/shop/customer")
+    @GetMapping("/data/shop/customer")
     ResponseBO<ShopPageReq> getID(@RequestBody @Valid CustomerReq customerReq);
 
     /**
      * Detail
      * shangpin
      */
-    @GetMapping("/shop/productDetail ")
+    @GetMapping("/data/shop/productDetail ")
     ResponseBO<ShopProductRes> getList(@RequestBody @Valid ProductListReq productList);
 }

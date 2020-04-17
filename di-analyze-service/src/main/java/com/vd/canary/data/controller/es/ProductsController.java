@@ -26,25 +26,25 @@ public class ProductsController extends BaseController {
 
     private final ProductsService productsService;
 
-    @PostMapping("/products/getProductsByKey")
+    @PostMapping("/data/products/getProductsByKey")
     public ResponseBO<ProductsRes> getProductsByKey(@RequestBody @Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = productsService.getProductsByKey(productsReq);
         return res;
     }
 
-    @PostMapping("/products/getProductByCategory")
+    @PostMapping("/data/products/getProductByCategory")
     ResponseBO<ProductsRes> getProductByCategory(@RequestBody @Valid ThreeCategoryReq threeCategoryReq) throws Exception {
         ResponseBO<ProductsRes> res = productsService.getProductByCategory(threeCategoryReq);
         return res;
     }
 
-    @PostMapping("/products/getProductDetail")
+    @PostMapping("/data/products/getProductDetail")
     ResponseBO<ProductDetailsRes> getProductsDetail(@RequestBody @Valid ProductDetailsReq productDetailsReq) throws IOException {
         ResponseBO<ProductDetailsRes> res = productsService.getProductsDetail(productDetailsReq);
         return res;
     }
 
-    @PostMapping("/products/category")
+    @PostMapping("/data/products/category")
     ResponseBO<CategoryRes> categoryRes(@RequestBody @Valid CategoryReq categoryReq) {
         ResponseBO<CategoryRes> res = productsService.categoryRes(categoryReq);
         return res;

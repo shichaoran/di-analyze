@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 
@@ -76,8 +77,8 @@ public class ProductsServiceImpl implements ProductsService {
         productsDetailRes.setApproveState("1");
         productsDetailRes.setEnterpriseType("2");
         productsDetailRes.setStoreInfoStoreQrCode("=97dhkrnjdkwndk83dd9da72lj3 ");
-        productsDetailRes.setGmtCreateTime(null);
-        productsDetailRes.setBoothScheduledTime(null);
+        productsDetailRes.setGmtCreateTime(LocalDateTime.ofInstant(DateUtil.currentDate().toInstant(), ZoneId.systemDefault()));
+        productsDetailRes.setBoothScheduledTime(LocalDateTime.ofInstant(DateUtil.currentDate().toInstant(), ZoneId.systemDefault()));
         list.add(productsDetailRes);
         productsRes.setProductDetailRes(list);
 

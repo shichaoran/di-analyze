@@ -13,7 +13,7 @@
     <groupId>com.vd.canary.data</groupId>
     <artifactId>di-analyze</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>数据智能-数据分析</description>
     <modules>
         <module>di-analyze-api</module>
