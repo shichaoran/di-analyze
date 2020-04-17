@@ -7,7 +7,7 @@
     <parent>
         <artifactId>canary</artifactId>
         <groupId>com.vd.canary</groupId>
-        <version>0.10.1</version>
+        <version>0.11.0</version>
     </parent>
 
     <groupId>com.vd.canary.data</groupId>
@@ -24,6 +24,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.vd.canary</groupId>
+            <artifactId>canary-business-base-parent</artifactId>
+            <version>0.11.0</version>
         </dependency>
     </dependencies>
     <build>

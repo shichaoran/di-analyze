@@ -25,21 +25,22 @@
     <dependencies>
         <!--    自定义依赖    -->
         
-        <dependency>
-            <groupId>com.vd.canary.data</groupId>
-            <artifactId>di-analyze-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.vd.canary.data</groupId>-->
+<!--            <artifactId>di-analyze-api</artifactId>-->
+<!--            <version>1.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-business-base-parent</artifactId>
-            <version>0.10.4</version>
+            <version>0.11.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.vd.canary.obmp</groupId>
             <artifactId>obmp-order-api</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>
