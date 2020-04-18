@@ -77,7 +77,7 @@ public class ProductTest implements Function {
 
             CategoryVO categoryVO = new CategoryVO();
 
-            categoryRes.setSkuId("2");
+            //categoryRes.setSkuId("2");
             categoryVO.setFOneCategoryName("rtwr");
             categoryVO.setFOneCategoryId("2");
             categoryVO.setFOneCategoryCode("aega");
@@ -88,8 +88,8 @@ public class ProductTest implements Function {
             categoryVO.setFThreeCategoryCode("shgare");
             categoryVO.setFThreeCategoryId("2");
 
-            categoryRes.setCategoryVO(categoryVO);
-            categoryRes.setMaplist("1",categoryVO);
+            //categoryRes.setCategoryVO(categoryVO);
+            //categoryRes.setMaplist("1",categoryVO);
 
 
             ProductDetailsRes productDetailsRes = new ProductDetailsRes();

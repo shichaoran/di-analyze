@@ -13,13 +13,13 @@ import java.util.Map;
 @ToString
 public class CategoryRes implements Serializable {
     //skuid
-    private String skuId;
+    //private String skuId;
     //类目
-    private CategoryVO categoryVO;
+    //private CategoryVO categoryVO;
 
     private Map<String, CategoryVO> maplist;
 
-
-    public void setMaplist(String s, CategoryVO categoryVO) {
-    }
+    //
+    //public void setMaplist(String s, CategoryVO categoryVO) {
+    //}
 }

@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Getter
 @Setter
-
 public class ThreeCategoryReq extends ProductsBaseReq {
 
     /**

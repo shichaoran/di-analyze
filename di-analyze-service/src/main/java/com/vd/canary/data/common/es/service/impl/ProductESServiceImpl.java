@@ -198,7 +198,7 @@ public class ProductESServiceImpl implements ProductESService {
     public ESPageRes boolQueryByDiffCategorys(Integer pageNumber, Integer pageSize, @Valid ThreeCategoryReq req) {
         if (req == null || ( req.getFOneCategoryId()==null && req.getFTwoCategoryId()==null && req.getFThreeCategoryId()== null ) ) {
             List<Map<String, Object>> recordList = new ArrayList<>();
-            return new ESPageRes(0, 0, 0, recordList);
+            return new ESPageRes(pageNumber, pageSize, 0, recordList);
         }
         if (pageNumber == null || pageNumber < Constant.ES_DEFAULT_PAGE_NUMBER) {
             pageNumber = Constant.ES_DEFAULT_PAGE_NUMBER;

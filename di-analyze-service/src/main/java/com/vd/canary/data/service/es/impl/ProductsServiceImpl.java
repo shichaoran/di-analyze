@@ -1,5 +1,7 @@
 package com.vd.canary.data.service.es.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.core.util.ResponseUtil;
 import com.vd.canary.data.api.request.es.CategoryReq;
@@ -100,7 +102,7 @@ public class ProductsServiceImpl implements ProductsService {
     public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
-
+        log.info("getProductsByKey,productsReq:" + JSONObject.toJSON(productsReq).toString());
         ESPageRes esPageRes = productESServiceImpl.boolQueryByKeyword(productsReq.getPageNum(), productsReq.getPageSize(), productsReq);
         if (esPageRes!=null) {
             List<Map<String, Object>> recordList = esPageRes.getRecordList();
@@ -160,15 +162,16 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-    @Override
-    public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
+    //@Override
+    public ResponseBO<ProductsRes> getProductByCategory1(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
         ProductsReq productsReq = new ProductsReq();
         return getProductsByKey(productsReq);
     }
-    //@Override
-    public ResponseBO<ProductsRes> getProductByCategory1(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
+    @Override
+    public ResponseBO<ProductsRes> getProductByCategory(@Valid ThreeCategoryReq threeCategoryReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
+        log.info("getProductByCategory,threeCategoryReq:"+JSONObject.toJSON(threeCategoryReq).toString());
         ESPageRes esPageRes = productESServiceImpl.boolQueryByDiffCategorys(threeCategoryReq.getPageNum(), threeCategoryReq.getPageSize(), new ThreeCategoryReq());
         if (esPageRes!=null) {
             List<Map<String, Object>> recordList = esPageRes.getRecordList();
@@ -232,8 +235,8 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-    @Override
-    public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) throws IOException {
+    //@Override
+    public ResponseBO<ProductDetailsRes> getProductsDetail1(@Valid ProductDetailsReq productDetailsReq) throws IOException {
         ResponseBO<ProductDetailsRes> res = new ResponseBO();
         ProductDetailsRes detail = new ProductDetailsRes();
         Map<String, Map<String, String>> s = new HashMap<>();
@@ -258,29 +261,26 @@ public class ProductsServiceImpl implements ProductsService {
         res.setSuccess(true);
         return res;
     }
-    //@Override
-    public ResponseBO<ProductDetailsRes> getProductsDetail1(@Valid ProductDetailsReq productDetailsReq) throws IOException {
+
+    @Override
+    public ResponseBO<ProductDetailsRes> getProductsDetail(@Valid ProductDetailsReq productDetailsReq) throws IOException {
         ResponseBO<ProductDetailsRes> res = new ResponseBO<ProductDetailsRes>();
         ProductDetailsRes productDetailsRes = new ProductDetailsRes();
         Map<String, Object> maps = productESServiceImpl.findById(productDetailsReq.getProductId());
         if (maps != null && maps.size() > 0) {
-            for (Map.Entry<String, Object> map : maps.entrySet()) {
-
-                productDetailsRes.setSkuId(map.getKey().equals("skuId") ? map.getValue().toString() : "");
-                productDetailsRes.setSkuName(map.getKey().equals("skuName") ? map.getValue().toString() : "");
-                productDetailsRes.setSkuTitle(map.getKey().equals("skuTitle") ? map.getValue().toString() : "");
-                productDetailsRes.setSkuSubTitle(map.getKey().equals("skuSubTitle") ? map.getValue().toString() : "");
-                productDetailsRes.setPriceJson(map.getKey().equals("attributeMap") ? map.getValue().toString() : "");
-                productDetailsRes.setPriceType(map.getKey().equals("priceJson") ? Integer.parseInt(map.getValue().toString()) : 0);
-                productDetailsRes.setSkuIntroduce(map.getKey().equals("skuIntroduce") ? map.getValue().toString() : "");
-                productDetailsRes.setProSkuSkuPicJson(map.getKey().equals("proSkuSkuPicJson") ? map.getValue().toString() : "");
-                productDetailsRes.setRegionalId(map.getKey().equals("regionalId") ? map.getValue().toString() : "");
-                productDetailsRes.setRegionalName(map.getKey().equals("regionalName") ? map.getValue().toString() : "");
-
-                Map<String, Map<String, String>> attributes = new HashMap<>(); //属性
-
-                productDetailsRes.setAttributeMap(attributes);
+            if(maps.containsKey("skuId"))productDetailsRes.setSkuId(maps.get("skuId").toString());
+            if(maps.containsKey("proSkuSkuName"))productDetailsRes.setSkuName(maps.get("proSkuSkuName").toString());
+            if(maps.containsKey("proSkuTitle"))productDetailsRes.setSkuTitle(maps.get("proSkuTitle").toString());
+            if(maps.containsKey("proSkuSubTitle"))productDetailsRes.setSkuSubTitle(maps.get("proSkuSubTitle").toString());
+            if(maps.containsKey("attributeMap")){
+                String temp = JSONObject.toJSONString(maps.get("attributeMap"));
+                productDetailsRes.setAttributeMap(JSON.parseObject(temp,Map.class));
             }
+            if(maps.containsKey("skuSellPriceJson"))productDetailsRes.setPriceJson(maps.get("skuSellPriceJson").toString());
+            if(maps.containsKey("skuIntroduce"))productDetailsRes.setSkuIntroduce(maps.get("skuIntroduce").toString());
+            if(maps.containsKey("proSkuSkuPicJson"))productDetailsRes.setProSkuSkuPicJson(maps.get("proSkuSkuPicJson").toString());
+            if(maps.containsKey("regionalCode"))productDetailsRes.setRegionalId(maps.get("regionalCode").toString());
+            if(maps.containsKey("regionalName"))productDetailsRes.setRegionalName(maps.get("regionalName").toString());
         }
         res.setData(productDetailsRes);
         res.setSuccess(true);
@@ -289,7 +289,7 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-    public ResponseBO<CategoryRes> categoryRes(@Valid CategoryReq categoryReq) {
+    public ResponseBO<CategoryRes> categoryRes1(@Valid CategoryReq categoryReq) {
         ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
         CategoryRes data = new CategoryRes();
         CategoryVO categoryVO = new CategoryVO();
@@ -302,44 +302,46 @@ public class ProductsServiceImpl implements ProductsService {
         categoryVO.setFThreeCategoryId("579");
         categoryVO.setFThreeCategoryCode("579303");
         categoryVO.setFThreeCategoryName("薄钢片");
-        data.setCategoryVO(categoryVO);
+        //data.setCategoryVO(categoryVO);
         Map<String, CategoryVO> map = new HashMap<>();
         map.put("1000",categoryVO);
         data.setMaplist(map);
-        data.setSkuId("1");
+        //data.setSkuId("1");
         res.setData(data);
         res.setMessage("success");
         res.setCode(200);
         res.setSuccess(true);
         return res;
     }
-    //@Override
-    public ResponseBO<CategoryRes> categoryRes1(@Valid CategoryReq categoryReq) {
-        CategoryRes categoryRes = new CategoryRes();
-        CategoryVO categoryVO = new CategoryVO();
+    @Override
+    public ResponseBO<CategoryRes> categoryRes(@Valid CategoryReq categoryReq) {
+        ResponseBO<CategoryRes> res = new ResponseBO<CategoryRes>();
         List<Map<String, Object>> result = productESServiceImpl.findByIds(categoryReq);
-        Map<String, Object> maps = new HashMap<>();
         if (CollectionUtil.isNotEmpty(result)) {
-            for (int i = 0; i <= result.size() - 1; i++) {
-
-                for (Map.Entry<String, Object> map : maps.entrySet()) {
-                    categoryRes.setSkuId(categoryReq.getSkuIdList().get(i));
-                    categoryVO.setFOneCategoryId(map.getKey().equals("fOneCategoryId") ? map.getValue().toString() : "");
-                    categoryVO.setFOneCategoryCode(map.getKey().equals("fOneCategoryCode") ? map.getValue().toString() : "");
-                    categoryVO.setFOneCategoryName(map.getKey().equals("fOneCategoryName") ? map.getValue().toString() : "");
-                    categoryVO.setFTwoCategoryId(map.getKey().equals("fTwoCategoryId") ? map.getValue().toString() : "");
-                    categoryVO.setFTwoCategoryCode(map.getKey().equals("fTwoCategoryCode") ? map.getValue().toString() : "");
-                    categoryVO.setFTwoCategoryName(map.getKey().equals("fTwoCategoryName") ? map.getValue().toString() : "");
-                    categoryVO.setFThreeCategoryId(map.getKey().equals("fThreeCategoryId") ? map.getValue().toString() : "");
-                    categoryVO.setFThreeCategoryCode(map.getKey().equals("fThreeCategoryCode") ? map.getValue().toString() : "");
-                    categoryVO.setFThreeCategoryName(map.getKey().equals("fThreeCategoryName") ? map.getValue().toString() : "");
-                    categoryRes.setCategoryVO(categoryVO);
-                    maps.put(categoryReq.getSkuIdList().get(i),categoryVO);
-                    result.add(maps);
+            CategoryRes categoryRes = new CategoryRes();
+            String skuid = "";
+            Map<String, CategoryVO> maps = new HashMap<>();
+            for(Map<String, Object> map : result){
+                CategoryVO categoryVO = new CategoryVO();
+                if(map.containsKey("skuId")){
+                    if(map.containsKey("fOneCategoryId")) categoryVO.setFOneCategoryId(map.get("fOneCategoryId").toString());
+                    if(map.containsKey("fOneCategoryCode")) categoryVO.setFOneCategoryCode(map.get("fOneCategoryCode").toString());
+                    if(map.containsKey("fOneCategoryName")) categoryVO.setFOneCategoryName(map.get("fOneCategoryName").toString());
+                    if(map.containsKey("fTwoCategoryId")) categoryVO.setFTwoCategoryId(map.get("fTwoCategoryId").toString());
+                    if(map.containsKey("fTwoCategoryCode")) categoryVO.setFTwoCategoryCode(map.get("fTwoCategoryCode").toString());
+                    if(map.containsKey("fTwoCategoryName")) categoryVO.setFTwoCategoryName(map.get("fTwoCategoryName").toString());
+                    if(map.containsKey("fThreeCategoryId")) categoryVO.setFThreeCategoryId(map.get("fThreeCategoryId").toString());
+                    if(map.containsKey("fThreeCategoryCode")) categoryVO.setFThreeCategoryCode(map.get("fThreeCategoryCode").toString());
+                    if(map.containsKey("fThreeCategoryName")) categoryVO.setFThreeCategoryName(map.get("fThreeCategoryName").toString());
+                    maps.put(map.get("skuId").toString(),categoryVO);
                 }
             }
+            categoryRes.setMaplist(maps);
+            res.setData(categoryRes);
         }
-
-        return ResponseUtil.ok(categoryRes);
+        res.setMessage("success");
+        res.setCode(200);
+        res.setSuccess(true);
+        return res;
     }
 }
