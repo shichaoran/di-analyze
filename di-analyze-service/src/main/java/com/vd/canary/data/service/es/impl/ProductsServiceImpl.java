@@ -253,6 +253,7 @@ public class ProductsServiceImpl implements ProductsService {
         res.setData(detail);
         res.setCode(200);
         res.setMessage("success");
+        res.setSuccess(true);
         return res;
     }
     //@Override
@@ -304,6 +305,7 @@ public class ProductsServiceImpl implements ProductsService {
         res.setData(data);
         res.setMessage("success");
         res.setCode(200);
+        res.setSuccess(true);
         return res;
     }
     //@Override
