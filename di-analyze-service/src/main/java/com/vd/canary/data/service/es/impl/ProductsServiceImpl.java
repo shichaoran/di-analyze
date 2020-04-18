@@ -35,8 +35,8 @@ public class ProductsServiceImpl implements ProductsService {
     @Autowired
     private ProductESServiceImpl productESServiceImpl;
 
-    @Override
-    public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) throws Exception {
+    //@Override
+    public ResponseBO<ProductsRes> getProductsByKey1(@Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
         Map<String,String> categorys = new HashMap<String,String>();
@@ -96,8 +96,8 @@ public class ProductsServiceImpl implements ProductsService {
         return res;
     }
 
-    //@Override
-    public ResponseBO<ProductsRes> getProductsByKey1(@Valid ProductsReq productsReq) throws Exception {
+    @Override
+    public ResponseBO<ProductsRes> getProductsByKey(@Valid ProductsReq productsReq) throws Exception {
         ResponseBO<ProductsRes> res = new ResponseBO<ProductsRes>();
         ProductsRes productsRes = new ProductsRes();
 
@@ -115,15 +115,11 @@ public class ProductsServiceImpl implements ProductsService {
                     productsDetailRes.setProSkuTitle(recordMap.containsKey("proSkuTitle") ? recordMap.get("proSkuTitle").toString() : "");
                     productsDetailRes.setProSkuSubTitle(recordMap.containsKey("proSkuSubTitle") ? recordMap.get("proSkuSubTitle").toString() : "");
                     productsDetailRes.setProSkuSkuPicJson(recordMap.containsKey("proSkuSkuPic") ? recordMap.get("proSkuSkuPic").toString() : "");
-//                    productsDetailRes.setAttributeMap(recordMap.containsKey("attributeMap") ? recordMap.get("attributeMap") );
                     productsDetailRes.setSkuSellPriceJson(recordMap.containsKey("skuSellPriceJson") ? recordMap.get("skuSellPriceJson").toString() : "");
                     productsDetailRes.setSkuSellPriceType(recordMap.containsKey("skuSellPriceType") ? Integer.parseInt(recordMap.get("skuSellPriceType").toString()) : 0);
-
                     if (recordMap.containsKey("skuGmtCreateTime")) {
                         productsDetailRes.setSkuGmtCreateTime(LocalDateTime.parse(recordMap.get("skuGmtCreateTime").toString()));
                     }
-
-//                productsDetailRes.setSkuGmtCreateTime(DateUtil.getDateTime(recordMap.containsKey("skuGmtCreateTime")?recordMap.get("skuGmtCreateTime").toString():""));
                     productsDetailRes.setShopId(recordMap.containsKey("storeId") ? recordMap.get("storeId").toString() : "");
                     productsDetailRes.setStoreInfoName(recordMap.containsKey("storeName") ? recordMap.get("storeName").toString() : "");
                     productsDetailRes.setBusinessCategory(recordMap.containsKey("businessCategory") ? recordMap.get("businessCategory").toString() : "");
@@ -158,6 +154,9 @@ public class ProductsServiceImpl implements ProductsService {
             }
         }
         res.setData(productsRes);
+        res.setSuccess(true);
+        res.setCode(200);
+        res.setMessage("success.");
         return res;
     }
 
@@ -227,6 +226,9 @@ public class ProductsServiceImpl implements ProductsService {
             }
         }
         res.setData(productsRes);
+        res.setSuccess(true);
+        res.setCode(200);
+        res.setMessage("success.");
         return res;
     }
 
@@ -281,6 +283,9 @@ public class ProductsServiceImpl implements ProductsService {
             }
         }
         res.setData(productDetailsRes);
+        res.setSuccess(true);
+        res.setCode(200);
+        res.setMessage("success.");
         return res;
     }
 
