@@ -1,17 +1,20 @@
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.vd.canary.core.bo.ResponseBO;
 import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
+import com.vd.canary.data.util.JSONUtils;
 import com.vd.canary.obmp.product.api.feign.AttributeManagementFeign;
 import com.vd.canary.obmp.product.api.feign.AttributeValueFeign;
 import com.vd.canary.obmp.product.api.feign.SkuAttributeRelationsFeign;
 import com.vd.canary.obmp.product.api.request.sku.SkuAttributeRelationsReq;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeManagementDetailResp;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeValueResp;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,9 @@ public class SkuAttributeRelations implements Function {
     @Override
     public void performES(String msg) {
         logger.info("SkuAttributeRelations.msg" + msg);
+        if(StringUtils.isNotBlank(msg)){
+            return;
+        }
 
         String skuId = "";
         String attributeId = "";

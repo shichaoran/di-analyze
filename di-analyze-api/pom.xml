@@ -29,7 +29,6 @@
             <groupId>com.vd.canary</groupId>
             <artifactId>canary-api-parent</artifactId>
             <version>0.11.0</version>
-            <type>pom</type>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.github.jsqlparser</groupId>-->
@@ -38,11 +37,16 @@
 <!--            <scope>compile</scope>-->
 <!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <version>1.2.49</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>

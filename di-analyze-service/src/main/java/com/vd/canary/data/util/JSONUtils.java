@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
 
 
-public class JsonUtils {
+public class JSONUtils {
 
     /**
      * Gson - 将bean转换成json字符串

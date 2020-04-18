@@ -25,11 +25,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.vd.canary</groupId>
-            <artifactId>canary-business-base-parent</artifactId>
-            <version>0.11.0</version>
-        </dependency>
+
     </dependencies>
     <build>
         <plugins>

@@ -25,9 +25,9 @@ public class KafkaConsumerForES {
 
     /**
      * concurrency="3" 即消费者个数(注意，消费者数要小于等于你开的所有topic的分区数总和)
-     * @param list
+     * @param msg
      */
-    @KafkaListener(topics = "binglog_obmp_product_2r3p", id = "product_es", containerFactory = "batchFactory",concurrency="3" )
+    /*@KafkaListener(topics = "binglog_obmp_product_2r3p", id = "product_es", containerFactory = "batchFactory",concurrency="3" )
     public void listenProduct(List<ConsumerRecord<?, ?>> list) {
         log.info("<------this is kafka consumer,topic = binglog_obmp_product_2r3p, list = %s",list);
         List<String> messages = new ArrayList<>();
@@ -57,10 +57,18 @@ public class KafkaConsumerForES {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }*/
+    @KafkaListener(topics = "binglog_obmp_product_2r3p", id = "product_es" )
+    public void listenProduct(String msg) {
+        log.info("<------this is kafka consumer,topic = binglog_obmp_product_2r3p, msg = %s",msg);
+        JSONObject jsonMap = JSONObject.parseObject(msg);
+        String database = jsonMap.getString("database");
+        String table = jsonMap.getString("table");
+        Function function = FunctionFactory.instance().createFunction(database + "." + table);
+        function.performES(msg);
     }
 
-
-    @KafkaListener(topics = "binglog_obmp_customer_2r3p", id = "customer_es", containerFactory = "batchFactory",concurrency="3" )
+    /*@KafkaListener(topics = "binglog_obmp_customer_2r3p", id = "customer_es", containerFactory = "batchFactory",concurrency="3" )
     public void listenCustomer(List<ConsumerRecord<?, ?>> list) {
         List<String> messages = new ArrayList<>();
         for(int i=0;i<list.size();i++)  System.out.println("2222222，list:"+list.get(i));
@@ -88,6 +96,15 @@ public class KafkaConsumerForES {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }*/
+    @KafkaListener(topics = "binglog_obmp_customer_2r3p", id = "customer_es" )
+    public void listenCustomer(String msg) {
+        log.info("<------this is kafka consumer,topic = binglog_obmp_customer_2r3p, msg = %s",msg);
+        JSONObject jsonMap = JSONObject.parseObject(msg);
+        String database = jsonMap.getString("database");
+        String table = jsonMap.getString("table");
+        Function function = FunctionFactory.instance().createFunction(database + "." + table);
+        function.performES(msg);
     }
 
 }

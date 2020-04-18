@@ -81,6 +81,22 @@ public class ProductESServiceImpl implements ProductESService {
             return "SaveProduct failure!";
         }
     }
+    //新增商品信息
+    public String saveProduct(JSONObject product) throws IOException {
+        if (product == null || StringUtils.isEmpty(product.get("skuId").toString())) {
+            return "param is null.";
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        JSONObject jsonObject = JSONObject.parseObject(product.toString());
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, product.get("skuId").toString());
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
 
     //新增或修改商品信息
     public void saveOrUpdateProduct(ProductsTO product) throws IOException {
@@ -128,6 +144,10 @@ public class ProductESServiceImpl implements ProductESService {
     // 根据productId更新信息
     public void updateProduct(ProductsTO product) throws IOException {
         saveOrUpdateProduct(product);
+    }
+    public void updateProduct(Map<String,Object> map) throws IOException {
+        ElasticsearchUtil.updateData(map, indexName, map.get("skuId").toString());
+        log.info("indexName:{},skuid:{},update product,map{} .", indexName, map.get("skuId").toString(),map);
     }
 
     // 通过id获取数据

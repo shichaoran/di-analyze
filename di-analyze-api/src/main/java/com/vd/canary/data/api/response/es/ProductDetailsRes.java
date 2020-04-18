@@ -1,6 +1,6 @@
 package com.vd.canary.data.api.response.es;
 
-import com.alibaba.fastjson.JSON;
+//import com.alibaba.fastjson.JSON;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.w3c.dom.Text;
