@@ -33,7 +33,7 @@ import java.util.Set;
  * @Version
  */
 public class StoreMedia implements Function {
-    private static final Logger logger = LoggerFactory.getLogger(StoreInfo.class);
+    private static final Logger logger = LoggerFactory.getLogger(StoreMedia.class);
     private static Object ShopTO;
 
 
@@ -46,7 +46,7 @@ public class StoreMedia implements Function {
     @Override
     public void performES(String msg) {
 
-        logger.info("StoreInfo.msg" + msg);
+        logger.info("StoreMedia.msg" + msg);
         ResponseBO<StoreMediaVO> res = storeMediaFeignClient.get("");
         StoreMediaVO storeMediaVO = (StoreMediaVO) res.getData();
         storeMediaVO.getMediaUrl();
@@ -62,36 +62,36 @@ public class StoreMedia implements Function {
         map = gson.fromJson(msg, map.getClass());
         String goodsid = (String) map.get("goods_id");
         ShopESServiceImpl shopESService = new ShopESServiceImpl();
-        if (goodsid.equals("insert")) {
-            try {
-                shopESService.saveShop(shopTO);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else if (goodsid.equals("updata")) {
-
-            JSONObject jsonObject = new JSONObject();
-            JSONObject jsonObject1 = jsonObject.getJSONObject(msg);
-            /**
-             * 最常见也是大多数情况下用的最多的，一般在键值对都需要使用
-             */
-            Map<String, String> maps = new HashMap<String, String>();
-
-//            for (Map.Entry<String, Object> entry : jsonObject1.entrySet()) {
-//                String mapKey = entry.getKey();
-//                Object mapValue = (Object) entry.getValue();
-//                if (mapKey.equals()) {
-//
-//                }
+//        if (goodsid.equals("insert")) {
+//            try {
+//                shopESService.saveShop(shopTO);
+//            } catch (IOException e) {
+//                e.printStackTrace();
 //            }
-        } else if (goodsid.equals("delete")) {
-            try {
-                shopESService.deletedShopById(shopTO.getId());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//
+//        } else if (goodsid.equals("updata")) {
+//
+//            JSONObject jsonObject = new JSONObject();
+//            JSONObject jsonObject1 = jsonObject.getJSONObject(msg);
+//            /**
+//             * 最常见也是大多数情况下用的最多的，一般在键值对都需要使用
+//             */
+//            Map<String, String> maps = new HashMap<String, String>();
+//
+////            for (Map.Entry<String, Object> entry : jsonObject1.entrySet()) {
+////                String mapKey = entry.getKey();
+////                Object mapValue = (Object) entry.getValue();
+////                if (mapKey.equals()) {
+////
+////                }
+////            }
+//        } else if (goodsid.equals("delete")) {
+//            try {
+//                shopESService.deletedShopById(shopTO.getId());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
 }

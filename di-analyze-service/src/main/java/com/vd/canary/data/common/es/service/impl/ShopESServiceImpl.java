@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import com.vd.canary.data.api.request.es.ShopPageReq;
 import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopProductRes;
@@ -56,15 +57,33 @@ public class ShopESServiceImpl {
     }
 
     //新增店铺信息
-    public String saveShop(ShopTO shop) throws IOException {
-        if(shop == null || StringUtils.isEmpty(shop.getId()) ){
+    public String saveShop(JSONObject shop) throws IOException {
+        if(shop == null || StringUtils.isEmpty(shop.get("id").toString()) ){
             return "param is null.";
         }
         if (!ElasticsearchUtil.isIndexExist(indexName)) {
             ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName));
         }
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(shop).toString());
-        String id = ElasticsearchUtil.addData(jsonObject,indexName,shop.getId());
+        String id = ElasticsearchUtil.addData(jsonObject,indexName,shop.get("id").toString());
+        if(StringUtils.isNotBlank(id)){
+            return "Save Shop success.";
+        }
+        else{
+            return "Save Shop failure!";
+        }
+    }
+
+    public String saveShop(String shop,String storeId) throws IOException {
+        if(storeId == null){
+            return "param is null.";
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName,createIndexMapping(indexName));
+        }
+        System.out.println(shop);
+        JSONObject jsonObject = JSONObject.parseObject(shop);
+        String id = ElasticsearchUtil.addData(jsonObject,indexName,storeId);
         if(StringUtils.isNotBlank(id)){
             return "Save Shop success.";
         }
@@ -121,6 +140,10 @@ public class ShopESServiceImpl {
         saveOrUpdateShop(shop);
     }
 
+    public void updateShop(Map<String,Object> map) throws IOException {
+        ElasticsearchUtil.updateData(map, indexName, map.get("id").toString());
+        log.info("indexName:{},id:{},update shop,map{} .", indexName, map.get("id").toString(),map);
+    }
 
     //通过id获取数据
 //    public ShopTO findById(String id) throws IOException{

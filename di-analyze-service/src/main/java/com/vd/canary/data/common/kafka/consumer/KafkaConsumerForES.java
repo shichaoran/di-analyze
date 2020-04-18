@@ -40,8 +40,8 @@ public class KafkaConsumerForES {
     private SkuWarehouseRelations skuWarehouseRelations;
     @Autowired
     private StoreProductRelations storeProductRelations;
-    //@Autowired
-    //private StoreInfo storeInfo;
+    @Autowired
+    private StoreInfo storeInfo;
     /**
      * concurrency="3" 即消费者个数(注意，消费者数要小于等于你开的所有topic的分区数总和)
      * @param msg
@@ -145,12 +145,12 @@ public class KafkaConsumerForES {
         //function.performES(msg);
         String performTable = database + "." + table;
         switch(performTable){
-        //case "obmp_customer.booth_business":
-        //    x.performES(msg);
-        //    break;
-        //case "obmp_customer.store_info":
-        //    storeInfo.performES(msg);
-        //    break;
+//        case "obmp_customer.booth_business":
+//            x.performES(msg);
+//            break;
+        case "obmp_customer.store_info":
+            storeInfo.performES(msg);
+            break;
         //case "obmp_customer.store_media":
         //    x.performES(msg);
         //    break;

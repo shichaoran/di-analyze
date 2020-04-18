@@ -25,7 +25,6 @@ public class ShopTO implements Serializable {
     private String imageName; //名
     private String imageUrl; //地址
     private List<ShopProductRes> shopProductRes;
-    private Map<String, String> classify;
     private String customerId;  // 客户·ID
     private String storeTemplateId; //模板id
     private String mainProducts;  //主营产品
