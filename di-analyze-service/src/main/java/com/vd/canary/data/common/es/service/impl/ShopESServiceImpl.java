@@ -12,8 +12,11 @@ import com.vd.canary.data.api.request.es.SearchShopReq;
 import com.vd.canary.data.api.response.es.ShopProductRes;
 import com.vd.canary.data.common.es.helper.ESPageRes;
 import com.vd.canary.data.common.es.helper.ElasticsearchUtil;
+import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.model.ShopTO;
+import com.vd.canary.data.common.es.service.ShopESService;
 import com.vd.canary.data.constants.Constant;
+import com.vd.canary.data.service.es.ShopService;
 import com.vd.canary.data.util.DateUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +38,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Data
 @Service
-public class ShopESServiceImpl {
+public class ShopESServiceImpl implements ShopESService {
 
     // 索引
     private String indexName="shopindex";
@@ -55,6 +58,25 @@ public class ShopESServiceImpl {
             return "shopindex exist！";
         }
     }
+
+
+    //新增商品信息
+    public String saveShop(ShopTO shop) throws IOException {
+        if (shop == null || StringUtils.isEmpty(shop.getId())) {
+            return "param is null.";
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(shop).toString());
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, shop.getId());
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveShop success.";
+        } else {
+            return "SaveShop failure!";
+        }
+    }
+
 
     //新增店铺信息
     public String saveShop(JSONObject shop) throws IOException {

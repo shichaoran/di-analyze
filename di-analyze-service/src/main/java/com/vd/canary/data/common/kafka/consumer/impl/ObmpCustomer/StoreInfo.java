@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.vd.canary.data.common.es.model.ShopTO;
 import com.vd.canary.data.common.es.service.impl.ShopESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
-import com.vd.canary.data.util.JSONUtils;
 import com.vd.canary.obmp.customer.api.feign.agreement.AgreementFeignClient;
 import com.vd.canary.obmp.customer.api.feign.booth.BoothBusinessFeignClient;
 import com.vd.canary.obmp.customer.api.feign.customer.CustomerClient;
@@ -14,12 +13,10 @@ import com.vd.canary.obmp.customer.api.feign.store.StoreInfoFeignClient;
 import com.vd.canary.obmp.customer.api.feign.store.StoreLoopBannerFeignClient;
 import com.vd.canary.obmp.customer.api.feign.store.StoreMediaFeignClient;
 import org.apache.commons.lang3.StringUtils;
-import org.bouncycastle.cms.CMSAuthenticatedGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -106,8 +103,6 @@ public class StoreInfo implements Function {
             if (entry.getKey().equals("id")) json.put("id", entry.getValue());
             if (entry.getKey().equals("name")) json.put("name", entry.getValue());
             if (entry.getKey().equals("customer_id")) json.put("customerId", entry.getValue());
-
-
         }
         System.out.println("------------reSetValue.json:" + json);
         return json;
