@@ -1,6 +1,7 @@
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.vd.canary.core.bo.ResponseBO;
@@ -19,6 +20,8 @@ import com.vd.canary.obmp.product.api.response.category.CategoryRelationsResp;
 import com.vd.canary.obmp.product.api.response.file.vo.FileManagementVO;
 import com.vd.canary.obmp.product.api.response.spu.ProductSpuDetailResp;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +38,7 @@ public class ProductSku implements Function {
     @Autowired
     private ProductESServiceImpl productESServiceImplTemp;
     @Autowired
-    private ProductSpuFeign roductSpuFeign;
+    private ProductSpuFeign productSpuFeign;
     @Autowired
     private CategoryRelationsFeign categoryRelationsFeign;
     @Autowired
@@ -58,16 +61,12 @@ public class ProductSku implements Function {
         if(hashMap.containsKey("info")){
             hashMapSub = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
         }
-        //ProductESServiceImpl productESServiceImplTemp = new ProductESServiceImpl();
         ProductsTO productsTO = null;
         if (type.equals("insert") ) {
-            productsTO = new ProductsTO();
             try {
-                //JSONObject json = JSONObject.parseObject(JSONUtils.beanToJson(productsTO));
-                //JSONObject resjson = reSetValue(json, hashMapSub);
-                //JSONObject json = JSONObject.parseObject(JSONUtils.beanToJson(productsTO));
-                //JSONObject resjson = reSetValue(json, hashMapSub);
-                //productESServiceImplTemp.saveProduct(resjson);
+                Map<String, Object> resMap = new HashMap();
+                Map<String, Object> resjson = reSetValue(resMap, hashMapSub);
+                productESServiceImplTemp.saveProduct(JSONObject.toJSONString(resjson),hashMapSub.get("id").toString());
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -93,27 +92,31 @@ public class ProductSku implements Function {
 
     //public JSONObject reSetValue(JSONObject json,Map<String,Object> map){
     public Map<String, Object> reSetValue(Map<String, Object> json,Map<String,Object> map){
-        ProductsTO productsTO = null;
         Set<Map.Entry<String, Object>> entries = map.entrySet();
         for (Map.Entry<String, Object> entry : entries) {
             if (entry.getKey().equals("id")) json.put("skuId", entry.getValue());
             if (entry.getKey().equals("brand_id")) {
                 json.put("proSkuBrandId", entry.getValue());
-                ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(entry.getValue().toString());
-                BrandManagementResp pro = (BrandManagementResp) res.getData();
-                productsTO.setBrandCode(pro.getBrandCode());
-                productsTO.setBBrandName(pro.getBrandName());
-                productsTO.setBrandLoge(pro.getBrandLogo());
-                productsTO.setBrandShorthand(pro.getBrandShorthand());
-                productsTO.setBrandIntroduction(pro.getBrandIntroduction());
+                //ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(entry.getValue().toString());
+                //if(res != null){
+                //    BrandManagementResp pro = (BrandManagementResp) res.getData();
+                //    json.put("brandCode",pro.getBrandCode());
+                //    json.put("bBrandName",pro.getBrandName());
+                //    json.put("brandLoge",pro.getBrandLogo());
+                //    json.put("brandShorthand",pro.getBrandShorthand());
+                //    json.put("brandIntroduction",pro.getBrandIntroduction());
+                //}
             }
             if (entry.getKey().equals("spu_id")) {
                 json.put("proSkuSpuId", entry.getValue() );
-                ResponseBO<ProductSpuDetailResp> res = roductSpuFeign.spuDetail(entry.getValue().toString());
-                ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
-                productsTO.setSpuState(pro.getSpuState());
-                productsTO.setProSpuSpuPic(JSONUtils.fromListByFastJson(pro.getSpuPic()));
-                productsTO.setSpuTitle(pro.getSpuTitle());
+                String value = entry.getValue().toString();
+                //ResponseBO<ProductSpuDetailResp> res = productSpuFeign.spuDetail(entry.getValue().toString());
+                //if(res != null){
+                //    ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
+                //    json.put("spuState",pro.getSpuState());
+                //    json.put("proSpuSpuPic",JSONUtils.fromListByFastJson(pro.getSpuPic()));
+                //    json.put("spuTitle",pro.getSpuTitle());
+                //}
             }
             if (entry.getKey().equals("spu_code")) json.put("proSkuSpuCode", entry.getValue() );
             if (entry.getKey().equals("spu_name")) json.put("proSkuSpuName", entry.getValue() );
@@ -125,23 +128,25 @@ public class ProductSku implements Function {
                 json.put("threeCategoryId",entry.getValue());
                 CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
                 categoryRelationsReq.setBackgroundCategoryId(entry.getValue().toString());
-                ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
-                List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
-                CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
-                String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
-                productsTO.setFOneCategoryCode(foreCategoryFullCode[0]);
-                productsTO.setFTwoCategoryCode(foreCategoryFullCode[1]);
-                productsTO.setFThreeCategoryCode(foreCategoryFullCode[2]);
-
-                String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
-                productsTO.setFOneCategoryName(foreCategoryFullName[0]);
-                productsTO.setFTwoCategoryName(foreCategoryFullName[1]);
-                productsTO.setFThreeCategoryName(foreCategoryFullName[2]);
-
-                String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
-                productsTO.setFOneCategoryId(foreCategoryFullId[0]);
-                productsTO.setFTwoCategoryId(foreCategoryFullId[1]);
-                productsTO.setFThreeCategoryId(foreCategoryFullId[2]);
+                //ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
+                //if(res != null){
+                //    List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
+                //    CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
+                //    String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
+                //    json.put("fOneCategoryCode",foreCategoryFullCode[0]);
+                //    json.put("fTwoCategoryCode",foreCategoryFullCode[1]);
+                //    json.put("fThreeCategoryCode",foreCategoryFullCode[2]);
+                //
+                //    String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
+                //    json.put("fOneCategoryName",foreCategoryFullName[0]);
+                //    json.put("fTwoCategoryName",foreCategoryFullName[1]);
+                //    json.put("fThreeCategoryName",foreCategoryFullName[2]);
+                //
+                //    String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
+                //    json.put("fOneCategoryId",foreCategoryFullId[0]);
+                //    json.put("fTwoCategoryId",foreCategoryFullId[1]);
+                //    json.put("fThreeCategoryId",foreCategoryFullId[2]);
+                //}
             }
             if (entry.getKey().equals("three_category_code")) json.put("threeCategoryCode", entry.getValue() );
             if (entry.getKey().equals("three_category_name")) json.put("threeCategoryName", entry.getValue() );
@@ -149,17 +154,18 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("sku_supplier_name")) json.put("skuSupplierName", entry.getValue() );
             if (entry.getKey().equals("sku_state")) json.put("skuState", entry.getValue() );
             if (entry.getKey().equals("sku_pic")) {
-                ResponseBO<FileManagementVO> res = fileManagementFeign.get(entry.getValue().toString());
-                FileManagementVO pro = (FileManagementVO) res.getData();
-                productsTO.setType(pro.getType());
-                productsTO.setFileUrl(pro.getFileUrl());
-                productsTO.setFileSortNumber(pro.getSortNumber());
-                List list = new ArrayList();
-                list.add(pro.getType());
-                list.add(pro.getFileUrl());
-                list.add(pro.getSortNumber());
-                productsTO.setProSkuSkuPicJson(list.toString());
-                json.put("proSkuSkuPicJson", entry.getValue() );
+                List<String> idList = JSONArray.parseArray(entry.getValue().toString(),String.class);
+                //ResponseBO<List<FileManagementVO>> res = fileManagementFeign.listByIds(idList);
+                //if(res != null){
+                //    List<FileManagementVO> pros = (List<FileManagementVO>) res.getData();
+                //    if(pros != null && pros.size() > 0){
+                //        JSONArray jsonArray = new JSONArray();
+                //        for(FileManagementVO file :pros){
+                //            jsonArray.add(file);
+                //        }
+                //        json.put("proSkuSkuPicJson", jsonArray);
+                //    }
+                //}
             }
             if (entry.getKey().equals("sku_valuation_unit")) json.put("skuValuationUnit", entry.getValue() );
             if (entry.getKey().equals("sku_introduce")) json.put("skuIntroduce", entry.getValue() );

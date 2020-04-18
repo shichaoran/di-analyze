@@ -97,6 +97,22 @@ public class ProductESServiceImpl implements ProductESService {
             return "SaveProduct failure!";
         }
     }
+    public String saveProduct(String product,String productId) throws IOException {
+        if (productId == null ) {
+            return "param is null.";
+        }
+        if (!ElasticsearchUtil.isIndexExist(indexName)) {
+            ElasticsearchUtil.createIndex(indexName, createIndexMapping( indexName));
+        }
+        System.out.println(product);
+        JSONObject jsonObject = JSONObject.parseObject(product);
+        String id = ElasticsearchUtil.addData(jsonObject, indexName, productId);
+        if (StringUtils.isNotBlank(id)) {
+            return "SaveProduct success.";
+        } else {
+            return "SaveProduct failure!";
+        }
+    }
 
     //新增或修改商品信息
     public void saveOrUpdateProduct(ProductsTO product) throws IOException {
