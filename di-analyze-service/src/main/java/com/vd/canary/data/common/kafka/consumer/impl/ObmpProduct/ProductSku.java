@@ -9,6 +9,7 @@ import com.vd.canary.data.common.es.model.ProductsTO;
 import com.vd.canary.data.common.es.service.impl.ProductESServiceImpl;
 import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.util.JSONUtils;
+import com.vd.canary.obmp.product.api.feign.BigDataApiFeign;
 import com.vd.canary.obmp.product.api.feign.BrandManagementFeign;
 import com.vd.canary.obmp.product.api.feign.CategoryRelationsFeign;
 import com.vd.canary.obmp.product.api.feign.FileManagementFeign;
@@ -37,14 +38,10 @@ public class ProductSku implements Function {
     private static final Logger logger = LoggerFactory.getLogger(ProductSku.class);
     @Autowired
     private ProductESServiceImpl productESServiceImplTemp;
+
     @Autowired
-    private ProductSpuFeign productSpuFeign;
-    @Autowired
-    private CategoryRelationsFeign categoryRelationsFeign;
-    @Autowired
-    private BrandManagementFeign brandManagementFeign;
-    @Autowired
-    private FileManagementFeign fileManagementFeign;
+    private BigDataApiFeign bigDataApiFeign;
+
     @Override
     public void performES(String msg)  {
         logger.info("ProductSku.msg" + msg);
@@ -97,7 +94,7 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("id")) json.put("skuId", entry.getValue());
             if (entry.getKey().equals("brand_id")) {
                 json.put("proSkuBrandId", entry.getValue());
-                //ResponseBO<BrandManagementResp> res = brandManagementFeign.brandDetail(entry.getValue().toString());
+                //ResponseBO<BrandManagementResp> res = bigDataApiFeign.brandDetail(entry.getValue().toString());
                 //if(res != null){
                 //    BrandManagementResp pro = (BrandManagementResp) res.getData();
                 //    json.put("brandCode",pro.getBrandCode());
@@ -110,13 +107,15 @@ public class ProductSku implements Function {
             if (entry.getKey().equals("spu_id")) {
                 json.put("proSkuSpuId", entry.getValue() );
                 String value = entry.getValue().toString();
-                //ResponseBO<ProductSpuDetailResp> res = productSpuFeign.spuDetail(entry.getValue().toString());
-                //if(res != null){
-                //    ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
-                //    json.put("spuState",pro.getSpuState());
-                //    json.put("proSpuSpuPic",JSONUtils.fromListByFastJson(pro.getSpuPic()));
-                //    json.put("spuTitle",pro.getSpuTitle());
-                //}
+                ResponseBO<ProductSpuDetailResp> res = bigDataApiFeign.spuDetail(entry.getValue().toString());
+                if(res != null){
+                    ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
+                    if(pro != null){
+                        json.put("spuState",pro.getSpuState());
+                        json.put("proSpuSpuPic",JSONUtils.fromListByFastJson(pro.getSpuPic()));
+                        json.put("spuTitle",pro.getSpuTitle());
+                    }
+                }
             }
             if (entry.getKey().equals("spu_code")) json.put("proSkuSpuCode", entry.getValue() );
             if (entry.getKey().equals("spu_name")) json.put("proSkuSpuName", entry.getValue() );
