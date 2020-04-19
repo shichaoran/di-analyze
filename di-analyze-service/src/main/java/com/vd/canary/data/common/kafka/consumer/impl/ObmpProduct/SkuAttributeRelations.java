@@ -1,6 +1,7 @@
 package com.vd.canary.data.common.kafka.consumer.impl.ObmpProduct;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.vd.canary.core.bo.ResponseBO;
@@ -10,10 +11,16 @@ import com.vd.canary.data.common.kafka.consumer.impl.Function;
 import com.vd.canary.data.util.JSONUtils;
 import com.vd.canary.obmp.product.api.feign.AttributeManagementFeign;
 import com.vd.canary.obmp.product.api.feign.AttributeValueFeign;
+import com.vd.canary.obmp.product.api.feign.BigDataApiFeign;
 import com.vd.canary.obmp.product.api.feign.SkuAttributeRelationsFeign;
+import com.vd.canary.obmp.product.api.request.category.foreground.CategoryRelationsReq;
 import com.vd.canary.obmp.product.api.request.sku.SkuAttributeRelationsReq;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeManagementDetailResp;
 import com.vd.canary.obmp.product.api.response.attribute.AttributeValueResp;
+import com.vd.canary.obmp.product.api.response.brand.BrandManagementResp;
+import com.vd.canary.obmp.product.api.response.category.CategoryRelationsResp;
+import com.vd.canary.obmp.product.api.response.file.vo.FileManagementVO;
+import com.vd.canary.obmp.product.api.response.spu.ProductSpuDetailResp;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +38,19 @@ public class SkuAttributeRelations implements Function {
 
     private static final Logger logger = LoggerFactory.getLogger(SkuAttributeRelations.class);
     @Autowired
-    private AttributeValueFeign attributeValueFeign;
+    private ProductESServiceImpl productESServiceImplTemp;
+
     @Autowired
-    private SkuAttributeRelationsFeign skuAttributeRelationsFeign;
-    @Autowired
-    private AttributeManagementFeign attributeManagementFeign;
-    @Autowired
-    ProductESServiceImpl productESService;
+    private BigDataApiFeign bigDataApiFeign;
+
+    //@Autowired
+    //private AttributeValueFeign attributeValueFeign;
+    //@Autowired
+    //private SkuAttributeRelationsFeign skuAttributeRelationsFeign;
+    //@Autowired
+    //private AttributeManagementFeign attributeManagementFeign;
+    //@Autowired
+    //ProductESServiceImpl productESService;
 
     @Override
     public void performES(String msg) {
@@ -45,114 +58,55 @@ public class SkuAttributeRelations implements Function {
         if(StringUtils.isNotBlank(msg)){
             return;
         }
-
-        String skuId = "";
-        String attributeId = "";
-        String attributevalueId = "";
         HashMap hashMap = JSON.parseObject(msg, HashMap.class);
-        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            if (entry.getKey().equals("sku_id")) {
-                skuId = entry.getValue();
-                SkuAttributeRelationsReq skuAttributeRelationsReq = new SkuAttributeRelationsReq();
-                skuAttributeRelationsReq.setSkuId(skuId);
-
-                ResponseBO<List> res = skuAttributeRelationsFeign.queryBySkuId(skuAttributeRelationsReq);
-                List pro = res.getData();
-//                try {
-//                    ProductsTO productsTO = productESService.findById(skuId);
-//
-//                    productsTO.setAttributeId(pro.toString());
-//
-//                    if (entry.getKey().equals("attribute_id")) {
-//                        attributeId = entry.getValue();
-//                        ResponseBO<AttributeManagementDetailResp> res1 = attributeManagementFeign.get(attributeId);
-//                        AttributeManagementDetailResp pro1 = (AttributeManagementDetailResp) res.getData();
-//
-//                        productsTO.setAttributeName(pro1.getAttributeName());
-//                        productsTO.setAttributeType(pro1.getAttributeType());
-//
-//
-//                        Map<String, List<AttributeValueResp>> attributeMap = null;
-//
-//                        attributeMap.put(pro1.getAttributeName() + pro1.getAttributeType(), pro1.getAttributeValueList());
-//                        productsTO.setAttributeMap(attributeMap.toString());
-//
-//                    }
-//
-//                    if (entry.getKey().equals("attribute_value_id")) {
-//                        attributevalueId = entry.getValue();
-//
-//                        ResponseBO<?> res2 = attributeValueFeign.get(attributevalueId);
-//                        String pro2 = (String) res2.getData();
-//                        productsTO.setValue_Name(pro2);
-//
-//                    }
-//
-//
-//                    ProductESServiceImpl productESService = new ProductESServiceImpl();
-//                    Gson gson = new Gson();
-//                    Map<String, Object> map = new HashMap<String, Object>();
-//                    map = gson.fromJson(msg, map.getClass());
-//                    String type = (String) map.get("type");
-//                    if (type.equals("update")) {
-//                        try {
-//                            productESService.saveOrUpdateProduct(productsTO);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+        String type = (String) hashMap.get("type");
+        String skuid = null;
+        HashMap<String,Object> binlogMap = null;
+        if(hashMap.containsKey("info")){
+            binlogMap = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
+        }
+        ProductsTO productsTO = null;
+        if (type.equals("insert") || type.equals("update")) {
+            if(binlogMap != null && binlogMap.size() > 0){
+                skuid = binlogMap.get("sku_id").toString();
                 try {
-                    Map<String, Object> products = productESService.findById(skuId);
-                    ProductsTO productsTO = null;
-                    productsTO.setAttributeId(pro.toString());
-
-                    if (entry.getKey().equals("attribute_id")) {
-                        attributeId = entry.getValue();
-                        ResponseBO<AttributeManagementDetailResp> res1 = attributeManagementFeign.get(attributeId);
-                        AttributeManagementDetailResp pro1 = (AttributeManagementDetailResp) res.getData();
-
-                        productsTO.setAttributeName(pro1.getAttributeName());
-                        productsTO.setAttributeType(pro1.getAttributeType());
-
-
-                        Map<String, List<AttributeValueResp>> attributeMap = null;
-
-                        attributeMap.put(pro1.getAttributeName() + pro1.getAttributeType(), pro1.getAttributeValueList());
-                        productsTO.setAttributeMap(attributeMap.toString());
-
+                    Map<String, Object> esMap = productESServiceImplTemp.findById(skuid);
+                    if(esMap != null){
+                        Map<String, Object> resjson = reSetValue(esMap, binlogMap);
+                        productESServiceImplTemp.updateProduct(resjson);
                     }
-
-                    if (entry.getKey().equals("attribute_value_id")) {
-                        attributevalueId = entry.getValue();
-
-                        ResponseBO<?> res2 = attributeValueFeign.get(attributevalueId);
-                        String pro2 = (String) res2.getData();
-                        productsTO.setValue_Name(pro2);
-
-                    }
-
-
-                    ProductESServiceImpl productESService = new ProductESServiceImpl();
-                    Gson gson = new Gson();
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map = gson.fromJson(msg, map.getClass());
-                    String type = (String) map.get("type");
-                    if (type.equals("update")) {
-                        try {
-                            productESService.saveOrUpdateProduct(productsTO);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (IOException e) {
+                }catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-
     }
+
+    public Map<String, Object> reSetValue(Map<String, Object> esMap,Map<String,Object> binlogMap){
+        Set<Map.Entry<String, Object>> entries = binlogMap.entrySet();
+        //for (Map.Entry<String, Object> entry : entries) {
+        //    if (entry.getKey().equals("attribute_id")) {
+        //        ResponseBO<AttributeManagementDetailResp> res = attributeManagementFeign.get(entry.getValue().toString());
+        //        if(res != null){
+        //            AttributeManagementDetailResp pro1 = (AttributeManagementDetailResp) res.getData();
+        //            binlogMap.put("attributeName",pro1.getAttributeName());
+        //            binlogMap.put("attributeType",pro1.getAttributeType());
+        //
+        //            Map<String, List<AttributeValueResp>> attributeMap = new HashMap<>();
+        //            attributeMap.put(pro1.getAttributeName() + pro1.getAttributeType(), pro1.getAttributeValueList());
+        //            binlogMap.put("attributeMap",attributeMap.toString());
+        //        }
+        //    }
+        //    if (entry.getKey().equals("attribute_value_id")) {
+        //        ResponseBO<?> res2 = attributeValueFeign.get(entry.getValue().toString());
+        //        String pro2 = (String) res2.getData();
+        //        binlogMap.put("value_Name",pro2);
+        //    }
+        //}
+        //System.out.println("------------reSetValue.json:"+esMap);
+        return esMap;
+    }
+
+
+
 }

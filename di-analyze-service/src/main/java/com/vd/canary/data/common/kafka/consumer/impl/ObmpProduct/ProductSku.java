@@ -54,25 +54,25 @@ public class ProductSku implements Function {
         String spuId = "";
         String threeCategoryId = "";
         String brandId = "";
-        HashMap<String,Object> hashMapSub = null;
+        HashMap<String,Object> bnglogMap = null;
         if(hashMap.containsKey("info")){
-            hashMapSub = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
+            bnglogMap = JSON.parseObject(hashMap.get("info").toString(), HashMap.class);
         }
         ProductsTO productsTO = null;
         if (type.equals("insert") ) {
             try {
-                Map<String, Object> resMap = new HashMap();
-                Map<String, Object> resjson = reSetValue(resMap, hashMapSub);
-                productESServiceImplTemp.saveProduct(JSONObject.toJSONString(resjson),hashMapSub.get("id").toString());
+                Map<String, Object> esMap = new HashMap();
+                Map<String, Object> resjson = reSetValue(esMap, bnglogMap);
+                productESServiceImplTemp.saveProduct(JSONObject.toJSONString(resjson),bnglogMap.get("id").toString());
             }catch (Exception e) {
                 e.printStackTrace();
             }
         }else if(type.equals("update")){
-            skuid = hashMapSub.get("id").toString();
+            skuid = bnglogMap.get("id").toString();
             try {
-                Map<String, Object> resMap = productESServiceImplTemp.findById(skuid);
-                if(resMap != null){
-                    Map<String, Object> resjson = reSetValue(resMap, hashMapSub);
+                Map<String, Object> esMap = productESServiceImplTemp.findById(skuid);
+                if(esMap != null){
+                    Map<String, Object> resjson = reSetValue(esMap, bnglogMap);
                     productESServiceImplTemp.updateProduct(resjson);
                 }
             }catch (IOException e) {
@@ -87,93 +87,98 @@ public class ProductSku implements Function {
         }
     }
 
-    //public JSONObject reSetValue(JSONObject json,Map<String,Object> map){
-    public Map<String, Object> reSetValue(Map<String, Object> json,Map<String,Object> map){
-        Set<Map.Entry<String, Object>> entries = map.entrySet();
+    //public JSONObject reSetValue(JSONObject esMap,Map<String,Object> binlogMap){
+    public Map<String, Object> reSetValue(Map<String, Object> esMap,Map<String,Object> binlogMap){
+        Set<Map.Entry<String, Object>> entries = binlogMap.entrySet();
         for (Map.Entry<String, Object> entry : entries) {
-            if (entry.getKey().equals("id")) json.put("skuId", entry.getValue());
+            if (entry.getKey().equals("id")) esMap.put("skuId", entry.getValue());
             if (entry.getKey().equals("brand_id")) {
-                json.put("proSkuBrandId", entry.getValue());
-                //ResponseBO<BrandManagementResp> res = bigDataApiFeign.brandDetail(entry.getValue().toString());
-                //if(res != null){
-                //    BrandManagementResp pro = (BrandManagementResp) res.getData();
-                //    json.put("brandCode",pro.getBrandCode());
-                //    json.put("bBrandName",pro.getBrandName());
-                //    json.put("brandLoge",pro.getBrandLogo());
-                //    json.put("brandShorthand",pro.getBrandShorthand());
-                //    json.put("brandIntroduction",pro.getBrandIntroduction());
-                //}
+                esMap.put("proSkuBrandId", entry.getValue());
+                ResponseBO<BrandManagementResp> res = bigDataApiFeign.brandDetail(entry.getValue().toString());
+                if(res != null){
+                    BrandManagementResp pro = (BrandManagementResp) res.getData();
+                    if(pro != null){
+                        esMap.put("brandCode",pro.getBrandCode());
+                        esMap.put("bBrandName",pro.getBrandName());
+                        esMap.put("brandLoge",pro.getBrandLogo());
+                        esMap.put("brandShorthand",pro.getBrandShorthand());
+                        esMap.put("brandIntroduction",pro.getBrandIntroduction());
+                    }
+                }
             }
             if (entry.getKey().equals("spu_id")) {
-                json.put("proSkuSpuId", entry.getValue() );
+                esMap.put("proSkuSpuId", entry.getValue() );
                 String value = entry.getValue().toString();
                 ResponseBO<ProductSpuDetailResp> res = bigDataApiFeign.spuDetail(entry.getValue().toString());
                 if(res != null){
                     ProductSpuDetailResp pro = (ProductSpuDetailResp) res.getData();
                     if(pro != null){
-                        json.put("spuState",pro.getSpuState());
-                        json.put("proSpuSpuPic",JSONUtils.fromListByFastJson(pro.getSpuPic()));
-                        json.put("spuTitle",pro.getSpuTitle());
+                        esMap.put("spuState",pro.getSpuState());
+                        esMap.put("proSpuSpuPic",JSONUtils.fromListByFastJson(pro.getSpuPic()));
+                        esMap.put("spuTitle",pro.getSpuTitle());
                     }
                 }
             }
-            if (entry.getKey().equals("spu_code")) json.put("proSkuSpuCode", entry.getValue() );
-            if (entry.getKey().equals("spu_name")) json.put("proSkuSpuName", entry.getValue() );
-            if (entry.getKey().equals("sku_code")) json.put("proSkuSkuCode", entry.getValue() );
-            if (entry.getKey().equals("sku_name")) json.put("proSkuSkuName", entry.getValue() );
-            if (entry.getKey().equals("sku_title")) json.put("proSkuTitle", entry.getValue() );
-            if (entry.getKey().equals("sku_sub_title")) json.put("proSkuSubTitle", entry.getValue() );
+            if (entry.getKey().equals("spu_code")) esMap.put("proSkuSpuCode", entry.getValue() );
+            if (entry.getKey().equals("spu_name")) esMap.put("proSkuSpuName", entry.getValue() );
+            if (entry.getKey().equals("sku_code")) esMap.put("proSkuSkuCode", entry.getValue() );
+            if (entry.getKey().equals("sku_name")) esMap.put("proSkuSkuName", entry.getValue() );
+            if (entry.getKey().equals("sku_title")) esMap.put("proSkuTitle", entry.getValue() );
+            if (entry.getKey().equals("sku_sub_title")) esMap.put("proSkuSubTitle", entry.getValue() );
             if (entry.getKey().equals("three_category_id")) {
-                json.put("threeCategoryId",entry.getValue());
+                esMap.put("threeCategoryId",entry.getValue());
                 CategoryRelationsReq categoryRelationsReq = new CategoryRelationsReq();
                 categoryRelationsReq.setBackgroundCategoryId(entry.getValue().toString());
-                //ResponseBO<List<CategoryRelationsResp>> res = categoryRelationsFeign.listByCondition(categoryRelationsReq);
-                //if(res != null){
-                //    List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
-                //    CategoryRelationsResp categoryRelationsResp = new CategoryRelationsResp();
-                //    String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
-                //    json.put("fOneCategoryCode",foreCategoryFullCode[0]);
-                //    json.put("fTwoCategoryCode",foreCategoryFullCode[1]);
-                //    json.put("fThreeCategoryCode",foreCategoryFullCode[2]);
-                //
-                //    String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
-                //    json.put("fOneCategoryName",foreCategoryFullName[0]);
-                //    json.put("fTwoCategoryName",foreCategoryFullName[1]);
-                //    json.put("fThreeCategoryName",foreCategoryFullName[2]);
-                //
-                //    String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
-                //    json.put("fOneCategoryId",foreCategoryFullId[0]);
-                //    json.put("fTwoCategoryId",foreCategoryFullId[1]);
-                //    json.put("fThreeCategoryId",foreCategoryFullId[2]);
-                //}
+                ResponseBO<List<CategoryRelationsResp>> res = bigDataApiFeign.listByCondition(categoryRelationsReq);
+                if(res != null){
+                    List<CategoryRelationsResp> pro = (List<CategoryRelationsResp>)res.getData();
+                    if(pro != null && pro.size() > 0){
+                        for(CategoryRelationsResp categoryRelationsResp :pro){
+                            String[] foreCategoryFullCode = categoryRelationsResp.getForeCategoryFullCode().split("-");
+                            esMap.put("fOneCategoryCode",foreCategoryFullCode[0]);
+                            esMap.put("fTwoCategoryCode",foreCategoryFullCode[1]);
+                            esMap.put("fThreeCategoryCode",foreCategoryFullCode[2]);
+
+                            String[] foreCategoryFullName = categoryRelationsResp.getForeCategoryFullName().split("-");
+                            esMap.put("fOneCategoryName",foreCategoryFullName[0]);
+                            esMap.put("fTwoCategoryName",foreCategoryFullName[1]);
+                            esMap.put("fThreeCategoryName",foreCategoryFullName[2]);
+
+                            String[] foreCategoryFullId = categoryRelationsResp.getForegroundCategoryId().split("-");
+                            esMap.put("fOneCategoryId",foreCategoryFullId[0]);
+                            esMap.put("fTwoCategoryId",foreCategoryFullId[1]);
+                            esMap.put("fThreeCategoryId",foreCategoryFullId[2]);
+                        }
+                    }
+                }
             }
-            if (entry.getKey().equals("three_category_code")) json.put("threeCategoryCode", entry.getValue() );
-            if (entry.getKey().equals("three_category_name")) json.put("threeCategoryName", entry.getValue() );
-            if (entry.getKey().equals("sku_supplier_id")) json.put("skuSupplierId", entry.getValue() );
-            if (entry.getKey().equals("sku_supplier_name")) json.put("skuSupplierName", entry.getValue() );
-            if (entry.getKey().equals("sku_state")) json.put("skuState", entry.getValue() );
+            if (entry.getKey().equals("three_category_code")) esMap.put("threeCategoryCode", entry.getValue() );
+            if (entry.getKey().equals("three_category_name")) esMap.put("threeCategoryName", entry.getValue() );
+            if (entry.getKey().equals("sku_supplier_id")) esMap.put("skuSupplierId", entry.getValue() );
+            if (entry.getKey().equals("sku_supplier_name")) esMap.put("skuSupplierName", entry.getValue() );
+            if (entry.getKey().equals("sku_state")) esMap.put("skuState", entry.getValue() );
             if (entry.getKey().equals("sku_pic")) {
                 List<String> idList = JSONArray.parseArray(entry.getValue().toString(),String.class);
-                //ResponseBO<List<FileManagementVO>> res = fileManagementFeign.listByIds(idList);
-                //if(res != null){
-                //    List<FileManagementVO> pros = (List<FileManagementVO>) res.getData();
-                //    if(pros != null && pros.size() > 0){
-                //        JSONArray jsonArray = new JSONArray();
-                //        for(FileManagementVO file :pros){
-                //            jsonArray.add(file);
-                //        }
-                //        json.put("proSkuSkuPicJson", jsonArray);
-                //    }
-                //}
+                ResponseBO<List<FileManagementVO>> res = bigDataApiFeign.listByIds(idList);
+                if(res != null){
+                    List<FileManagementVO> pros = (List<FileManagementVO>) res.getData();
+                    if(pros != null && pros.size() > 0){
+                        JSONArray jsonArray = new JSONArray();
+                        for(FileManagementVO file :pros){
+                            jsonArray.add(file);
+                        }
+                        esMap.put("proSkuSkuPicJson", jsonArray);
+                    }
+                }
             }
-            if (entry.getKey().equals("sku_valuation_unit")) json.put("skuValuationUnit", entry.getValue() );
-            if (entry.getKey().equals("sku_introduce")) json.put("skuIntroduce", entry.getValue() );
-            if (entry.getKey().equals("gmt_create_time")) json.put("skuGmtCreateTime",entry.getValue());
-            if (entry.getKey().equals("gmt_modify_time")) json.put("skuGmtModifyTime",entry.getValue());
-            if (entry.getKey().equals("sku_auxiliary_unit")) json.put("skuAuxiliaryUnit", entry.getValue() );
+            if (entry.getKey().equals("sku_valuation_unit")) esMap.put("skuValuationUnit", entry.getValue() );
+            if (entry.getKey().equals("sku_introduce")) esMap.put("skuIntroduce", entry.getValue() );
+            if (entry.getKey().equals("gmt_create_time")) esMap.put("skuGmtCreateTime",entry.getValue());
+            if (entry.getKey().equals("gmt_modify_time")) esMap.put("skuGmtModifyTime",entry.getValue());
+            if (entry.getKey().equals("sku_auxiliary_unit")) esMap.put("skuAuxiliaryUnit", entry.getValue() );
         }
-        System.out.println("------------reSetValue.json:"+json);
-        return json;
+        System.out.println("------------reSetValue.json:"+esMap);
+        return esMap;
     }
 
 }
