@@ -1,0 +1,1 @@
+{"doc":"","fields":[],"enumConstants":[],"methods":[{"name":"listenProduct","paramTypes":["java.lang.String"],"doc":" concurrency=\"3\" 即消费者个数(注意，消费者数要小于等于你开的所有topic的分区数总和)\n @param msg\n"}]}

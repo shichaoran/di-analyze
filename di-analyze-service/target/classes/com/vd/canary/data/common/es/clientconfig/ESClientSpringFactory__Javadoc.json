@@ -1,0 +1,1 @@
+{"doc":"","fields":[],"enumConstants":[],"methods":[{"name":"setConnectTimeOutConfig","paramTypes":[],"doc":" 配置连接时间延时\n "},{"name":"setMutiConnectConfig","paramTypes":[],"doc":" 使用异步httpclient时设置并发连接数\n "}]}
